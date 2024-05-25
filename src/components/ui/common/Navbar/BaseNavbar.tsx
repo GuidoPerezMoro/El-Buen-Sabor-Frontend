@@ -13,7 +13,7 @@ import Divider from "@mui/material/Divider";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { Link } from "react-router-dom";
 import "../../../../styles/variables.css";
-import Styles from "../Navbar/BaseNavbar.module.css";
+import styles from "../Navbar/BaseNavbar.module.css";
 import { NavItem } from "react-bootstrap";
 
 export default function PrimarySearchAppBar() {
