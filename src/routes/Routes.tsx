@@ -9,7 +9,6 @@ import Categoria from "../components/screens/Categoria/Categoria";
 import Inicio from "../components/screens/Inicio/Inicio";
 import Insumo from "../components/screens/Insumo/Insumo";
 import Producto from "../components/screens/Producto/Producto";
-import SucursalesEmpresa from "../components/screens/Sucursal/SucursalComponent";
 import UnidadMedida from "../components/screens/UnidadMedida/UnidadMedida";
 
 const Rutas: React.FC = () => {
@@ -23,7 +22,7 @@ const Rutas: React.FC = () => {
         <Route path="/empresa/:empresaId" element={<SucursalComponent />} />
         <Route element={<SidebarLayout />}>
           <Route path="dashboard/:sucursalId" element={<Inicio />} />
-          <Route path="/empresa/:empresaId" element={<SucursalesEmpresa />} />
+          <Route path="/empresa/:empresaId" element={<SucursalComponent />} />
           <Route path="productos/:sucursalId" element={<Producto />} />
           <Route path="promociones/:sucursalId" element={<Producto />} />
           <Route path="categorias/:idSucursal" element={<Categoria />} />
