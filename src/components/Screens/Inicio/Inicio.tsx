@@ -41,7 +41,7 @@ const Inicio: React.FC = () => {
     return (
         <Box component="main" sx={{ flexGrow: 1, pt: 10}}>
             <Container>
-                <Typography component="h1" variant="h5" color="initial" >¡Bienvenidos!</Typography>
+                <Typography component="h1" variant="h5" color="initial" >¡Bienvenido!</Typography>
                         
                 <Grid container spacing={3} sx={{ alignContent: 'center' , justifyContent: 'center'}}>
                     <Grid item xs={12} md={4}>
