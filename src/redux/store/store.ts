@@ -25,7 +25,6 @@ export const store = configureStore({
     productoDetalle: ProductoDetalleReducer,
     categoria: CategoriaReducer,
     promocion: PromocionReducer,
-    promocionDetalle: PromocionDetalleReducer,
   },
 })
 

@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Button, Container, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Container,
+  CircularProgress,
+} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setProducto } from "../../../redux/slices/ProductoReducer";
@@ -26,7 +32,9 @@ const Producto = () => {
 
   const fetchProductos = async () => {
     try {
-      const productos = await productoService.getAll(url + "/ArticuloManufacturado");
+      const productos = await productoService.getAll(
+        url + "/ArticuloManufacturado"
+      );
       dispatch(setProducto(productos));
       setFilteredData(productos);
     } catch (error) {
@@ -49,7 +57,10 @@ const Producto = () => {
       await onDelete(
         producto,
         async (productoToDelete: IProducto) => {
-          await productoService.delete(url + "/ArticuloManufacturado", productoToDelete.id);
+          await productoService.delete(
+            url + "/ArticuloManufacturado",
+            productoToDelete.id
+          );
         },
         fetchProductos,
         () => {},
@@ -84,10 +95,26 @@ const Producto = () => {
         </Typography>
       ),
     },
-    { id: "descripcion", label: "", renderCell: (producto) => <>{producto.descripcion}</> },
-    { id: "precioVenta", label: "$", renderCell: (producto) => <>{producto.precioVenta}</> },
-    { id: "preparacion", label: "Preparación:", renderCell: (producto) => <>{producto.preparacion}</> },
-    { id: "unidadMedida", label: "Unidad de Medida:", renderCell: (producto) => <>{producto.unidadMedida.denominacion}</> },
+    {
+      id: "descripcion",
+      label: "",
+      renderCell: (producto) => <>{producto.descripcion}</>,
+    },
+    {
+      id: "precioVenta",
+      label: "$",
+      renderCell: (producto) => <>{producto.precioVenta}</>,
+    },
+    {
+      id: "preparacion",
+      label: "Preparación:",
+      renderCell: (producto) => <>{producto.preparacion}</>,
+    },
+    {
+      id: "unidadMedida",
+      label: "Unidad de Medida:",
+      renderCell: (producto) => <>{producto.unidadMedida.denominacion}</>,
+    },
     {
       id: "tiempoEstimadoMinutos",
       label: "Tiempo estimado:",
@@ -96,9 +123,27 @@ const Producto = () => {
   ];
 
   return (
-    <Box component="main" sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column", mt: 8 }}>
-      <Container sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", my: 2 }}>
+    <Box
+      component="main"
+      sx={{
+        height: "100%",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        mt: 8,
+      }}
+    >
+      <Container
+        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            my: 2,
+          }}
+        >
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
@@ -119,8 +164,15 @@ const Producto = () => {
           </Button>
         </Box>
         {isLoading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-            <CircularProgress sx={{ color: '#fb6376' }} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "80vh",
+            }}
+          >
+            <CircularProgress sx={{ color: "#fb6376" }} />
           </Box>
         ) : (
           <>
@@ -128,7 +180,12 @@ const Producto = () => {
               <SearchBar onSearch={onSearch} />
             </Box>
             <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
-              <TableComponent data={filteredData} columns={columns} onDelete={onDeleteProducto} onEdit={handleEdit} />
+              <TableComponent
+                data={filteredData}
+                columns={columns}
+                onDelete={onDeleteProducto}
+                onEdit={handleEdit}
+              />
             </Box>
           </>
         )}
