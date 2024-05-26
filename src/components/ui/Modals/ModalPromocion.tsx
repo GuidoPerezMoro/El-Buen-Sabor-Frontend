@@ -2,7 +2,9 @@ import PromocionService from "../../../services/PromocionService";
 import * as Yup from 'yup';
 import PromocionPost from "../../../types/post/PromocionPost";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import GenericModal from "./GenericModal";
+import { Grid } from "@mui/material";
+import TextFieldValue from "../TextFieldValue/TextFieldValue";
 
 interface ModalPromocionProps {
     modalName: string;
@@ -24,15 +26,12 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
 
     const validationSchema = Yup.object().shape({
         denominacion: Yup.string().required('Campo requerido'),
-        precioVenta: Yup.number().required('Campo requerido'),
-        precioCompra: Yup.number().required('Campo requerido').positive('El precio de compra debe ser un número positivo'),
-        stockActual: Yup.number()
-            .required('Campo requerido')
-            .positive('El stock actual debe ser un número positivo')
-            .min(Yup.ref('stockMinimo'), 'El stock no puede ser menor que el stock mínimo')
-            .max(Yup.ref('stockMaximo'), 'El stock no puede ser mayor que el stock máximo'),
-        stockMaximo: Yup.number().required('Campo requerido').positive('El stock máximo debe ser un número positivo'),
-        stockMinimo: Yup.number().required('Campo requerido').positive('El stock mínimo debe ser un número positivo'),
+        precioPromocional: Yup.number().required('Campo requerido'),
+        fechaDesde: Yup.date().required('Campo requerido'),
+        fechaHasta: Yup.date().required('Campo requerido'),
+        horaDesde: Yup.date().required('Campo requerido'),
+        horaHasta: Yup.date().required('Campo requerido'),
+        descripcion: Yup.string().required('Campo requerido'),
     });
 
     const handleSubmit = async (values: PromocionPost) => {
@@ -83,7 +82,45 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
     };
 
     return (
-        <></>
+        <GenericModal
+            modalName={modalName}
+            title={isEditMode ? 'Editar Promocion' : 'Añadir Promocion'}
+            initialValues={promocionAEditar || initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+            isEditMode={isEditMode}
+        >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Denominación" name="denominacion" type="text" placeholder="Denominación" disabled={isEditMode} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Precio promocional" name="precioPromocional" type="number" placeholder="Precio promocional" />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Desde la fecha" name="fechaDesde" type="date" placeholder="Desde la fecha" />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Hasta la fecha" name="fechaHasta" type="date" placeholder="Hasta la fecha" />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Desde la hora" name="horaDesde" type="date" placeholder="Desde la hora" />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <TextFieldValue label="Hasta la hora" name="horaHasta" type="time" placeholder="Hasta la hora" />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2} alignItems="center"/>
+                <Grid item xs={6}>
+                    <TextFieldValue label="Descripcion" name="descripcionDescuento" type="text" placeholder="Descripcion"/>
+                </Grid>
+            </div>
+        </GenericModal>
     );
 };
 

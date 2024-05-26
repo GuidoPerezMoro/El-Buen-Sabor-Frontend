@@ -17,7 +17,7 @@ import ModalPromocion from "../../Modals/ModalPromocion";
 
 
 
-const TablePromociones = () => {
+export const TablePromociones = () => {
 
     const dispatch = useAppDispatch();
     const globalPromociones = useAppSelector((state) => state.promocion.data);
@@ -162,4 +162,4 @@ const TablePromociones = () => {
   );
 };
 
-export default TablePromociones;
+
