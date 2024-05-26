@@ -1,6 +1,5 @@
 import ProductoDetallePost from "./ProductoDetallePost";
 
-
 export default interface ProductoPost {
     denominacion: string;
     descripcion: string;

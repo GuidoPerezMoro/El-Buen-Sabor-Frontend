@@ -10,6 +10,7 @@ import Inicio from "../components/screens/Inicio/Inicio";
 import Insumo from "../components/screens/Insumo/Insumo";
 import Producto from "../components/screens/Producto/Producto";
 import UnidadMedida from "../components/screens/UnidadMedida/UnidadMedida";
+import { Promocion } from "../components/screens/Promocion/Promocion";
 
 const Rutas: React.FC = () => {
   return (
