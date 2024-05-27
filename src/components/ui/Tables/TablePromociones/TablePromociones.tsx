@@ -4,7 +4,7 @@ import PromocionService from "../../../../services/PromocionService";
 import Row from "../../../../types/Row";
 import IPromocion from "../../../../types/IPromocion";
 import PromocionPost from "../../../../types/post/PromocionPost";
-import { setPromocion } from "../../../../redux/slices/PromocionReducer";
+import { setPromociones } from "../../../../redux/slices/PromocionReducer";
 import { handleSearch, onDelete } from "../../../../utils/utils";
 import { toggleModal } from "../../../../redux/slices/ModalReducer";
 import Column from "../../../../types/Column";
@@ -37,7 +37,7 @@ export const TablePromociones = () => {
   const fetchPromociones = async () => {
     try {
       const promociones = await promocionService.getAll(url + "/Promocion");
-      dispatch(setPromocion(promociones));
+      dispatch(setPromociones(promociones));
       setFilteredData(promociones);
     } catch (error) {
       console.error("Error al obtener los artículos de insumo:", error);
