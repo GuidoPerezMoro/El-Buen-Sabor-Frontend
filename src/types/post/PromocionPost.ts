@@ -1,3 +1,5 @@
+
+
 export default interface PromocionPost {
     denominacion: string;
     fechaDesde: string;
