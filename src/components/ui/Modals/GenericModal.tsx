@@ -71,7 +71,7 @@ const GenericModal: React.FC<ModalProps> = ({ modalName, title, initialValues, v
             <Form onSubmit={formikProps.handleSubmit}>
               {children}
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
-                <Button variant="outlined" onClick={handleClose} style={{ marginRight: '10px', color: '#fff', backgroundColor: '#ff0f0f' }}>
+                <Button variant="contained" onClick={handleClose} style={{ marginRight: '10px', color: '#fff', backgroundColor: '#ff0f0f' }}>
                   <span className="material-symbols-outlined">close</span>
                 </Button>
                 <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: '#299e29', color: '#fff' }}>

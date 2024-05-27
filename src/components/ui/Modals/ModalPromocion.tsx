@@ -332,30 +332,33 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
             disableSubmit = {disableSubmit}
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                <TextFieldValue label="Denominación" name="denominacion" type="text" placeholder="Denominación" disabled={isEditMode} />
-                <Grid container spacing={2}>
+            <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                        <TextFieldValue name="fechaDesde" type="date" placeholder="Fecha Desde" label='Fecha de inicio' />
+                        <TextFieldValue label="Denominación" name="denominacion" type="text" placeholder="Denominación" disabled={isEditMode} />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextFieldValue name="fechaHasta" type="date" placeholder="Fecha Hasta" label='Fecha de Fin' />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextFieldValue name="horaDesde" type="time" placeholder="Hora Desde" label='Hora de inicio' />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextFieldValue name="horaHasta" type="time" placeholder="Hora Hasta" label='Hora de Fin' />
+                        <TextFieldValue label="Precio promocional" name="precioPromocional" type="number" placeholder="Precio promocional" />
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                        <TextFieldValue label="Descripción del Descuento" name="descripcionDescuento" type="text" placeholder="Descripcion Descuento" disabled={isEditMode} />
+                        <TextFieldValue name="fechaDesde" type="date" placeholder="Desde la fecha" label='Desde la fecha' />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <TextFieldValue label="Precio Promocional" name="precioPromocional" type="number" placeholder="Precio Promocional" />
-
+                        <TextFieldValue name="fechaHasta" type="date" placeholder="Hasta la fecha" label='Hasta la fecha' />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextFieldValue name="horaDesde" type="time" placeholder="Desde la hora" label='Desde la hora' />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextFieldValue name="horaHasta" type="time" placeholder="Hasta la hora" label='Hasta la hora' />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={12}>
+                        <TextFieldValue label="Descripción" name="descripcion" type="text" placeholder="Descripcion" disabled={isEditMode} />
                     </Grid>
                 </Grid>
                 <FormControl fullWidth>
