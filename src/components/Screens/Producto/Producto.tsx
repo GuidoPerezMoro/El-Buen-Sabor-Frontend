@@ -154,7 +154,7 @@ const Producto = () => {
             sx={{
               bgcolor: "#E66200",
               "&:hover": {
-                bgcolor: "grey",
+                bgcolor: "#a65112",
               },
               padding: "10px 20px",
               fontSize: "1.0rem",
@@ -172,7 +172,7 @@ const Producto = () => {
               minHeight: "80vh",
             }}
           >
-            <CircularProgress sx={{ color: "#fb6376" }} />
+            <CircularProgress sx={{ color: "#e66200" }} />
           </Box>
         ) : (
           <>
