@@ -138,7 +138,7 @@ export const Promocion = () => {
                     </>
                 )}
             </Container>
-            {isModalOpen && 
+            {isModalOpen &&  
             <ModalPromocion
                 modalName="modalPromocion"
                 initialValues={selectedPromocion || initialValue}
