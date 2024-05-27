@@ -1,9 +1,18 @@
+// redux/slices/PromocionReducer.ts
+import { createSlice } from '@reduxjs/toolkit';
 
-import IPromocion from '../../types/IPromocion';
-import { createGenericSlice } from './GenericReducer';
+export const promocionSlice = createSlice({
+    name: 'promocion',
+    initialState: {
+        data: []
+    },
+    reducers: {
+        setPromociones: (state, action) => {
+            state.data = action.payload;
+        },
+    },
+});
 
-const promocionSlice = createGenericSlice<IPromocion[]>('promocionState', { data: [] });
-
-export const { setData: setPromocion, resetData: resetPromocion } = promocionSlice.actions;
+export const { setPromociones } = promocionSlice.actions;
 
 export default promocionSlice.reducer;

@@ -15,6 +15,7 @@ interface ModalProps {
   onSubmit: (values: any) => void;
   children?: React.ReactNode;
   isEditMode: boolean;
+  disableSubmit?: boolean
 }
 
 const GenericModal: React.FC<ModalProps> = ({ modalName, title, initialValues, validationSchema, onSubmit, children, isEditMode }) => {
@@ -70,12 +71,11 @@ const GenericModal: React.FC<ModalProps> = ({ modalName, title, initialValues, v
             <Form onSubmit={formikProps.handleSubmit}>
               {children}
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '20px' }}>
-                <Button variant="outlined" onClick={handleClose} style={{ marginRight: '10px', color: '#ff0f0f', borderColor: '#ff0f0f' }}>
-                  Cerrar
+                <Button variant="contained" onClick={handleClose} style={{ marginRight: '10px', color: '#fff', backgroundColor: '#ff0f0f' }}>
+                  <span className="material-symbols-outlined">close</span>
                 </Button>
                 <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: '#299e29', color: '#fff' }}>
-                  {isEditMode ? 'Guardar Cambios' : 'Añadir'} 
-                  
+                  <span className="material-symbols-outlined">check</span>
                 </Button>
               </div>
             </Form>

@@ -10,7 +10,6 @@ import ProductoReducer from '../slices/ProductoReducer'
 import ProductoDetalleReducer from '../slices/ProductoDetalleReducer'
 import CategoriaReducer from '../slices/CategoriaReducer'
 import PromocionReducer from '../slices/PromocionReducer'
-import PromocionDetalleReducer from '../slices/PromocionDetalleReducer'
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +24,6 @@ export const store = configureStore({
     productoDetalle: ProductoDetalleReducer,
     categoria: CategoriaReducer,
     promocion: PromocionReducer,
-    promocionDetalle: PromocionDetalleReducer,
   },
 })
 
