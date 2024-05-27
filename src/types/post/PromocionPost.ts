@@ -1,4 +1,4 @@
-import PromocionDetallePost from "./PromocionDetallePost";
+
 
 export default interface PromocionPost {
     denominacion: string;
@@ -8,5 +8,10 @@ export default interface PromocionPost {
     horaHasta: string;
     descripcionDescuento: string;
     precioPromocional: number;
-    detalles?: PromocionDetallePost[]
+    tipoPromocion: string;
+    idSucursales: number[];
+    detalles: {
+        cantidad: number;
+        idArticulo: number;
+    }[];
 }

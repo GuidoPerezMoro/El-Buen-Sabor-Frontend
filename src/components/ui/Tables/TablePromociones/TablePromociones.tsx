@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+/*import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import PromocionService from "../../../../services/PromocionService";
-import Row from "../../../../types/Row";
 import IPromocion from "../../../../types/IPromocion";
-import PromocionPost from "../../../../types/post/PromocionPost";
-import { setPromocion } from "../../../../redux/slices/PromocionReducer";
+import { setPromociones } from "../../../../redux/slices/PromocionReducer";
 import { handleSearch, onDelete } from "../../../../utils/utils";
 import { toggleModal } from "../../../../redux/slices/ModalReducer";
 import Column from "../../../../types/Column";
@@ -14,38 +12,50 @@ import SearchBar from "../../common/SearchBar/SearchBar";
 import TableComponent from "../Table/Table";
 import { Add } from "@mui/icons-material";
 import ModalPromocion from "../../Modals/ModalPromocion";
+import { useParams } from "react-router-dom";
+import SucursalService from "../../../../services/SucursalService";
+
 
 
 
 export const TablePromociones = () => {
 
+    const url = import.meta.env.VITE_API_URL;
     const dispatch = useAppDispatch();
     const globalPromociones = useAppSelector((state) => state.promocion.data);
     const isModalOpen = useAppSelector((state) => state.modal.modalPromocion);
-    const url = import.meta.env.VITE_API_URL;
     const promocionService = new PromocionService();
-    const [filteredData, setFilteredData] = useState<Row[]>([]);
-    const [selectedPromocion, setSelectedPromocion] = useState<IPromocion | PromocionPost>();
+    const { idSucursal } = useParams<{ idSucursal: string }>();
+    let sucursalid = 0;
+    if(idSucursal){
+        sucursalid = parseInt(idSucursal);
+    }
+    const sucursalService = new SucursalService();
+    const [selectedPromocion, setSelectedPromocion] = useState<any>();
+    const [filteredData, setFilteredData] = useState<any[]>([]);
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     const fetchPromociones = async () => {
         try {
-            const promociones = await promocionService.getAll(url + '/Promocion');
-            dispatch(setPromocion(promociones));
-            setFilteredData(promociones);
+            setIsLoading(true);
+            if (idSucursal !== undefined) {
+                const promociones = await sucursalService.get(`${url}/promocion/getPromociones`, parseInt(idSucursal)) as any;
+                dispatch(setPromociones(promociones));
+                setFilteredData(promociones);
+            }
         } catch (error) {
-            console.error("Error al obtener los artículos de insumo:", error);
+            console.error("Error al obtener las promociones:", error);
         } finally {
-            setIsLoading(false); // Indicamos que la carga de datos ha terminado
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
         fetchPromociones();
-    }, [dispatch]);
+    }, [dispatch, url, idSucursal]);
 
-    const initialValue: PromocionPost = {
+    const initialValue = {
         denominacion: "",
         fechaDesde: "",
         fechaHasta: "",
@@ -53,41 +63,44 @@ export const TablePromociones = () => {
         horaHasta: "",
         descripcionDescuento: "",
         precioPromocional: 0,
-        detalles: []
+        tipoPromocion: "",
+        idSucursales: [0],
+        detalles: [{ cantidad: 0, idArticulo: 0 }]
     };
 
     const onSearch = (query: string) => {
         handleSearch(query, globalPromociones, 'denominacion', setFilteredData);
     };
 
-    const handleEdit = (promocion: IPromocion) => {
+    const handleEdit = (promocion: any) => {
         if (promocion) {
             setIsEditing(true);
             setSelectedPromocion(promocion);
             dispatch(toggleModal({ modalName: "modalPromocion" }));
         }
     };
+
     const handleAddPromocion = () => {
         setIsEditing(false);
         setSelectedPromocion(initialValue);
         dispatch(toggleModal({ modalName: "modalPromocion" }));
     };
 
-    const handleDelete = async (promocion: IPromocion) => {
+    const handleDelete = async (insumo: IPromocion) => {
         try {
             await onDelete(
-                promocion,
+                insumo,
                 async (promocionToDelete: IPromocion) => {
                     await promocionService.delete(url + '/Promocion', promocionToDelete.id);
                 },
                 fetchPromociones,
                 () => { },
                 (error: any) => {
-                    console.error("Error al eliminar la promocion:", error);
+                    console.error("Error al eliminar el insumo:", error);
                 }
             );
         } catch (error) {
-            console.error("Error al eliminar la promocion:", error);
+            console.error("Error al eliminar el insumo:", error);
         }
     };
 
@@ -149,17 +162,18 @@ export const TablePromociones = () => {
                     </>
                 )}
             </Container>
-            {isModalOpen && selectedPromocion &&
+            {isModalOpen && selectedPromocion && 
                 <ModalPromocion
                     modalName="modalPromocion"
                     initialValues={selectedPromocion || initialValue}
                     isEditMode={isEditing}
-                    getPromociones={fetchPromociones}
-                    promocionAEditar={selectedPromocion}
+                    fetchPromociones={fetchPromociones}
+                    promocionAEditar={isEditing ? selectedPromocion : undefined}
+                    idSucursal={sucursalid}
                 />
             }
         </Box>
   );
 };
-
+*/
 

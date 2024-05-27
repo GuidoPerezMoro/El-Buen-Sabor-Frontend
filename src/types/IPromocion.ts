@@ -1,6 +1,7 @@
-import DataModel from "./DataModel";
 
-export default interface IPromocion extends DataModel<IPromocion>{
+
+export default interface IPromocion {
+    id: number;
     denominacion: string;
     fechaDesde: string;
     fechaHasta: string;
@@ -8,4 +9,10 @@ export default interface IPromocion extends DataModel<IPromocion>{
     horaHasta: string;
     descripcionDescuento: string;
     precioPromocional: number;
+    tipoPromocion: string;
+    idSucursales: number[];
+    detalles: {
+        cantidad: number;
+        idArticulo: number;
+    }[];
 }
