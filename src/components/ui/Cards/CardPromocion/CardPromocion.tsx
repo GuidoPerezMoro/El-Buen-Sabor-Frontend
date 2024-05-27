@@ -1,84 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
-  CardHeader,
   Typography,
-  Tooltip,
+  Box,
+  CardMedia,
   IconButton,
 } from "@mui/material";
-import { Edit, Delete } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import IPromocion from "../../../../types/IPromocion";
-import IArticulo from "../../../../types/IArticulo";
-import { setPromociones } from "../../../../redux/slices/PromocionReducer";
-import GenericCard from "../GenericCard/GenericCard";
-import { onDelete } from "../../../../utils/utils";
+import { ArrowBackIos, ArrowForwardIos, Edit } from "@mui/icons-material";
 
-interface CardPromocionProps {
-  promocion: IPromocion;
-  onEdit: (promocion: IPromocion) => void;
-  fetchPromociones: () => Promise<void>;
+interface PromocionCardProps {
+  promocion: any;
+  onEdit: (promocion: any) => void;
 }
 
-const CardPromocion: React.FC<CardPromocionProps> = ({
-  promocion,
-  onEdit,
-  fetchPromociones,
-}) => {
-  const dispatch = useDispatch();
+const PromocionCard: React.FC<PromocionCardProps> = ({ promocion, onEdit }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handleDelete = async () => {
-    await onDelete(
-      promocion,
-      async (promocionToDelete) => {
-        // Lógica para eliminar la promoción, asumiendo que existe una función deletePromocion
-        // await deletePromocion(promocionToDelete.id);
-      },
-      fetchPromociones,
-      () => dispatch(setPromociones([])) // Se actualizan las promociones después de eliminar
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? promocion.imagenes.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === promocion.imagenes.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   return (
-    <GenericCard
-      title={promocion.denominacion}
-      subtitle={`Válido desde el ${promocion.fechaDesde} a las ${promocion.horaDesde} hasta el ${promocion.fechaHasta} a las ${promocion.horaHasta}.`}
-      images={[]} // Aquí se pueden pasar imágenes si están disponibles
-      actions={[
-        {
-          icon: <Edit />,
-          tooltip: "Editar",
-          onClick: () => onEdit(promocion),
-        },
-        {
-          icon: <Delete />,
-          tooltip: "Eliminar",
-          onClick: handleDelete,
-        },
-      ]}
-    >
-      <CardContent>
-        <Typography variant="h6">{promocion.denominacion}</Typography>
-        <Typography variant="body2">
-          {promocion.descripcionDescuento}
-        </Typography>
-        <Typography variant="body2">
-          Valor: {promocion.precioPromocional}
-        </Typography>
-        <Typography variant="body2">
-          Detalle:
-          <ul>
-            {promocion.detalles.map((detalle, index) => (
-              <li key={index}>
-                {detalle.cantidad} {detalle.idArticulo}
-              </li>
-            ))}
-          </ul>
-        </Typography>
-      </CardContent>
-    </GenericCard>
+    <Box sx={{ width: "100%" }}>
+      <Card>
+        {promocion.imagenes && promocion.imagenes.length > 0 && (
+          <Box sx={{ position: "relative" }}>
+            <CardMedia
+              component="img"
+              height="190"
+              image={promocion.imagenes[currentImageIndex].url}
+              alt={promocion.denominacion}
+              sx={{ width: "100%" }}
+            />
+            <IconButton
+              onClick={handlePrevImage}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "0",
+                transform: "translateY(-50%)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+              }}
+            >
+              <ArrowBackIos />
+            </IconButton>
+            <IconButton
+              onClick={handleNextImage}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                right: "0",
+                transform: "translateY(-50%)",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+              }}
+            >
+              <ArrowForwardIos />
+            </IconButton>
+          </Box>
+        )}
+        <CardContent>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5">{promocion.denominacion}</Typography>
+            <IconButton onClick={() => onEdit(promocion)}>
+              <Edit />
+            </IconButton>
+          </Box>
+          <Typography variant="body2">
+            {promocion.descripcionDescuento}
+          </Typography>
+          <Typography variant="body2">
+            Fecha Desde: {promocion.fechaDesde}
+          </Typography>
+          <Typography variant="body2">
+            Fecha Hasta: {promocion.fechaHasta}
+          </Typography>
+          <Typography variant="body2">
+            Hora Desde: {promocion.horaDesde}
+          </Typography>
+          <Typography variant="body2">
+            Hora Hasta: {promocion.horaHasta}
+          </Typography>
+          <Typography variant="body2">
+            ${promocion.precioPromocional}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
-export default CardPromocion;
+export default PromocionCard;
