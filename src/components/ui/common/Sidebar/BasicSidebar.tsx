@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer  } from "@coreui/icons";
+import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer, cilBuilding, cilLocationPin, cilMap, cilHouse  } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarNav } from "@coreui/react";
 import '@coreui/coreui/dist/css/coreui.min.css';
 import SucursalService from '../../../../services/SucursalService';
 import ISucursal from '../../../../types/ISucursal';
 import "../../../../Styles/Variables.css";
-import styles from "./BasicSidebar.module.css";
-import { colors } from '@mui/material';
 import EmpresaService from '../../../../services/EmpresaService';
 
 const BasicSidebar: React.FC = () => {
@@ -66,7 +64,7 @@ const BasicSidebar: React.FC = () => {
 
                     <CNavItem>
                         <Link to={`/empresa/${sucursalId}`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#E66200'}}/>
+                            <CIcon customClassName="nav-icon" icon={cilHouse} style={{color:'#E66200'}}/>
                             Sucursales
                         </Link>
                     </CNavItem>
