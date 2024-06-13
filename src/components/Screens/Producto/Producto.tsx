@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Container,
-  CircularProgress,
-} from "@mui/material";
+import { Box, Typography, Button, Container, CircularProgress, CardMedia } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setProducto } from "../../../redux/slices/ProductoReducer";
@@ -27,14 +21,12 @@ const Producto = () => {
 
   const [filteredData, setFilteredData] = useState<Row[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [productoEditar, setProductoEditar] = useState<IProducto | undefined>();
+  const [productoEditar, setProductoEditar] = useState<IProducto>();
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchProductos = async () => {
     try {
-      const productos = await productoService.getAll(
-        url + "/ArticuloManufacturado"
-      );
+      const productos = await productoService.getAll(url + "/ArticuloManufacturado");
       dispatch(setProducto(productos));
       setFilteredData(productos);
     } catch (error) {
@@ -57,13 +49,10 @@ const Producto = () => {
       await onDelete(
         producto,
         async (productoToDelete: IProducto) => {
-          await productoService.delete(
-            url + "/ArticuloManufacturado",
-            productoToDelete.id
-          );
+          await productoService.delete(url + "/ArticuloManufacturado", productoToDelete.id);
         },
         fetchProductos,
-        () => {},
+        () => { },
         (error: any) => {
           console.error("Error al eliminar producto:", error);
         }
@@ -87,6 +76,23 @@ const Producto = () => {
 
   const columns: Column[] = [
     {
+      id: "imagen",
+      label: "",
+      renderCell: (producto: IProducto | Row) => (
+        <Box>
+          {producto.imagenes && (
+            <CardMedia
+              component="img"
+              height="140"
+              image={producto.imagenes[0].url}
+              alt="Producto"
+              sx={{ borderRadius: '10px' }}
+            />
+          )}
+        </Box>
+      ),
+    },
+    {
       id: "denominacion",
       label: "",
       renderCell: (producto) => (
@@ -95,26 +101,10 @@ const Producto = () => {
         </Typography>
       ),
     },
-    {
-      id: "descripcion",
-      label: "",
-      renderCell: (producto) => <>{producto.descripcion}</>,
-    },
-    {
-      id: "precioVenta",
-      label: "$",
-      renderCell: (producto) => <>{producto.precioVenta}</>,
-    },
-    {
-      id: "preparacion",
-      label: "Preparación:",
-      renderCell: (producto) => <>{producto.preparacion}</>,
-    },
-    {
-      id: "unidadMedida",
-      label: "Unidad de Medida:",
-      renderCell: (producto) => <>{producto.unidadMedida.denominacion}</>,
-    },
+    { id: "descripcion", label: "", renderCell: (producto) => <>{producto.descripcion}</> },
+    { id: "precioVenta", label: "$", renderCell: (producto) => <>{producto.precioVenta}</> },
+    { id: "preparacion", label: "Preparación:", renderCell: (producto) => <>{producto.preparacion}</> },
+    { id: "unidadMedida", label: "Unidad de Medida:", renderCell: (producto) => <>{producto.unidadMedida.denominacion}</> },
     {
       id: "tiempoEstimadoMinutos",
       label: "Tiempo estimado:",
@@ -123,27 +113,9 @@ const Producto = () => {
   ];
 
   return (
-    <Box
-      component="main"
-      sx={{
-        height: "100%",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        mt: 8,
-      }}
-    >
-      <Container
-        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            my: 2,
-          }}
-        >
+    <Box component="main" sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column", mt: 8 }}>
+      <Container sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", my: 2 }}>
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
@@ -152,9 +124,9 @@ const Producto = () => {
             variant="contained"
             startIcon={<Add />}
             sx={{
-              bgcolor: "#E66200",
+              bgcolor: "#fb6376",
               "&:hover": {
-                bgcolor: "#a65112",
+                bgcolor: "#d73754",
               },
               padding: "10px 20px",
               fontSize: "1.0rem",
@@ -163,31 +135,19 @@ const Producto = () => {
             Producto
           </Button>
         </Box>
+        <Box sx={{ mt: 2 }}>
+          <SearchBar onSearch={onSearch} />
+        </Box>
         {isLoading ? (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: "80vh",
-            }}
-          >
-            <CircularProgress sx={{ color: "#e66200" }} />
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
+            <CircularProgress sx={{ color: '#fb6376' }} />
           </Box>
         ) : (
-          <>
-            <Box sx={{ mt: 2 }}>
-              <SearchBar onSearch={onSearch} />
-            </Box>
-            <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
-              <TableComponent
-                data={filteredData}
-                columns={columns}
-                onDelete={onDeleteProducto}
-                onEdit={handleEdit}
-              />
-            </Box>
-          </>
+
+          <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
+            <TableComponent data={filteredData} columns={columns} onDelete={onDeleteProducto} onEdit={handleEdit} />
+          </Box>
+
         )}
         <ModalProducto
           modalName="modalProducto"
@@ -203,6 +163,8 @@ const Producto = () => {
           isEditMode={isEditing}
           getProductos={fetchProductos}
           productoAEditar={productoEditar}
+          onClose={() => dispatch(toggleModal({ modalName: "modalProducto" }))}
+
         />
       </Container>
     </Box>

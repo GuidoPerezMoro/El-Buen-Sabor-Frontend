@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Button, Container, CircularProgress } from "@mui/material";
+import { Box, Typography, Button, Container, CircularProgress, CardMedia } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import TableComponent from "../Table/Table";
 import { IInsumo } from "../../../../types/IInsumo";
@@ -14,6 +14,7 @@ import ModalInsumo from "../../Modals/ModalInsumo";
 import { toggleModal } from "../../../../redux/slices/ModalReducer";
 import { InsumoPost } from "../../../../types/post/InsumoPost";
 import EmptyState from "../../Cards/EmptyState/EmptyState";
+
 
 const TableInsumo = () => {
 
@@ -92,6 +93,23 @@ const TableInsumo = () => {
     };
 
     const columns: Column[] = [
+        {
+            id: "imagen",
+            label: "",
+            renderCell: (producto: IInsumo | Row) => (
+                <Box>
+                    {producto.imagenes && producto.imagenes.length > 0 && (
+                        <CardMedia
+                            component="img"
+                            height="80"
+                            image={producto.imagenes[0].url}
+                            alt="Producto"
+                            sx={{ borderRadius: '10px' }}
+                        />
+                    )}
+                </Box>
+            ),
+        },
         { id: "denominacion", label: "Nombre", renderCell: (rowData) => <>{rowData.denominacion}</> },
         { id: "precioCompra", label: "Precio de compra", renderCell: (rowData) => <>{rowData.precioCompra}</> },
         { id: "precioVenta", label: "Precio de Venta", renderCell: (rowData) => <>{rowData.precioVenta}</> },
@@ -114,13 +132,13 @@ const TableInsumo = () => {
                     <Box>
                         <Button
                             sx={{
-                                bgcolor: "#E66200",
+                                bgcolor: "#fb6376",
                                 "&:hover": {
-                                    bgcolor: "grey",
+                                    bgcolor: "#d73754",
                                 },
                                 mr: 1,
-                                padding: "10px 20px", 
-                                fontSize: "1.0rem" 
+                                padding: "10px 20px",
+                                fontSize: "1.0rem"
                             }}
                             variant="contained"
                             startIcon={<Add />}
@@ -130,6 +148,9 @@ const TableInsumo = () => {
                         </Button>
 
                     </Box>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                    <SearchBar onSearch={onSearch} />
                 </Box>
                 {isLoading ? ( // Mostrar componente de carga mientras los datos se están cargando
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
@@ -141,12 +162,10 @@ const TableInsumo = () => {
                         description="Agrega nuevos insumos utilizando el formulario."
                     />
                 ) : (
-                    <>
-                        <Box sx={{ mt: 2 }}>
-                            <SearchBar onSearch={onSearch} />
-                        </Box>
-                        <TableComponent data={filteredData} columns={columns} onDelete={handleDelete} onEdit={handleEdit} />
-                    </>
+
+
+                    <TableComponent data={filteredData} columns={columns} onDelete={handleDelete} onEdit={handleEdit} />
+
                 )}
             </Container>
             {isModalOpen && selectedArticle &&
@@ -156,6 +175,7 @@ const TableInsumo = () => {
                     isEditMode={isEditing}
                     getInsumos={fetchArticulosInsumos}
                     insumoAEditar={selectedArticle}
+                    onClose={() => dispatch(toggleModal({ modalName: "modalInsumo" }))}
                 />
             }
         </Box>

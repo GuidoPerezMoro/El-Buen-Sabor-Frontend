@@ -7,26 +7,23 @@ import { useParams } from "react-router-dom";
 
 
 // Contenido para las tarjetas de inicio
-const promocionesContent = {
-    url: "https://www.grandespymes.com.ar/wp-content/uploads/2020/07/promociones.jpg",
-    title: "Promociones",
-    content:
-      "Genera promociones para tus distintas sucursales y atrae a nuevos clientes.",
-  };
-
 const productosContent = {
-    url: "https://w6h5a5r4.rocketcdn.me/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg",
-    title: "Productos",
-    content:
-      "Agrega productos novedosos, edita los precios y ten contentos a tus clientes.",
-  };
-
-const sucursalesContent = {
-    url: 'https://lh6.googleusercontent.com/proxy/2feLT_1VUlKUJYiuLdK6CMl0DETRZX-JwRJzmPqqISBzKTfqZlnOfox78jvjiDk6S1GtAdT-Mixy2d1chBizTRCMoY43Di1pokAbarcfnIx5nFIa45xGtN_fQsBnrY8ruXUARDdB2Xk2f-Jc',
-    title: 'Sucursales',
-    content: 'Agrega, actualiza o elimina sucursales a tu empresa'
+    url: 'https://images.unsplash.com/photo-1615996001375-c7ef13294436?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Productos',
+    content: 'Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.',
 };
 
+const empresasContent = {
+    url: 'https://images.unsplash.com/photo-1458917524587-d3236cc8c2c8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Insumos',
+    content: 'Agrega, actualiza o elimina los insumos de tu sucursal'
+};
+
+const promocionesContent = {
+    url: 'https://images.unsplash.com/photo-1581495701295-13b43b0f4ae8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Promociones',
+    content: 'Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.',
+};
 
 // Estilo para las tarjetas
 const cardStyle = {
@@ -41,14 +38,21 @@ const Inicio: React.FC = () => {
     return (
         <Box component="main" sx={{ flexGrow: 1, pt: 10}}>
             <Container>
-                <Typography component="h1" variant="h5" color="initial" >¡Bienvenido!</Typography>
+                <Typography component="h1" variant="h5" color="initial" >Bienvenido</Typography>
                         
-                <Grid container spacing={3} sx={{ alignContent: 'center' , justifyContent: 'center'}}>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={cardStyle}>
-                            <InicioCard content={promocionesContent}  sucursalId={id}/>
-                        </Box>
+                <Grid container spacing={3} sx={{ py: 2, alignContent: 'center' , justifyContent: 'center' }}>
+                    <Grid item xs={12} md={6}>
+                        <ChartCard title="Gráfico de Barras">
+                            <BaseBar />
+                        </ChartCard>
                     </Grid>
+                    <Grid item xs={12} md={6}>
+                        <ChartCard title="Gráfico de Pastel">
+                            <BasePie />
+                        </ChartCard>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3} sx={{ alignContent: 'center' , justifyContent: 'center'}}>
                     <Grid item xs={12} md={4}>
                         <Box sx={cardStyle}>
                             <InicioCard content={productosContent}  sucursalId={id} />
@@ -56,21 +60,13 @@ const Inicio: React.FC = () => {
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Box sx={cardStyle}>
-                            <InicioCard content={sucursalesContent}  sucursalId={id} />
+                            <InicioCard content={empresasContent}  sucursalId={id} />
                         </Box>
                     </Grid>
-                </Grid>
-
-                <Grid container spacing={3} sx={{ py: 2, alignContent: 'center' , justifyContent: 'center' }}>
-                    <Grid item xs={12} md={6}>
-                        <ChartCard title="Gráfico de Pastel">
-                            <BasePie />
-                        </ChartCard>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <ChartCard title="Gráfico de Barras">
-                            <BaseBar />
-                        </ChartCard>
+                    <Grid item xs={12} md={4}>
+                        <Box sx={cardStyle}>
+                            <InicioCard content={promocionesContent}  sucursalId={id}/>
+                        </Box>
                     </Grid>
                 </Grid>
             </Container>
