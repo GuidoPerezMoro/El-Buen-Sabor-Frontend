@@ -15,7 +15,7 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
   return (
     <Card sx={{ maxWidth: 400, margin: 2, boxShadow: 3, borderRadius: 2 }}>
       <CardContent>
-        <Typography variant="h5" component="div" sx={{ color: '#E66200', fontWeight: 'bold' }}>
+        <Typography variant="h5" component="div" sx={{ color: '#fb6376', fontWeight: 'bold' }}>
           {sucursal.nombre}
         </Typography>
         <Divider sx={{ my: 1 }} />
@@ -33,7 +33,7 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
         <Button
           onClick={() => onEdit(sucursal)}
           variant="contained"
-          sx={{ color: '#E66200', bgcolor: '#FFF', '&:hover': { bgcolor: 'grey' }, mr: 1 }}
+          sx={{ bgcolor: '#fb6376', '&:hover': { bgcolor: '#d73754' }, mr: 1 }}
           startIcon={<Edit />}
         >
           Editar
@@ -50,9 +50,9 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
           component={Link}
           to={`/dashboard/${sucursal.id}`} // Asegúrate de que esta ruta sea correcta
           variant="contained"
-          sx={{ bgcolor: '#E66200', '&:hover': { bgcolor: 'grey' }}}
+          sx={{ bgcolor: '#4caf50', '&:hover': { bgcolor: '#388e3c' }}}
         >
-          VER SUCURSAL
+          Dashboard
         </Button>
       </Box>
     </Card>

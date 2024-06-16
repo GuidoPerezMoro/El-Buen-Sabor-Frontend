@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, CircularProgress, Container, Stack } from '@mui/material';
+import { Box, Typography, Button, CircularProgress, Container, Stack, TextField, MenuItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import  ICategoria  from '../../../types/ICategoria';
+import ICategoria from '../../../types/ICategoria';
 import { setCategoria } from '../../../redux/slices/CategoriaReducer';
 import { CategoriaPost } from '../../../types/post/CategoriaPost';
-import { handleSearch } from '../../../utils/utils';
 import { toggleModal } from '../../../redux/slices/ModalReducer';
 import EmptyState from '../../ui/Cards/EmptyState/EmptyState';
 import SearchBar from '../../ui/common/SearchBar/SearchBar';
@@ -14,27 +13,24 @@ import { useParams } from 'react-router-dom';
 import SucursalService from '../../../services/SucursalService';
 import SimpleCategoriaAccordion from '../../ui/accordion/CategoriaAccordion';
 
-
 const Categoria: React.FC = () => {
     const url = import.meta.env.VITE_API_URL;
     const dispatch = useAppDispatch();
     const globalCategorias = useAppSelector((state) => state.categoria.data);
-    const { idSucursal } = useParams<{ idSucursal: string }>();
-    let sucursalid = 0;
-    if(idSucursal){
-        sucursalid = parseInt(idSucursal);
-    }
+    const { sucursalId } = useParams<{ sucursalId: string }>();
     const sucursalService = new SucursalService();
     const [selectedCategory, setSelectedCategory] = useState<ICategoria | CategoriaPost>();
     const [filteredData, setFilteredData] = useState<ICategoria[]>([]);
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [filter, setFilter] = useState<string>('all');
 
     const fetchCategoria = async () => {
         try {
             setIsLoading(true);
-            if (idSucursal !== undefined) {
-                const categorias = await sucursalService.get(`${url}/sucursal/getCategorias`, parseInt(idSucursal)) as any;
+            if (sucursalId !== undefined) {
+                const categorias = await sucursalService.get(`${url}/sucursal/getCategorias`, parseInt(sucursalId)) as any;
                 dispatch(setCategoria(categorias));
                 setFilteredData(categorias);
             }
@@ -47,7 +43,7 @@ const Categoria: React.FC = () => {
 
     useEffect(() => {
         fetchCategoria();
-    }, [dispatch, url, idSucursal]);
+    }, [dispatch, url, sucursalId]);
 
     const initialValue: CategoriaPost = {
         denominacion: "",
@@ -57,7 +53,25 @@ const Categoria: React.FC = () => {
     };
 
     const onSearch = (query: string) => {
-        handleSearch(query, globalCategorias, 'denominacion', setFilteredData);
+        setSearchQuery(query);
+        filterData(query, filter);
+    };
+
+    const onFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newFilter = event.target.value;
+        setFilter(newFilter);
+        filterData(searchQuery, newFilter);
+    };
+
+    const filterData = (query: string, filter: string) => {
+        const filtered = globalCategorias.filter(categoria => {
+            const matchesSearch = categoria.denominacion.toLowerCase().includes(query.toLowerCase());
+            const matchesFilter = (filter === 'all') ||
+                                  (filter === 'insumo' && categoria.esInsumo) ||
+                                  (filter === 'noInsumo' && !categoria.esInsumo);
+            return matchesSearch && matchesFilter;
+        });
+        setFilteredData(filtered);
     };
 
     const handleEdit = (categoria: ICategoria) => {
@@ -73,7 +87,6 @@ const Categoria: React.FC = () => {
         setSelectedCategory(initialValue);
         dispatch(toggleModal({ modalName: "modalCategoria" }));
     };
-
 
     const renderCategorias = (categorias: ICategoria[], order: number) => {
         return categorias.map((categoria, index) => {
@@ -91,7 +104,6 @@ const Categoria: React.FC = () => {
         });
     };
 
-
     return (
         <Box sx={{ maxWidth: 1150, margin: '0 auto', padding: 2, my: 10 }}>
             <Container>
@@ -102,15 +114,30 @@ const Categoria: React.FC = () => {
                         color="secondary"
                         startIcon={<AddIcon />}
                         sx={{
-                            backgroundColor: '#E66200',
+                            backgroundColor: '#fb6376',
                             "&:hover": {
-                                bgcolor: "grey",
+                                bgcolor: "#d73754",
                             },
                         }}
                         onClick={handleAddCategoria}
                     >
                         Añadir Categoría
                     </Button>
+                </Box>
+                <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <SearchBar onSearch={onSearch} />
+                    <TextField
+                        select
+                        value={filter}
+                        onChange={onFilterChange}
+                        label="Filtrar por"
+                        variant="outlined"
+                        sx={{ minWidth: 200 }}
+                    >
+                        <MenuItem value="all">Todos</MenuItem>
+                        <MenuItem value="insumo">Insumos</MenuItem>
+                        <MenuItem value="noInsumo">No Insumos</MenuItem>
+                    </TextField>
                 </Box>
                 {isLoading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
@@ -122,24 +149,19 @@ const Categoria: React.FC = () => {
                         description="Agrega nuevas categorias utilizando el formulario."
                     />
                 ) : (
-                    <>
-                        <Box sx={{ mt: 2 }}>
-                            <SearchBar onSearch={onSearch} />
-                        </Box>
-                        <Stack direction="column" spacing={1} mt={2}>
-                            {renderCategorias(filteredData, 0)}
-                        </Stack>
-                    </>
+                    <Stack direction="column" spacing={1} mt={2}>
+                        {renderCategorias(filteredData, 0)}
+                    </Stack>
                 )}
             </Container>
-            {idSucursal &&
+            {sucursalId &&
                 <ModalCategoria
                     modalName="modalCategoria"
                     initialValues={selectedCategory || initialValue}
                     isEditMode={isEditing}
                     getCategoria={fetchCategoria}
                     categoriaAEditar={isEditing ? selectedCategory : undefined}
-                    idSucursal={sucursalid}
+                    idSucursal={parseInt(sucursalId)}
                 />}
         </Box>
     );

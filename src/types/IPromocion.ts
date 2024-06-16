@@ -1,5 +1,3 @@
-
-
 export default interface IPromocion {
     id: number;
     denominacion: string;

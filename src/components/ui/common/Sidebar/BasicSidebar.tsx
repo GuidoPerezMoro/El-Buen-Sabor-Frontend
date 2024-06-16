@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer, cilBuilding, cilLocationPin, cilMap, cilHouse  } from "@coreui/icons";
+import { cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer  } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarNav } from "@coreui/react";
 import '@coreui/coreui/dist/css/coreui.min.css';
 import SucursalService from '../../../../services/SucursalService';
 import ISucursal from '../../../../types/ISucursal';
-import "../../../../Styles/Variables.css";
-import EmpresaService from '../../../../services/EmpresaService';
 
 const BasicSidebar: React.FC = () => {
     const { sucursalId } = useParams<{ sucursalId: string }>();
     const [sucursalNombre, setSucursalNombre] = useState<string>('');
     const [empresaNombre, setEmpresaNombre] = useState<string>('');
     const url = import.meta.env.VITE_API_URL;
-    const empresaService = new EmpresaService();
     const sucursalService = new SucursalService();
-    const [, setEmpresaSucursales] = useState<ISucursal[]>();
 
     useEffect(() => {
         const fetchSucursalYEmpresaNombre = async () => {
@@ -38,16 +34,6 @@ const BasicSidebar: React.FC = () => {
     }, [sucursalId]);
 
     console.log(sucursalNombre);
-
-    const fetchSucursalesForEmpresa = async (empresaId: number) => {
-        try {
-            const empresa = await empresaService.get(url + `/empresa/sucursales`, empresaId);
-            setEmpresaSucursales(empresa.sucursales);
-        } catch (error) {
-            console.error("Error al obtener las sucursales:", error);
-            return [];
-        }
-    };
     return (
         <div>
             <CSidebar className="border-end d-flex flex-column" style={{ height: '100vh' }}>
@@ -56,23 +42,15 @@ const BasicSidebar: React.FC = () => {
                         {empresaNombre} - {sucursalNombre}
                     </CNavTitle>
                     <CNavItem>
-                        <Link to={`/dashboard/${sucursalId}`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilBarChart} style={{color:'#E66200'}}/>
+                        <Link to={`/dashboard/${sucursalId}`} className="nav-link" >
+                            <CIcon customClassName="nav-icon" icon={cilBarChart} />
                             Estadísticas
                         </Link>
                     </CNavItem>
-
-                    <CNavItem>
-                        <Link to={`/empresa/${sucursalId}`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilHouse} style={{color:'#E66200'}}/>
-                            Sucursales
-                        </Link>
-                    </CNavItem>
-
                     <CNavGroup
                         toggler={
                             <>
-                                <CIcon customClassName="nav-icon" icon={cilFastfood} style={{color:'#E66200'}}/>
+                                <CIcon customClassName="nav-icon" icon={cilFastfood} />
                                 Productos
                             </>
                         }
@@ -93,7 +71,7 @@ const BasicSidebar: React.FC = () => {
 
                     <CNavItem>
                         <Link to={`/promociones/${sucursalId}`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#E66200'}}/>
+                            <CIcon customClassName="nav-icon" icon={cilDollar} />
                             Promociones
                         </Link>
                     </CNavItem>
@@ -101,7 +79,7 @@ const BasicSidebar: React.FC = () => {
                     <CNavGroup
                         toggler={
                             <>
-                                <CIcon customClassName="nav-icon" icon={cilPeople} style={{color:'#E66200'}}/>
+                                <CIcon customClassName="nav-icon" icon={cilPeople} />
                                 Empleados
                             </>
                         }
@@ -112,22 +90,16 @@ const BasicSidebar: React.FC = () => {
                                 Lista de Empleados
                             </Link>
                         </CNavItem>
-                        <CNavItem>
-                            <Link to={`/roles/${sucursalId}`} className="nav-link">
-                                <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
-                                Roles
-                            </Link>
-                        </CNavItem>
                     </CNavGroup>
                     <CNavItem>
                         <Link to={`/insumos/${sucursalId}`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilCart} style={{color:'#E66200'}}/>
+                            <CIcon customClassName="nav-icon" icon={cilCart} />
                             Insumos
                         </Link>
                     </CNavItem>
                     <CNavItem>
-                        <Link to={`/unidadMedida`} className="nav-link">
-                            <CIcon customClassName="nav-icon" icon={cilSpeedometer} style={{color:'#E66200'}}/>
+                        <Link to={`/unidadMedida/${sucursalId}`} className="nav-link">
+                            <CIcon customClassName="nav-icon" icon={cilSpeedometer} />
                             Unidad de Medida
                         </Link>
                     </CNavItem>

@@ -3,7 +3,7 @@ import { AddCircle, Visibility } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setEmpresa } from "../../../redux/slices/EmpresaReducer";
-
+import '../../../utils/swal.css'
 import EmpresaService from "../../../services/EmpresaService";
 import Empresa from "../../../types/IEmpresa";
 import { toggleModal } from "../../../redux/slices/ModalReducer";
@@ -15,10 +15,8 @@ import SucursalPost from "../../../types/post/SucursalPost";
 import AddButton from "../../ui/Buttons/AddButton";
 import EmptyState from "../../ui/Cards/EmptyState/EmptyState";
 import IEmpresa from "../../../types/IEmpresa";
-import IImagen from "../../../types/IImagen";
 import ISucursal from "../../../types/ISucursal";
-import "../../../Styles/Variables.css";
-import Styles from "../Empresa/EmpresasComponent.module.css";
+import { useNavigate } from 'react-router-dom';
 
 const EmpresaComponent: React.FC = () => {
     const url = import.meta.env.VITE_API_URL;
@@ -29,7 +27,8 @@ const EmpresaComponent: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [empresaEditar, setEmpresaEditar] = useState<Empresa | undefined>();
     const [, setEmpresaSucursales] = useState<ISucursal[]>();
-    
+    const navigate = useNavigate();
+
     const fetchSucursalesForEmpresa = async (empresaId: number) => {
         try {
             const empresa = await empresaService.get(url + `/empresa/sucursales`, empresaId);
@@ -39,23 +38,11 @@ const EmpresaComponent: React.FC = () => {
             return [];
         }
     };
-    const imagenes: IImagen[] = [
-        {
-            id: 1,
-            eliminado: false,
-            url: "https://images.unsplash.com/photo-1545231027-637d2f6210f8?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 2,
-            eliminado: false,
-            url: "https://images.unsplash.com/photo-1528732263440-4dd1a18a4cc2?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 3,
-            eliminado: false,
-            url: "https://images.unsplash.com/photo-1634250420331-68d96d14ec5b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3RhcmJ1Y2tzfGVufDB8MHwwfHx8MA%3D%3D"
-        }
-    ];
+
+
+
+
+
 
     const fetchEmpresas = async () => {
         try {
@@ -76,12 +63,13 @@ const EmpresaComponent: React.FC = () => {
 
     const handleEdit = (empresa: Empresa) => {
         setIsEditing(true);
-        setEmpresaEditar(empresa);
+        setEmpresaEditar(empresa); // Aquí asegúrate que empresa no sea undefined
         dispatch(toggleModal({ modalName: "modal" }));
     };
 
     const handleAddEmpresa = () => {
         setIsEditing(false);
+        setEmpresaEditar(undefined);
         dispatch(toggleModal({ modalName: "modal" }));
     };
 
@@ -114,7 +102,7 @@ const EmpresaComponent: React.FC = () => {
                 <Typography variant="h5" gutterBottom>
                     Empresas
                 </Typography>
-                <AddButton onClick={handleAddEmpresa}/>
+                <AddButton onClick={handleAddEmpresa} />
                 {!isLoading && globalEmpresas.length === 0 ? (
                     <EmptyState
                         title="No hay empresas disponibles"
@@ -124,13 +112,13 @@ const EmpresaComponent: React.FC = () => {
                     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
                         {globalEmpresas.map((empresa: IEmpresa) => (
                             <GenericCard
-                                images={imagenes}
+                                images={empresa.imagenes}
                                 key={empresa.id}
                                 title={empresa.nombre}
                                 subtitle={empresa.razonSocial}
                                 actions={[
                                     {
-                                        icon: <EditIcon className={Styles.color}/>,
+                                        icon: <EditIcon />,
                                         tooltip: "Editar",
                                         onClick: () => handleEdit(empresa)
                                     },
@@ -142,9 +130,10 @@ const EmpresaComponent: React.FC = () => {
 
                                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: 1, gap: 1 }}>
                                     <Button
-                                        startIcon={<AddCircle className={Styles.color} />}
+                                        startIcon={<AddCircle sx={{ color: '#fb6376' }} />}
                                         onClick={() => handleAddSucursal(empresa)}
-                                        sx={{ fontSize: '0.70rem', padding: '8px 14px', color: '#E66200', '&:hover': { backgroundColor: 'grey' }}}  
+                                        variant="outlined"
+                                        sx={{ color: '#fb6376', borderColor: '#fb6376', fontSize: '0.70rem', padding: '8px 14px' }}
                                     >
                                         Sucursales
                                     </Button>
@@ -152,9 +141,9 @@ const EmpresaComponent: React.FC = () => {
                                         startIcon={<Visibility />}
                                         onClick={() => {
                                             fetchSucursalesForEmpresa(empresa.id);
-                                            window.location.href = `/empresa/${empresa.id}`;
+                                            navigate(`/empresa/${empresa.id}`);
                                         }}
-                                        sx={{ color: '#ffffff', backgroundColor: '#E66200', fontSize: '0.70rem', padding: '9px 15px', '&:hover': { backgroundColor: 'grey' } }}
+                                        sx={{ color: '#ffffff', backgroundColor: '#fb6376', fontSize: '0.70rem', padding: '9px 15px', '&:hover': { backgroundColor: '#fa5064' } }}
                                     >
                                         Sucursales
                                     </Button>
@@ -170,9 +159,11 @@ const EmpresaComponent: React.FC = () => {
                 )}
                 <ModalEmpresa
                     modalName="modal"
-                    initialValues={empresaEditar || { id: 0, eliminado: false, nombre: "", razonSocial: "", cuil: 0, sucursales: [] }}
+                    initialValues={empresaEditar || { id: 0, eliminado: false, nombre: "", razonSocial: "", cuil: 0, sucursales: [], imagenes: [] }}
                     isEditMode={isEditing}
                     getEmpresas={fetchEmpresas}
+                    empresaAEditar={empresaEditar} 
+                    onClose={() => dispatch(toggleModal({ modalName: "modal" }))} 
                 />
                 <ModalSucursal
                     modalName="modalSucursal"
