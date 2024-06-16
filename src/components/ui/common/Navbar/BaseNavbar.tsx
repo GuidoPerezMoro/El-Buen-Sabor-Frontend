@@ -12,6 +12,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import Divider from '@mui/material/Divider';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 import { Link } from 'react-router-dom';
+import "../../../../Styles/Styles.css";
 
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,27 +45,27 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><div><Person2OutlinedIcon sx={{mr: 1}}/></div>Perfil</MenuItem>
-      <MenuItem onClick={handleMenuClose}><div><SettingsOutlinedIcon sx={{mr: 1}} /></div>Ajustes</MenuItem>
+      <MenuItem onClick={handleMenuClose}><div><Person2OutlinedIcon sx={{mr: 1, color:'#E66200'}}/></div>Perfil</MenuItem>
+      <MenuItem onClick={handleMenuClose}><div><SettingsOutlinedIcon sx={{mr: 1, color:'#E66200'}} /></div>Ajustes</MenuItem>
       <Divider/>
-      <MenuItem onClick={handleMenuClose}><div><LoginOutlinedIcon sx={{mr: 1}} /></div>Cerrar Sesión</MenuItem>
+      <MenuItem onClick={handleMenuClose}><div><LoginOutlinedIcon sx={{mr: 1, color:'#E66200'}} /></div>Cerrar Sesión</MenuItem>
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{bgcolor: '#fb6376'}}>
+      <AppBar position="static" sx={{backgroundColor:'#E66200'}} className='BaseNavbar-appBar'>
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ justifyContent: 'center' }}
+            className='BaseNavbar-typography'
           >
-           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>Administrador</Link>
+           <Link to="/" className='BaseNavbar-admin'>Administrador</Link>
 
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }}/>
           <IconButton
             size="large"
             edge="end"

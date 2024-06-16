@@ -136,9 +136,9 @@ const SucursalesEmpresa = () => {
                     <Button
                         onClick={handleAddSucursal}
                         sx={{
-                            bgcolor: "#fb6376",
+                            bgcolor: "#E66200",
                             "&:hover": {
-                                bgcolor: "#d73754",
+                                bgcolor: "#D65D00",
                             },
                         }}
                         variant="contained"
@@ -152,7 +152,7 @@ const SucursalesEmpresa = () => {
                 </Box>
                 {isLoading ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-                        <CircularProgress sx={{ color: '#fb6376' }} />
+                        <CircularProgress sx={{ color: '#E66200' }} />
                     </Box>
                 ) : (
                     <Grid container spacing={2} sx={{ minHeight: '60vh' }}>
