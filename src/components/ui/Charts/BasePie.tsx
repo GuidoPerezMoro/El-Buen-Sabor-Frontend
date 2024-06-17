@@ -3,7 +3,7 @@ import { PieChart } from '@mui/x-charts/PieChart';
 export default function BasePie() {
   return (
     <PieChart
-        colors={['#5D2A42', '#FB6376', '#FCB1A6']} 
+        colors={['#D59463', '#E66200', '#883B00']} 
       series={[
         {
           data: [

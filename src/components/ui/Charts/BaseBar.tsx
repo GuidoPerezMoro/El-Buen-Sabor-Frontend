@@ -5,7 +5,7 @@ const BaseBar = () => {
     
     <Box>
          <BarChart
-             colors={['#FB6376']} 
+             colors={['#E66200']} 
                     xAxis={[
                         {
                             id: 'barCategories',
