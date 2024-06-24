@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 const CallbackPage: React.FC = () => {
   const { isAuthenticated } = useAuth0();
@@ -8,9 +8,9 @@ const CallbackPage: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/empresa');  
+      navigate("/empresa");
     } else {
-      navigate('/');  
+      navigate("/");
     }
   }, [isAuthenticated, navigate]);
 

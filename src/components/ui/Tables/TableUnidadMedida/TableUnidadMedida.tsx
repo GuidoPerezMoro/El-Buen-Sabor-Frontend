@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Container, Box, Typography, Alert, TextField } from '@mui/material';
-import TableComponent from '../Table/Table';
-import { IUnidadMedida } from '../../../../types/IUnidadMedida';
-import UnidadMedidaService from '../../../../services/UnidadMedidaService';
-import { onDelete } from '../../../../utils/utils';
-import EmptyState from '../../Cards/EmptyState/EmptyState';
-import swal from 'sweetalert2';
-import Column from '../../../../types/Column';
-import ModalUnidadMedida from '../../Modals/ModalUnidadDeMedida';
-import useAuthToken from '../../../../hooks/useAuthToken';
+import React, { useState, useEffect } from "react";
+import {
+  Button,
+  Container,
+  Box,
+  Typography,
+  Alert,
+  TextField,
+} from "@mui/material";
+import TableComponent from "../Table/Table";
+import { IUnidadMedida } from "../../../../types/IUnidadMedida";
+import UnidadMedidaService from "../../../../services/UnidadMedidaService";
+import { onDelete } from "../../../../utils/utils";
+import EmptyState from "../../Cards/EmptyState/EmptyState";
+import swal from "sweetalert2";
+import Column from "../../../../types/Column";
+import ModalUnidadMedida from "../../Modals/ModalUnidadDeMedida";
+import useAuthToken from "../../../../hooks/useAuthToken";
 
 const TableUnidadMedida: React.FC = () => {
   const [units, setUnits] = useState<IUnidadMedida[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
-  const [errorMessage, ] = useState('');
+  const [errorMessage] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [initialData, setInitialData] = useState<IUnidadMedida | undefined>(undefined);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [initialData, setInitialData] = useState<IUnidadMedida | undefined>(
+    undefined
+  );
+  const [searchQuery, setSearchQuery] = useState("");
   const url = import.meta.env.VITE_API_URL;
   const unidadMedidaService = new UnidadMedidaService();
   const getToken = useAuthToken();
@@ -27,10 +36,10 @@ const TableUnidadMedida: React.FC = () => {
 
   const fetchUnits = async () => {
     try {
-      const response = await unidadMedidaService.getAll(url + '/UnidadMedida');
+      const response = await unidadMedidaService.getAll(url + "/UnidadMedida");
       setUnits(response);
     } catch (error) {
-      console.error('Error obteniendo unidades de medida:', error);
+      console.error("Error obteniendo unidades de medida:", error);
     }
   };
 
@@ -48,29 +57,34 @@ const TableUnidadMedida: React.FC = () => {
     try {
       const token = await getToken();
       if (editId !== null) {
-        await unidadMedidaService.putSec(url + '/UnidadMedida', editId, unit,token);
+        await unidadMedidaService.putSec(
+          url + "/UnidadMedida",
+          editId,
+          unit,
+          token
+        );
         const updatedUnits = units.map((u) => (u.id === editId ? unit : u));
         setUnits(updatedUnits);
         swal.fire({
-          icon: 'success',
-          title: '¡Éxito!',
-          text: 'La unidad de medida ha sido actualizada correctamente',
-          confirmButtonColor: '#fb6376',
+          icon: "success",
+          title: "¡Éxito!",
+          text: "La unidad de medida ha sido actualizada correctamente",
+          confirmButtonColor: "#fb6376",
         });
       } else {
         unit.id = Date.now();
-        await unidadMedidaService.postSec(url + '/UnidadMedida', unit, token);
+        await unidadMedidaService.postSec(url + "/UnidadMedida", unit, token);
         setUnits([...units, unit]);
         swal.fire({
-          icon: 'success',
-          title: '¡Éxito!',
-          text: 'La unidad de medida ha sido agregada correctamente',
-          confirmButtonColor: '#fb6376',
+          icon: "success",
+          title: "¡Éxito!",
+          text: "La unidad de medida ha sido agregada correctamente",
+          confirmButtonColor: "#fb6376",
         });
       }
       handleModalClose();
     } catch (error) {
-      console.error('Error agregando/modificando unidad de medida:', error);
+      console.error("Error agregando/modificando unidad de medida:", error);
     }
   };
 
@@ -86,16 +100,20 @@ const TableUnidadMedida: React.FC = () => {
       await onDelete(
         unit,
         async (unitToDelete: IUnidadMedida) => {
-          await unidadMedidaService.deleteSec(url + '/UnidadMedida', unitToDelete.id, token);
+          await unidadMedidaService.deleteSec(
+            url + "/UnidadMedida",
+            unitToDelete.id,
+            token
+          );
         },
         fetchUnits,
         () => {},
         (error: any) => {
-          console.error('Error al eliminar unidad:', error);
+          console.error("Error al eliminar unidad:", error);
         }
       );
     } catch (error) {
-      console.error('Error al eliminar unidad:', error);
+      console.error("Error al eliminar unidad:", error);
     }
   };
 
@@ -103,12 +121,16 @@ const TableUnidadMedida: React.FC = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredUnits = units.filter(unit =>
+  const filteredUnits = units.filter((unit) =>
     unit.denominacion.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const columns: Column[] = [
-    { id: "denominacion", label: "Nombre", renderCell: (rowData) => <>{rowData.denominacion}</> },
+    {
+      id: "denominacion",
+      label: "Nombre",
+      renderCell: (rowData) => <>{rowData.denominacion}</>,
+    },
   ];
 
   return (
@@ -117,13 +139,13 @@ const TableUnidadMedida: React.FC = () => {
         Unidades de Medida
       </Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
         <Button
           variant="contained"
           color="secondary"
           onClick={handleModalOpen}
           sx={{
-            backgroundColor: '#fb6376',
+            backgroundColor: "#fb6376",
             "&:hover": {
               bgcolor: "#d73754",
             },
@@ -132,7 +154,7 @@ const TableUnidadMedida: React.FC = () => {
           + Unidad de Medida
         </Button>
       </Box>
-      
+
       <TextField
         fullWidth
         label="Buscar por nombre"
@@ -142,10 +164,13 @@ const TableUnidadMedida: React.FC = () => {
       />
 
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
-      
+
       {filteredUnits.length === 0 ? (
         <Box sx={{ my: 5 }}>
-          <EmptyState title="No hay unidades de medida" description="Agrega nuevas unidades de medida para comenzar" />
+          <EmptyState
+            title="No hay unidades de medida"
+            description="Agrega nuevas unidades de medida para comenzar"
+          />
         </Box>
       ) : (
         <TableComponent
@@ -155,7 +180,7 @@ const TableUnidadMedida: React.FC = () => {
           onDelete={handleDelete}
         />
       )}
-      
+
       <ModalUnidadMedida
         open={isModalOpen}
         onClose={handleModalClose}

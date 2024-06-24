@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconButton, Tooltip } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface DeleteButtonProps {
   onClick: () => void;
@@ -8,12 +8,11 @@ interface DeleteButtonProps {
 
 const DeleteButton: React.FC<DeleteButtonProps> = ({ onClick }) => {
   return (
-
     <Tooltip title="Eliminar">
-    <IconButton aria-label="eliminar" onClick={onClick}>
-      <DeleteIcon />
-    </IconButton>
-   </Tooltip>
+      <IconButton aria-label="eliminar" onClick={onClick}>
+        <DeleteIcon />
+      </IconButton>
+    </Tooltip>
   );
 };
 

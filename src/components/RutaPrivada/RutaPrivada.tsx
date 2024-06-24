@@ -16,6 +16,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   const [idSucursal, setIdSucursal] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const URL = import.meta.env.VITE_API_URL;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
   const userDataString = localStorage.getItem("usuario");
   const { logout } = useAuth0();
 
@@ -74,7 +75,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   }
 
   const userData = JSON.parse(userDataString);
-  const rol = userData["http://elbuensabor.com/roles"][0];
+  const rol = userData[`${audience}/roles`][0];
 
   if (roles && !roles.includes(rol) && idSucursal) {
     return <Navigate to={`/dashboard/${idSucursal}`} replace />;

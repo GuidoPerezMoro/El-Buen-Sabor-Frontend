@@ -1,10 +1,10 @@
 // NoResults.tsx
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+import React from "react";
+import { Box, Typography } from "@mui/material";
 
 const NoResults: React.FC = () => {
   return (
-    <Box sx={{ textAlign: 'center', mt: 4 }}>
+    <Box sx={{ textAlign: "center", mt: 4 }}>
       <Typography variant="h6" gutterBottom>
         No se encontraron coincidencias
       </Typography>

@@ -1,60 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import {cilArrowLeft, cilBarChart, cilCart, cilFastfood, cilPeople, cilDollar, cilSpeedometer } from "@coreui/icons";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import {
+  cilArrowLeft,
+  cilBarChart,
+  cilCart,
+  cilFastfood,
+  cilPeople,
+  cilDollar,
+  cilSpeedometer,
+} from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
-import { CNavGroup, CNavItem, CNavTitle, CSidebar, CSidebarNav } from "@coreui/react";
-import '@coreui/coreui/dist/css/coreui.min.css';
-import SucursalService from '../../../../services/SucursalService';
-import ISucursal from '../../../../types/ISucursal';
+import {
+  CNavGroup,
+  CNavItem,
+  CNavTitle,
+  CSidebar,
+  CSidebarNav,
+} from "@coreui/react";
+import "@coreui/coreui/dist/css/coreui.min.css";
+import SucursalService from "../../../../services/SucursalService";
+import ISucursal from "../../../../types/ISucursal";
 
 const BasicSidebar: React.FC = () => {
-    const { sucursalId } = useParams<{ sucursalId: string }>();
-    const [sucursalNombre, setSucursalNombre] = useState<string>('');
-    const [empresaNombre, setEmpresaNombre] = useState<string>('');
-    const [rol, setRole] = useState<string>(''); // Cambié 'String' por 'string'
-    const url = import.meta.env.VITE_API_URL;
-    const sucursalService = new SucursalService();
+  const { sucursalId } = useParams<{ sucursalId: string }>();
+  const [sucursalNombre, setSucursalNombre] = useState<string>("");
+  const [empresaNombre, setEmpresaNombre] = useState<string>("");
+  const [rol, setRole] = useState<string>("");
+  const url = import.meta.env.VITE_API_URL;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+  const sucursalService = new SucursalService();
 
-    useEffect(() => {
-        const fetchSucursalYEmpresaNombre = async () => {
-            try {
-                if (sucursalId) {
-                    const sucursal = await sucursalService.get(`${url}/sucursal`, parseInt(sucursalId));
-                    setSucursalNombre(sucursal.nombre);
+  useEffect(() => {
+    const fetchSucursalYEmpresaNombre = async () => {
+      try {
+        if (sucursalId) {
+          const sucursal = await sucursalService.get(
+            `${url}/sucursal`,
+            parseInt(sucursalId)
+          );
+          setSucursalNombre(sucursal.nombre);
 
-                    if ('empresa' in sucursal) {
-                        setEmpresaNombre((sucursal as ISucursal).empresa.nombre);
-                    }
-                }
-            } catch (error) {
-                console.error("Error al obtener el nombre de la sucursal o empresa:", error);
-            }
-        };
-
-        fetchSucursalYEmpresaNombre();
-    }, [sucursalId]);
-
-    useEffect(() => { // Mover la lógica para obtener el rol al useEffect
-        const userDataString = localStorage.getItem('usuario');
-        if (userDataString) {
-            const userData = JSON.parse(userDataString);
-            const rol = userData["https://my-app.example.com/roles"];
-            console.log("rol",rol[0]);
-            setRole(rol[0]);
+          if ("empresa" in sucursal) {
+            setEmpresaNombre((sucursal as ISucursal).empresa.nombre);
+          }
         }
-    }, []);
+      } catch (error) {
+        console.error(
+          "Error al obtener el nombre de la sucursal o empresa:",
+          error
+        );
+      }
+    };
 
-    return (
-        <div>
-      <CSidebar className="border-end d-flex flex-column" style={{ height: '100vh' }}>
+    fetchSucursalYEmpresaNombre();
+  }, [sucursalId]);
+
+  useEffect(() => {
+    // Mover la lógica para obtener el rol al useEffect
+    const userDataString = localStorage.getItem("usuario");
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      const rol = userData[`${audience}/roles`];
+      console.log("rol", rol[0]);
+      setRole(rol[0]);
+    }
+  }, []);
+
+  return (
+    <div>
+      <CSidebar
+        className="border-end d-flex flex-column"
+        style={{ height: "100vh" }}
+      >
         <CSidebarNav>
-        {["ADMIN"].includes(rol) && (
-          <CNavItem>
-                <Link to={`/empresa`} className="nav-link">
-              <CIcon customClassName="nav-icon" icon={cilArrowLeft} />
-              Volver
-            </Link>
-          </CNavItem>
+          {["ADMIN"].includes(rol) && (
+            <CNavItem>
+              <Link to={`/empresa`} className="nav-link">
+                <CIcon customClassName="nav-icon" icon={cilArrowLeft} />
+                Volver
+              </Link>
+            </CNavItem>
           )}
           <CNavTitle>
             {empresaNombre} - {sucursalNombre}
@@ -78,14 +103,18 @@ const BasicSidebar: React.FC = () => {
             >
               <CNavItem>
                 <Link to={`/productos/${sucursalId}`} className="nav-link">
-                  <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
+                  <span className="nav-icon">
+                    <span className="nav-icon-bullet"></span>
+                  </span>
                   Lista de Productos
                 </Link>
               </CNavItem>
               {["ADMIN", "EMPLEADO"].includes(rol) && (
                 <CNavItem>
                   <Link to={`/categorias/${sucursalId}`} className="nav-link">
-                    <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
+                    <span className="nav-icon">
+                      <span className="nav-icon-bullet"></span>
+                    </span>
                     Categorías
                   </Link>
                 </CNavItem>
@@ -111,7 +140,9 @@ const BasicSidebar: React.FC = () => {
             >
               <CNavItem>
                 <Link to={`/empleados/${sucursalId}`} className="nav-link">
-                  <span className="nav-icon"><span className="nav-icon-bullet"></span></span>
+                  <span className="nav-icon">
+                    <span className="nav-icon-bullet"></span>
+                  </span>
                   Lista de Empleados
                 </Link>
               </CNavItem>
@@ -136,7 +167,7 @@ const BasicSidebar: React.FC = () => {
         </CSidebarNav>
       </CSidebar>
     </div>
-    );
-}
+  );
+};
 
 export default BasicSidebar;

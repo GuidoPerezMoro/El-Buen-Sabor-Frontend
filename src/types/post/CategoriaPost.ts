@@ -1,6 +1,3 @@
-
-
-
 export interface CategoriaPost {
     denominacion: string;
     esInsumo: boolean;

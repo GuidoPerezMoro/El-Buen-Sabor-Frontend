@@ -8,9 +8,18 @@ type Props = {
 export const AuthenticationGuard = ({ component }: Props) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => (
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
-        <Typography variant="h6" className="ml-2">Redireccionando...</Typography>
+        <Typography variant="h6" className="ml-2">
+          Redireccionando...
+        </Typography>
       </div>
     ),
   });

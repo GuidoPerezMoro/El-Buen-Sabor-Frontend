@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Typography, Button, Container, CircularProgress, CardMedia } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Container,
+  CircularProgress,
+  CardMedia,
+} from "@mui/material";
 import { Add } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setProducto } from "../../../redux/slices/ProductoReducer";
@@ -18,6 +25,7 @@ import { useParams } from "react-router-dom";
 const Producto = () => {
   const getToken = useAuthToken();
   const url = import.meta.env.VITE_API_URL;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
   const dispatch = useAppDispatch();
   const productoService = new ProductoService();
   const globalProductos = useAppSelector((state) => state.producto.data);
@@ -26,11 +34,13 @@ const Producto = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [productoEditar, setProductoEditar] = useState<IProducto>();
   const [isLoading, setIsLoading] = useState(true);
-  const [rol,setRole] = useState<string>("");
+  const [rol, setRole] = useState<string>("");
 
   const fetchProductos = async () => {
     try {
-      const productos = await productoService.getAll(url + `/ArticuloManufacturado/bySucursalId/${sucursalId}`);
+      const productos = await productoService.getAll(
+        url + `/ArticuloManufacturado/bySucursalId/${sucursalId}`
+      );
       dispatch(setProducto(productos));
       setFilteredData(productos);
     } catch (error) {
@@ -48,15 +58,16 @@ const Producto = () => {
     fetchProductos();
   }, [dispatch]);
 
-  useEffect(() => { // Mover la lógica para obtener el rol al useEffect
-    const userDataString = localStorage.getItem('usuario');
+  useEffect(() => {
+    // Mover la lógica para obtener el rol al useEffect
+    const userDataString = localStorage.getItem("usuario");
     if (userDataString) {
-        const userData = JSON.parse(userDataString);
-        const rol = userData["https://my-app.example.com/roles"];
-        console.log("rol",rol[0]);
-        setRole(rol[0]);
+      const userData = JSON.parse(userDataString);
+      const rol = userData[`${audience}/roles`];
+      console.log("rol", rol[0]);
+      setRole(rol[0]);
     }
-}, []);
+  }, []);
 
   const onDeleteProducto = async (producto: IProducto) => {
     try {
@@ -64,10 +75,14 @@ const Producto = () => {
       await onDelete(
         producto,
         async (productoToDelete: IProducto) => {
-          await productoService.deleteSec(url + "/ArticuloManufacturado", productoToDelete.id, token);
+          await productoService.deleteSec(
+            url + "/ArticuloManufacturado",
+            productoToDelete.id,
+            token
+          );
         },
         fetchProductos,
-        () => { },
+        () => {},
         (error: any) => {
           console.error("Error al eliminar producto:", error);
         }
@@ -101,7 +116,7 @@ const Producto = () => {
               height="140"
               image={producto.imagenes[0].url}
               alt="Producto"
-              sx={{ borderRadius: '10px' }}
+              sx={{ borderRadius: "10px" }}
             />
           )}
         </Box>
@@ -116,10 +131,26 @@ const Producto = () => {
         </Typography>
       ),
     },
-    { id: "descripcion", label: "", renderCell: (producto) => <>{producto.descripcion}</> },
-    { id: "precioVenta", label: "$", renderCell: (producto) => <>{producto.precioVenta}</> },
-    { id: "preparacion", label: "Preparación:", renderCell: (producto) => <>{producto.preparacion}</> },
-    { id: "unidadMedida", label: "Unidad de Medida:", renderCell: (producto) => <>{producto.unidadMedida.denominacion}</> },
+    {
+      id: "descripcion",
+      label: "",
+      renderCell: (producto) => <>{producto.descripcion}</>,
+    },
+    {
+      id: "precioVenta",
+      label: "$",
+      renderCell: (producto) => <>{producto.precioVenta}</>,
+    },
+    {
+      id: "preparacion",
+      label: "Preparación:",
+      renderCell: (producto) => <>{producto.preparacion}</>,
+    },
+    {
+      id: "unidadMedida",
+      label: "Unidad de Medida:",
+      renderCell: (producto) => <>{producto.unidadMedida.denominacion}</>,
+    },
     {
       id: "tiempoEstimadoMinutos",
       label: "Tiempo estimado:",
@@ -128,64 +159,93 @@ const Producto = () => {
   ];
 
   return (
-    <Box component="main" sx={{ height: "100%", overflow: "hidden", display: "flex", flexDirection: "column", mt: 8 }}>
-      <Container sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", my: 2 }}>
+    <Box
+      component="main"
+      sx={{
+        height: "100%",
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        mt: 8,
+      }}
+    >
+      <Container
+        sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            my: 2,
+          }}
+        >
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
           {["ADMIN", "COCINERO"].includes(rol) && (
-          <Button
-            onClick={handleAddProducto}
-            variant="contained"
-            startIcon={<Add />}
-            sx={{
-              bgcolor: "#fb6376",
-              "&:hover": {
-                bgcolor: "#d73754",
-              },
-              padding: "10px 20px",
-              fontSize: "1.0rem",
-            }}
-          >
-            Producto
-          </Button>)}
+            <Button
+              onClick={handleAddProducto}
+              variant="contained"
+              startIcon={<Add />}
+              sx={{
+                bgcolor: "#fb6376",
+                "&:hover": {
+                  bgcolor: "#d73754",
+                },
+                padding: "10px 20px",
+                fontSize: "1.0rem",
+              }}
+            >
+              Producto
+            </Button>
+          )}
         </Box>
         <Box sx={{ mt: 2 }}>
           <SearchBar onSearch={onSearch} />
         </Box>
         {isLoading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-            <CircularProgress sx={{ color: '#fb6376' }} />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "80vh",
+            }}
+          >
+            <CircularProgress sx={{ color: "#fb6376" }} />
           </Box>
         ) : (
-
           <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
-            <TableComponent data={filteredData} columns={columns} onDelete={onDeleteProducto} onEdit={handleEdit} />
+            <TableComponent
+              data={filteredData}
+              columns={columns}
+              onDelete={onDeleteProducto}
+              onEdit={handleEdit}
+            />
           </Box>
-
         )}
         {sucursalId && (
           <ModalProducto
-          idSucursal={parseInt(sucursalId)}
-          modalName="modalProducto"
-          initialValues={{
-            id: 0,
-            descripcion: "",
-            tiempoEstimadoMinutos: 0,
-            preparacion: "",
-            precioVenta: 0,
-            unidadMedida: 0,
-            idsArticuloManufacturadoDetalles: [],
-          }}
-          isEditMode={isEditing}
-          getProductos={fetchProductos}
-          productoAEditar={productoEditar}
-          onClose={() => dispatch(toggleModal({ modalName: "modalProducto" }))}
-
-        />
+            idSucursal={parseInt(sucursalId)}
+            modalName="modalProducto"
+            initialValues={{
+              id: 0,
+              descripcion: "",
+              tiempoEstimadoMinutos: 0,
+              preparacion: "",
+              precioVenta: 0,
+              unidadMedida: 0,
+              idsArticuloManufacturadoDetalles: [],
+            }}
+            isEditMode={isEditing}
+            getProductos={fetchProductos}
+            productoAEditar={productoEditar}
+            onClose={() =>
+              dispatch(toggleModal({ modalName: "modalProducto" }))
+            }
+          />
         )}
-      
       </Container>
     </Box>
   );

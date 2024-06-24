@@ -59,7 +59,8 @@ export default function PrimarySearchAppBar() {
   );
 
   // Obtener el rol del usuario de los metadatos de Auth0
-  const userRole = user?.["http://elbuensabor.com/roles"]?.[0] || "Usuario";
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+  const userRole = user?.[`${audience}/roles`]?.[0] || "Usuario";
 
   return (
     <Box sx={{ flexGrow: 1 }}>
