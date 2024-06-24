@@ -14,10 +14,13 @@ import ModalInsumo from "../../Modals/ModalInsumo";
 import { toggleModal } from "../../../../redux/slices/ModalReducer";
 import { InsumoPost } from "../../../../types/post/InsumoPost";
 import EmptyState from "../../Cards/EmptyState/EmptyState";
+import useAuthToken from "../../../../hooks/useAuthToken";
+import { useParams } from "react-router-dom";
+
 
 
 const TableInsumo = () => {
-
+    const getToken = useAuthToken();
     const dispatch = useAppDispatch();
     const globalArticulosInsumos = useAppSelector((state) => state.insumo.data);
     const isModalOpen = useAppSelector((state) => state.modal.modalInsumo);
@@ -27,10 +30,11 @@ const TableInsumo = () => {
     const [selectedArticle, setSelectedArticle] = useState<IInsumo | InsumoPost>();
     const [isEditing, setIsEditing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const { sucursalId } = useParams<{ sucursalId: string }>();
 
     const fetchArticulosInsumos = async () => {
         try {
-            const articulosInsumos = await insumoService.getAll(url + '/ArticuloInsumo');
+            const articulosInsumos = await insumoService.getAll(url + `/ArticuloInsumo/bySucursalId/${sucursalId}`);
             dispatch(setInsumo(articulosInsumos));
             setFilteredData(articulosInsumos);
         } catch (error) {
@@ -75,11 +79,12 @@ const TableInsumo = () => {
     };
 
     const handleDelete = async (insumo: IInsumo) => {
+        const token = await getToken();
         try {
             await onDelete(
                 insumo,
                 async (insumoToDelete: IInsumo) => {
-                    await insumoService.delete(url + '/ArticuloInsumo', insumoToDelete.id);
+                    await insumoService.deleteSec(url + '/ArticuloInsumo', insumoToDelete.id, token);
                 },
                 fetchArticulosInsumos,
                 () => { },
@@ -168,8 +173,9 @@ const TableInsumo = () => {
 
                 )}
             </Container>
-            {isModalOpen && selectedArticle &&
+            {isModalOpen && selectedArticle && sucursalId &&
                 <ModalInsumo
+                idSucursal={parseInt(sucursalId)}
                     modalName="modalInsumo"
                     initialValues={selectedArticle || initialValue}
                     isEditMode={isEditing}

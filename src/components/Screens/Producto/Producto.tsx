@@ -12,21 +12,25 @@ import IProducto from "../../../types/IProducto";
 import { toggleModal } from "../../../redux/slices/ModalReducer";
 import SearchBar from "../../ui/common/SearchBar/SearchBar";
 import TableComponent from "../../ui/Tables/Table/TableComponent";
+import useAuthToken from "../../../hooks/useAuthToken";
+import { useParams } from "react-router-dom";
 
 const Producto = () => {
+  const getToken = useAuthToken();
   const url = import.meta.env.VITE_API_URL;
   const dispatch = useAppDispatch();
   const productoService = new ProductoService();
   const globalProductos = useAppSelector((state) => state.producto.data);
-
+  const { sucursalId } = useParams<{ sucursalId: string }>();
   const [filteredData, setFilteredData] = useState<Row[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [productoEditar, setProductoEditar] = useState<IProducto>();
   const [isLoading, setIsLoading] = useState(true);
+  const [rol,setRole] = useState<string>("");
 
   const fetchProductos = async () => {
     try {
-      const productos = await productoService.getAll(url + "/ArticuloManufacturado");
+      const productos = await productoService.getAll(url + `/ArticuloManufacturado/bySucursalId/${sucursalId}`);
       dispatch(setProducto(productos));
       setFilteredData(productos);
     } catch (error) {
@@ -44,12 +48,23 @@ const Producto = () => {
     fetchProductos();
   }, [dispatch]);
 
+  useEffect(() => { // Mover la lógica para obtener el rol al useEffect
+    const userDataString = localStorage.getItem('usuario');
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        const rol = userData["https://my-app.example.com/roles"];
+        console.log("rol",rol[0]);
+        setRole(rol[0]);
+    }
+}, []);
+
   const onDeleteProducto = async (producto: IProducto) => {
     try {
+      const token = await getToken();
       await onDelete(
         producto,
         async (productoToDelete: IProducto) => {
-          await productoService.delete(url + "/ArticuloManufacturado", productoToDelete.id);
+          await productoService.deleteSec(url + "/ArticuloManufacturado", productoToDelete.id, token);
         },
         fetchProductos,
         () => { },
@@ -119,6 +134,7 @@ const Producto = () => {
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
+          {["ADMIN", "COCINERO"].includes(rol) && (
           <Button
             onClick={handleAddProducto}
             variant="contained"
@@ -133,7 +149,7 @@ const Producto = () => {
             }}
           >
             Producto
-          </Button>
+          </Button>)}
         </Box>
         <Box sx={{ mt: 2 }}>
           <SearchBar onSearch={onSearch} />
@@ -149,7 +165,9 @@ const Producto = () => {
           </Box>
 
         )}
-        <ModalProducto
+        {sucursalId && (
+          <ModalProducto
+          idSucursal={parseInt(sucursalId)}
           modalName="modalProducto"
           initialValues={{
             id: 0,
@@ -166,6 +184,8 @@ const Producto = () => {
           onClose={() => dispatch(toggleModal({ modalName: "modalProducto" }))}
 
         />
+        )}
+      
       </Container>
     </Box>
   );

@@ -18,6 +18,7 @@ import { IInsumo } from '../../../types/IInsumo';
 import TableComponent from '../Tables/Table/TableComponent';
 import ImagenService from '../../../services/ImagenService';
 import { Delete, PhotoCamera } from '@mui/icons-material';
+import useAuthToken from '../../../hooks/useAuthToken';
 
 interface ModalProductoProps {
     modalName: string;
@@ -26,6 +27,7 @@ interface ModalProductoProps {
     getProductos: Function;
     productoAEditar?: IProducto;
     onClose: () => void;
+    idSucursal: number;
 }
 
 const ModalProducto: React.FC<ModalProductoProps> = ({
@@ -35,6 +37,8 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
     getProductos,
     productoAEditar,
     onClose,
+    idSucursal,
+
 }) => {
     const productoService = new ProductoService();
     const productoDetalleService = new ProductoDetalleService();
@@ -43,6 +47,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
     const categoriaService = new CategoriaService();
     const imagenService = new ImagenService();
     const URL = import.meta.env.VITE_API_URL;
+    const getToken = useAuthToken();
 
     const [unidadMedidaOptions, setUnidadMedidaOptions] = useState<{ id: number; denominacion: string }[]>([]);
     const [insumos, setInsumos] = useState<any[]>([]);
@@ -70,6 +75,17 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         });
     };
 
+/*
+    const fetchInsumoDetails = async (id: number) => {
+        try {
+            const articulo = await insumoService.get(`${URL}/ArticuloInsumo`, id) as IInsumo;
+            return articulo;
+        } catch (error) {
+            console.error('Error al obtener los detalles del insumo:', error);
+            return null;
+        }
+    }
+*/
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
@@ -119,7 +135,8 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         });
 
         try {
-            const response = await imagenService.uploadImages(url, formData);
+            const token = await getToken();
+            const response = await imagenService.uploadImages(url, formData, token);
 
             if (!response.ok) {
                 throw new Error('Error al subir las imágenes');
@@ -159,9 +176,13 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         });
 
         try {
+            const token = await getToken();
             const response = await fetch(`${URL}/ArticuloManufacturado/deleteImg`, {
                 method: "POST",
                 body: formData,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             Swal.close();
@@ -250,21 +271,23 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
     const onDeleteProductoDetalle = async (productoDetalle: IProductoDetalle) => {
         try {
             if (isEditMode && productoAEditar) {
-                // Si está en modo de edición, usamos el servicio para eliminar el detalle del producto de la base de datos
-                await productoDetalleService.delete(`${URL}/ArticuloManufacturadoDetalle`, productoDetalle.id);
+                // Si está en modo de edición, usa el servicio para eliminar el detalle del producto en la base de datos
+                const token = await getToken();
+                await productoDetalleService.deleteSec(`${URL}/ArticuloManufacturadoDetalle`, productoDetalle.id, token);
+
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: 'Ingrediente eliminado correctamente',
+                    icon: 'success',
+                    customClass: {
+                        container: 'my-swal',
+                    },
+                });
             }
-            //actualizamos el estado eliminando el detalle
+
+            // Actualiza el estado eliminando el detalle
             const updatedIngredients = dataIngredients.filter((ingredient) => ingredient.id !== productoDetalle.id);
             setDataIngredients(updatedIngredients);
-
-            Swal.fire({
-                title: '¡Éxito!',
-                text: 'Ingrediente eliminado correctamente',
-                icon: 'success',
-                customClass: {
-                    container: 'my-swal',
-                },
-            });
         } catch (error) {
             console.error('Error al eliminar el ingrediente:', error);
             Swal.fire({
@@ -278,34 +301,36 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         }
     };
 
-    const handleNewIngredient = async () => {
-        if (selectedInsumoId !== null && cantidadInsumo > 0) {
-            try {
-                const newDetalle = {
-                    cantidad: cantidadInsumo,
-                    idArticuloInsumo: selectedInsumoId,
-                };
 
-                const createdDetalle = await productoDetalleService.post(`${URL}/ArticuloManufacturadoDetalle`, newDetalle);
+const handleNewIngredient = async () => {
+    if (selectedInsumoId !== null && cantidadInsumo > 0) {
+        try {
+            const selectedInsumo = insumos.find(insumo => insumo.id === selectedInsumoId);
 
-                setDataIngredients([...dataIngredients, createdDetalle]);
+            const newDetalle = {
+                cantidad: cantidadInsumo,
+                idArticuloInsumo: selectedInsumoId,
+                articuloInsumo: selectedInsumo  // Añade el objeto completo para acceder a su denominación
+            };
 
-                setSelectedInsumoId(null);
-                setCantidadInsumo(0);
-                setUnidadMedidaInsumo('N/A');
-            } catch (error) {
-                console.error('Error al crear el detalle:', error);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Ha ocurrido un error al crear el detalle',
-                    icon: 'error',
-                    customClass: {
-                        container: 'my-swal',
-                    },
-                });
-            }
+            setDataIngredients([...dataIngredients, newDetalle]);
+
+            setSelectedInsumoId(null);
+            setCantidadInsumo(0);
+            setUnidadMedidaInsumo('N/A');
+        } catch (error) {
+            console.error('Error al crear el detalle:', error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Ha ocurrido un error al crear el detalle',
+                icon: 'error',
+                customClass: {
+                    container: 'my-swal',
+                },
+            });
         }
-    };
+    }
+};
 
     const columns: Column[] = [
         {
@@ -313,22 +338,24 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             label: "",
             renderCell: (element) => (
                 <Typography variant="h6" fontWeight="bold">
-                    {element?.articuloInsumo?.denominacion || 'N/A'}
+                    { isEditMode ?  element.articuloInsumo.denominacion : element?.idArticuloInsumo}
                 </Typography>
             )
         },
         {
             id: "cantidadYUnidadMedida",
-            label: "",
+            label: "Cantidad: ",
             renderCell: (element) => (
                 <>
-                    {element?.cantidad || 'N/A'} {element?.articuloInsumo?.unidadMedida?.denominacion || 'N/A'}
+                    {element?.cantidad || 'N/A'} 
                 </>
             )
         }
     ];
 
+
     const handleSubmit = async (values: IProducto) => {
+        const token = await getToken();
         try {
             const productoPost = {
                 denominacion: values.denominacion,
@@ -338,31 +365,22 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
                 preparacion: values.preparacion,
                 idUnidadMedida: unidadMedidaProducto,
                 idCategoria: categoriaProducto,
+                idsucursal: idSucursal,
                 articuloManufacturadoDetalles: dataIngredients.map((detalle) => {
                     return {
                         cantidad: detalle.cantidad,
-                        idArticuloInsumo: detalle.articuloInsumo.id,
+                        idArticuloInsumo: isEditMode ? detalle.articuloInsumo.id : detalle.idArticuloInsumo
                     };
                 }),
             };
-
             let response;
             let id: number | null = null;
 
             if (isEditMode && productoAEditar) {
-                const productoPut = {
-                    ...productoPost,
-                    detalles: dataIngredients.map((detalle) => {
-                        return {
-                            cantidad: detalle.cantidad,
-                            idArticuloInsumo: detalle.articuloInsumo.id,
-                        };
-                    }),
-                };
-                await productoService.put(`${URL}/ArticuloManufacturado`, productoAEditar.id, productoPut);
+                await productoService.putSec(`${URL}/ArticuloManufacturado`, productoAEditar.id, productoPost, token);
                 id = productoAEditar.id;
             } else {
-                response = await productoService.post(`${URL}/ArticuloManufacturado`, productoPost) as IProducto;
+                response = await productoService.postSec(`${URL}/ArticuloManufacturado`, productoPost, token) as IProducto;
                 id = response.id;
             }
 
@@ -393,16 +411,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
                     container: 'my-swal',
                 },
             });
-
-            if (!isEditMode) {
-                try {
-                    await Promise.all(dataIngredients.map(async (detalle) => {
-                        await productoDetalleService.delete(`${URL}/ArticuloManufacturadoDetalle`, detalle.id);
-                    }));
-                } catch (rollbackError) {
-                    console.error('Error al realizar el rollback:', rollbackError);
-                }
-            }
         }
     };
 
@@ -465,7 +473,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
                                 value={unidadMedidaProducto}
                                 onChange={(e) => setUnidadMedidaProducto(e.target.value as number)}
                                 displayEmpty
-                                disabled={isEditMode}
                             >
                                 <MenuItem disabled value="">
                                     Seleccione una unidad de medida
