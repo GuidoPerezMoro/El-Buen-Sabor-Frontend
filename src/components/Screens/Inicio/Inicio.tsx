@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import ReportesCard from "../../ui/Cards/Reportes/ReportesCard";
 
+//TODO: Cambiar imágenes
 // Contenido para las tarjetas de inicio
 const productosContent = {
   url: "https://images.unsplash.com/photo-1615996001375-c7ef13294436?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

@@ -73,7 +73,7 @@ const BasicSidebar: React.FC = () => {
         style={{ height: "100vh" }}
       >
         <CSidebarNav>
-          {["ADMIN"].includes(rol) && (
+          {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/empresa`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilArrowLeft} />
@@ -84,7 +84,7 @@ const BasicSidebar: React.FC = () => {
           <CNavTitle>
             {empresaNombre} - {sucursalNombre}
           </CNavTitle>
-          {["ADMIN", "COCINERO", "EMPLEADO"].includes(rol) && (
+          {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/dashboard/${sucursalId}`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilBarChart} />
@@ -92,7 +92,7 @@ const BasicSidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "COCINERO", "EMPLEADO"].includes(rol) && (
+          {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavGroup
               toggler={
                 <>
@@ -109,7 +109,7 @@ const BasicSidebar: React.FC = () => {
                   Lista de Productos
                 </Link>
               </CNavItem>
-              {["ADMIN", "EMPLEADO"].includes(rol) && (
+              {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
                 <CNavItem>
                   <Link to={`/categorias/${sucursalId}`} className="nav-link">
                     <span className="nav-icon">
@@ -121,7 +121,7 @@ const BasicSidebar: React.FC = () => {
               )}
             </CNavGroup>
           )}
-          {["ADMIN", "EMPLEADO"].includes(rol) && (
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/promociones/${sucursalId}`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilDollar} />
@@ -129,7 +129,7 @@ const BasicSidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {["ADMIN"].includes(rol) && (
+          {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavGroup
               toggler={
                 <>
@@ -148,7 +148,7 @@ const BasicSidebar: React.FC = () => {
               </CNavItem>
             </CNavGroup>
           )}
-          {["ADMIN", "EMPLEADO"].includes(rol) && (
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/insumos/${sucursalId}`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilCart} />
@@ -156,7 +156,7 @@ const BasicSidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "EMPLEADO"].includes(rol) && (
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/unidadMedida/${sucursalId}`} className="nav-link">
                 <CIcon customClassName="nav-icon" icon={cilSpeedometer} />
