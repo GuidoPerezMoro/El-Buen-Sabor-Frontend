@@ -1,3 +1,4 @@
+// RutaPrivada.tsx
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import IEmpleado from "../../types/Empleado";
@@ -84,7 +85,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
     return <Navigate to="/unauthorized" replace />;
   }
 
-  if (!idSucursal) {
+  if (!idSucursal && rol !== "SUPERADMIN") {
     showModal(
       "Error",
       "El usuario no pertenece a una sucursal, consulte al administrador.",

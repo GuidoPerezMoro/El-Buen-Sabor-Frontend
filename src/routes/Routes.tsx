@@ -1,3 +1,4 @@
+// Rutas.tsx
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BaseNavbar from "../components/ui/common/Navbar/BaseNavbar";
@@ -21,6 +22,7 @@ const Rutas: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const getToken = useAuthToken();
   const [token, setToken] = useState<string | null>(null);
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -45,6 +47,9 @@ const Rutas: React.FC = () => {
   console.log("User:", user);
   console.log("Token:", token);
 
+  const userRoles =
+    user && user[`${audience}/roles`] ? user[`${audience}/roles`] : [];
+
   return (
     <>
       {isAuthenticated && (
@@ -65,13 +70,19 @@ const Rutas: React.FC = () => {
             <Route
               path="/empresa"
               element={
-                <RutaPrivada component={EmpresaComponent} roles={["ADMIN"]} />
+                <RutaPrivada
+                  component={EmpresaComponent}
+                  roles={["ADMIN", "SUPERADMIN"]}
+                />
               }
             />
             <Route
               path="/empresa/:empresaId"
               element={
-                <RutaPrivada component={SucursalComponent} roles={["ADMIN"]} />
+                <RutaPrivada
+                  component={SucursalComponent}
+                  roles={["ADMIN", "SUPERADMIN"]}
+                />
               }
             />
             <Route path="/" element={<SidebarLayout />}>
@@ -80,7 +91,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Inicio}
-                    roles={["ADMIN", "COCINERO", "EMPLEADO"]}
+                    roles={["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"]}
                   />
                 }
               />
@@ -89,7 +100,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Insumo}
-                    roles={["EMPLEADO", "ADMIN"]}
+                    roles={["EMPLEADO", "ADMIN", "SUPERADMIN"]}
                   />
                 }
               />
@@ -98,7 +109,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Producto}
-                    roles={["ADMIN", "COCINERO", "EMPLEADO"]}
+                    roles={["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"]}
                   />
                 }
               />
@@ -107,7 +118,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={UnidadMedida}
-                    roles={["ADMIN", "EMPLEADO"]}
+                    roles={["ADMIN", "EMPLEADO", "SUPERADMIN"]}
                   />
                 }
               />
@@ -116,7 +127,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Categoria}
-                    roles={["ADMIN", "EMPLEADO"]}
+                    roles={["ADMIN", "EMPLEADO", "SUPERADMIN"]}
                   />
                 }
               />
@@ -125,13 +136,18 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Promocion}
-                    roles={["ADMIN", "EMPLEADO"]}
+                    roles={["ADMIN", "EMPLEADO", "SUPERADMIN"]}
                   />
                 }
               />
               <Route
                 path="/empleados/:sucursalId"
-                element={<RutaPrivada component={Empleado} roles={["ADMIN"]} />}
+                element={
+                  <RutaPrivada
+                    component={Empleado}
+                    roles={["ADMIN", "SUPERADMIN"]}
+                  />
+                }
               />
             </Route>
             <Route path="*" element={<Navigate to="/empresa" />} />
