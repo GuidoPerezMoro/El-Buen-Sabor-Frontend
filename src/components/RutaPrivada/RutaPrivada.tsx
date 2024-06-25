@@ -8,11 +8,12 @@ interface RutaPrivadaProps {
   component: React.ComponentType;
   roles?: string[];
 }
+
 const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   component: Component,
   roles,
 }) => {
-  const [, setEmpleado] = useState<IEmpleado | null>(null);
+  const [empleado, setEmpleado] = useState<IEmpleado | null>(null);
   const [idSucursal, setIdSucursal] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const URL = import.meta.env.VITE_API_URL;
@@ -40,7 +41,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
     const fetchEmpleado = async () => {
       if (userDataString) {
         const userData = JSON.parse(userDataString);
-
+        console.log(userData.email);
         if (!userData) {
           setLoading(false);
           return;
@@ -50,12 +51,14 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
           const response = await fetch(
             `${URL}/empleado/findByEmail?email=${userData.email}`
           );
+          console.log(response);
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           const empleadoData: IEmpleado = await response.json();
           setEmpleado(empleadoData);
           setIdSucursal(empleadoData.sucursal.id); // Extraer el id de la sucursal
+          console.log(empleadoData.sucursal.id); // Imprimir directamente el id de la sucursal
         } catch (error) {
           console.error("Error fetching empleado:", error);
         }
@@ -77,14 +80,17 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   const userData = JSON.parse(userDataString);
   const rol = userData[`${audience}/roles`][0];
 
-  if (roles && !roles.includes(rol) && idSucursal) {
-    return <Navigate to={`/dashboard/${idSucursal}`} replace />;
-  } else if (!idSucursal) {
+  if (roles && !roles.includes(rol)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  if (!idSucursal) {
     showModal(
       "Error",
       "El usuario no pertenece a una sucursal, consulte al administrador.",
       "error"
     );
+    return null; // Para prevenir renderizado hasta que el modal sea confirmado
   }
 
   return <Component />;
