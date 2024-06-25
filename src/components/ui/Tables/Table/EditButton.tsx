@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconButton, Tooltip } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import React from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 
 interface EditButtonProps {
   onClick: () => void;

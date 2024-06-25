@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
-import { Search as SearchIcon, Close as CloseIcon } from '@mui/icons-material';
+import { Search as SearchIcon, Close as CloseIcon } from "@mui/icons-material";
 
 interface Props {
   // Función que se llama cuando se realiza una búsqueda.
@@ -9,7 +9,7 @@ interface Props {
 
 const SearchBar: React.FC<Props> = ({ onSearch }) => {
   // Estado local para almacenar la consulta de búsqueda.
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Función para manejar el cambio en la consulta de búsqueda.
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,9 +20,9 @@ const SearchBar: React.FC<Props> = ({ onSearch }) => {
 
   // Función para limpiar la consulta de búsqueda.
   const handleClearSearch = () => {
-    setSearchQuery('');
+    setSearchQuery("");
     // Llama a la función de búsqueda proporcionada por el padre con una cadena vacía.
-    onSearch('');
+    onSearch("");
   };
 
   return (
@@ -46,7 +46,7 @@ const SearchBar: React.FC<Props> = ({ onSearch }) => {
               <SearchIcon />
             </IconButton>
           </InputAdornment>
-        )
+        ),
       }}
     />
   );

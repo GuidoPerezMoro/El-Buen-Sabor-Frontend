@@ -4,73 +4,93 @@ import BaseBar from "../../ui/Charts/BaseBar";
 import BasePie from "../../ui/Charts/BasePie";
 import InicioCard from "../../ui/Cards/InicioCard/InicioCard";
 import { useParams } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
+import ReportesCard from "../../ui/Cards/Reportes/ReportesCard";
 
-
+//TODO: Cambiar imágenes
 // Contenido para las tarjetas de inicio
-const promocionesContent = {
-    url: 'https://www.grandespymes.com.ar/wp-content/uploads/2020/07/promociones.jpg',
-    title: 'Promociones',
-    content: 'Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.',
-};
-
 const productosContent = {
-    url: 'https://www.simplyrecipes.com/thmb/KE6iMblr3R2Db6oE8HdyVsFSj2A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2019__09__easy-pepperoni-pizza-lead-3-1024x682-583b275444104ef189d693a64df625da.jpg',
-    title: 'Productos',
-    content: 'Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.',
+  url: "https://images.unsplash.com/photo-1615996001375-c7ef13294436?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  title: "Productos",
+  content:
+    "Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.",
 };
 
-const insumosContent = {
-    url: 'https://imagenagropecuaria.com/wp-content/uploads/2022/08/comida.j12.jpg',
-    title: 'Insumos',
-    content: 'Agrega, actualiza o elimina los insumos de tu sucursal'
+const empresasContent = {
+  url: "https://images.unsplash.com/photo-1458917524587-d3236cc8c2c8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  title: "Insumos",
+  content: "Agrega, actualiza o elimina los insumos de tu sucursal",
+};
+
+const promocionesContent = {
+  url: "https://images.unsplash.com/photo-1581495701295-13b43b0f4ae8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  title: "Promociones",
+  content:
+    "Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.",
 };
 
 // Estilo para las tarjetas
 const cardStyle = {
-    width: "100%",
-    height: "100%",
+  width: "100%",
+  height: "100%",
 };
 
 //Renderización del componente
 const Inicio: React.FC = () => {
-    const { sucursalId } = useParams<{ sucursalId: string }>();
-    const id = sucursalId || '';
-    return (
-        <Box component="main" sx={{ flexGrow: 1, pt: 10}}>
-            <Container>
-                <Typography component="h1" variant="h5" color="initial" >¡Bienvenido!</Typography>
-                <Grid container spacing={3} sx={{ alignContent: 'center' , justifyContent: 'center'}}>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={cardStyle}>
-                            <InicioCard content={promocionesContent}  sucursalId={id}/>
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={cardStyle}>
-                            <InicioCard content={productosContent}  sucursalId={id} />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                        <Box sx={cardStyle}>
-                            <InicioCard content={insumosContent}  sucursalId={id} />
-                        </Box>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={3} sx={{ py: 2, alignContent: 'center' , justifyContent: 'center' }}>
-                    <Grid item xs={12} md={6}>
-                        <ChartCard title="Gráfico de Pastel">
-                            <BasePie />
-                        </ChartCard>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <ChartCard title="Gráfico de Barras">
-                            <BaseBar />
-                        </ChartCard>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
-    );
+  const { sucursalId } = useParams<{ sucursalId: string }>();
+  const id = sucursalId || "";
+  return (
+    <Box component="main" sx={{ flexGrow: 1, pt: 10 }}>
+      <Container>
+        <Typography component="h1" variant="h5" color="initial">
+          Bienvenido
+        </Typography>
+
+        <Grid
+          container
+          spacing={3}
+          sx={{ py: 2, alignContent: "center", justifyContent: "center" }}
+        >
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ingresos Mensuales">
+              <BaseBar />
+            </ChartCard>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ranking">
+              <BasePie />
+            </ChartCard>
+          </Grid>
+        </Grid>
+
+        <Grid>
+          <ReportesCard />
+        </Grid>
+
+        <Grid
+          container
+          spacing={3}
+          sx={{ alignContent: "center", justifyContent: "center" }}
+        >
+          <Grid item xs={12} md={4}>
+            <Box sx={cardStyle}>
+              <InicioCard content={productosContent} sucursalId={id} />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={cardStyle}>
+              <InicioCard content={empresasContent} sucursalId={id} />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={cardStyle}>
+              <InicioCard content={promocionesContent} sucursalId={id} />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
+  );
 };
 
 export default Inicio;

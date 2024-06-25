@@ -1,17 +1,23 @@
-import React from 'react';
-import { ErrorMessage, Field } from 'formik';
-import { TextField, InputLabel } from '@mui/material'; 
-import './textFieldValue.css'; // Importa el archivo de estilos CSS
+import React from "react";
+import { ErrorMessage, Field } from "formik";
+import { TextField, InputLabel } from "@mui/material";
+import "./textFieldValue.css"; // Importa el archivo de estilos CSS
 
 interface TextFieldValueProps {
   label: string;
   name: string;
   type: string;
   placeholder: string;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
-const TextFieldValue: React.FC<TextFieldValueProps> = ({ label, name, type, placeholder, disabled }) => {
+const TextFieldValue: React.FC<TextFieldValueProps> = ({
+  label,
+  name,
+  type,
+  placeholder,
+  disabled,
+}) => {
   return (
     <div className="text-field-container">
       {/* Utiliza InputLabel de Material-UI */}
@@ -19,7 +25,7 @@ const TextFieldValue: React.FC<TextFieldValueProps> = ({ label, name, type, plac
         {label}
       </InputLabel>
       {/* Renderiza un TextField o un TextArea según el tipo especificado */}
-      {type === 'textarea' ? (
+      {type === "textarea" ? (
         <Field
           as={TextField} // Utiliza TextField como el componente para el campo Field
           variant="outlined" // Añade un borde alrededor del campo
