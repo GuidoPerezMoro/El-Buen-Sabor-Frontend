@@ -2,12 +2,13 @@ import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 
 const ButtonStyle = {
+  display: 'block',
   color: "#E66200",
   position: "relative",
   overflow: "hidden",
   borderRadius: "10%",
-  width: "60px",
-  height: "60px",
+  width: "100px",
+  height: "90px",
   padding: "0",
   border: "2px solid #E66200",
   transition: "background-color 0.3s",
@@ -18,11 +19,13 @@ const ButtonStyle = {
 };
 
 const iconStyle = {
-  position: "absolute",
+  display: 'block',
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   transition: "color 0.3s",
+  marginLeft: '47px',
+  marginTop: '10px'
 };
 
 interface AddButtonProps {
@@ -32,6 +35,7 @@ interface AddButtonProps {
 const AddButton: React.FC<AddButtonProps> = ({ onClick }) => {
   return (
     <Button sx={ButtonStyle} onClick={onClick}>
+      Agregar empresa
       <Add sx={iconStyle} />
     </Button>
   );
