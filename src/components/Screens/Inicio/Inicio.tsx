@@ -49,27 +49,6 @@ const Inicio: React.FC = () => {
         <Grid
           container
           spacing={3}
-          sx={{ py: 2, alignContent: "center", justifyContent: "center" }}
-        >
-          <Grid item xs={12} md={6}>
-            <ChartCard title="Ingresos Mensuales">
-              <BaseBar />
-            </ChartCard>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <ChartCard title="Ranking">
-              <BasePie />
-            </ChartCard>
-          </Grid>
-        </Grid>
-
-        <Grid>
-          <ReportesCard />
-        </Grid>
-
-        <Grid
-          container
-          spacing={3}
           sx={{ alignContent: "center", justifyContent: "center" }}
         >
           <Grid item xs={12} md={4}>
@@ -88,6 +67,29 @@ const Inicio: React.FC = () => {
             </Box>
           </Grid>
         </Grid>
+
+        <Grid
+          container
+          spacing={3}
+          sx={{ py: 2, alignContent: "center", justifyContent: "center" }}
+        >
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ranking">
+              <BasePie />
+            </ChartCard>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ingresos Mensuales">
+              <BaseBar />
+            </ChartCard>
+          </Grid>
+        </Grid>
+
+        <Grid sx={{marginBottom:'20px'}}>
+          <ReportesCard />
+        </Grid>
+
       </Container>
     </Box>
   );

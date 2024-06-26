@@ -69,8 +69,8 @@ const ModalUnidadMedida: React.FC<ModalUnidadMedidaProps> = ({
             type="submit"
             sx={{
               mt: 2,
-              backgroundColor: "#fb6376",
-              "&:hover": { bgcolor: "#d73754" },
+              backgroundColor: "#E66200",
+              "&:hover": { bgcolor: "#BB6201" },
             }}
           >
             {initialData ? "Actualizar" : "Agregar"}

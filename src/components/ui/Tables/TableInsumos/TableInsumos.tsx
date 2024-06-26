@@ -182,9 +182,9 @@ const TableInsumo = () => {
           <Box>
             <Button
               sx={{
-                bgcolor: "#fb6376",
+                bgcolor: "#E66200",
                 "&:hover": {
-                  bgcolor: "#d73754",
+                  bgcolor: "#BB6201",
                 },
                 mr: 1,
                 padding: "10px 20px",
@@ -210,7 +210,7 @@ const TableInsumo = () => {
               minHeight: "80vh",
             }}
           >
-            <CircularProgress sx={{ color: "#fb6376" }} />
+            <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
         ) : filteredData.length === 0 ? ( // Mostrar componente de estado vacío si no hay datos
           <EmptyState
