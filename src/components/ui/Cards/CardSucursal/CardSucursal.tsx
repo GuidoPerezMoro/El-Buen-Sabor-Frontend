@@ -24,21 +24,11 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
         <Typography
           variant="h5"
           component="div"
-          sx={{ color: "#fb6376", fontWeight: "bold" }}
+          sx={{ color: "#E66200", fontWeight: "bold" }}
         >
           {sucursal.nombre}
         </Typography>
         <Divider sx={{ my: 1 }} />
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          <strong>Horario:</strong> {sucursal.horarioApertura} -{" "}
-          {sucursal.horarioCierre}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-          <strong>Dirección:</strong> {sucursal.domicilio.calle}{" "}
-          {sucursal.domicilio.numero},{" "}
-          {sucursal.domicilio.localidad.provincia.nombre},{" "}
-          {sucursal.domicilio.localidad.provincia.pais.nombre}
-        </Typography>
         <Typography variant="body2" color="text.secondary">
           <strong>Casa Matriz:</strong>{" "}
           {sucursal.esCasaMatriz ? (
@@ -47,12 +37,22 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
             <HighlightOff sx={{ color: "#f44336" }} />
           )}
         </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <strong>Dirección:</strong> {sucursal.domicilio.calle}{" "}
+          {sucursal.domicilio.numero},{" "}
+          {sucursal.domicilio.localidad.provincia.nombre},{" "}
+          {sucursal.domicilio.localidad.provincia.pais.nombre}
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <strong>Horario:</strong> {sucursal.horarioApertura} -{" "}
+          {sucursal.horarioCierre}
+        </Typography>
       </CardContent>
       <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
         <Button
           onClick={() => onEdit(sucursal)}
           variant="contained"
-          sx={{ bgcolor: "#fb6376", "&:hover": { bgcolor: "#d73754" }, mr: 1 }}
+          sx={{ bgcolor: "#E66200", "&:hover": { color:'#E66200', bgcolor: "grey", border: '2px solid #E66200' }, mr: 1 }}
           startIcon={<Edit />}
         >
           Editar
@@ -69,7 +69,7 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
           component={Link}
           to={`/dashboard/${sucursal.id}`} // Asegúrate de que esta ruta sea correcta
           variant="contained"
-          sx={{ bgcolor: "#4caf50", "&:hover": { bgcolor: "#388e3c" } }}
+          sx={{ color:'#E66200',bgcolor: "white", border:'2px solid #E66200', "&:hover": { color:'#E66200', bgcolor: "grey", border: '2px solid #E66200' } }}
         >
           Dashboard
         </Button>

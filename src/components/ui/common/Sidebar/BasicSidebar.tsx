@@ -76,18 +76,18 @@ const BasicSidebar: React.FC = () => {
           {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/empresa`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilArrowLeft} />
+                <CIcon customClassName="nav-icon" icon={cilArrowLeft} style={{color:'#E66200'}}/>
                 Volver
               </Link>
             </CNavItem>
           )}
-          <CNavTitle>
+          <CNavTitle style={{color:'#E66200'}}>
             {empresaNombre} - {sucursalNombre}
           </CNavTitle>
           {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/dashboard/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilBarChart} />
+                <CIcon customClassName="nav-icon" icon={cilBarChart} style={{color:'#E66200'}}/>
                 Estadísticas
               </Link>
             </CNavItem>
@@ -96,7 +96,7 @@ const BasicSidebar: React.FC = () => {
             <CNavGroup
               toggler={
                 <>
-                  <CIcon customClassName="nav-icon" icon={cilFastfood} />
+                  <CIcon customClassName="nav-icon" icon={cilFastfood} style={{color:'#E66200'}}/>
                   Productos
                 </>
               }
@@ -124,7 +124,7 @@ const BasicSidebar: React.FC = () => {
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/promociones/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilDollar} />
+                <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#E66200'}}/>
                 Promociones
               </Link>
             </CNavItem>
@@ -133,7 +133,7 @@ const BasicSidebar: React.FC = () => {
             <CNavGroup
               toggler={
                 <>
-                  <CIcon customClassName="nav-icon" icon={cilPeople} />
+                  <CIcon customClassName="nav-icon" icon={cilPeople} style={{color:'#E66200'}}/>
                   Empleados
                 </>
               }
@@ -151,7 +151,7 @@ const BasicSidebar: React.FC = () => {
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/insumos/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilCart} />
+                <CIcon customClassName="nav-icon" icon={cilCart} style={{color:'#E66200'}}/>
                 Insumos
               </Link>
             </CNavItem>
@@ -159,7 +159,7 @@ const BasicSidebar: React.FC = () => {
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
               <Link to={`/unidadMedida/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilSpeedometer} />
+                <CIcon customClassName="nav-icon" icon={cilSpeedometer} style={{color:'#E66200'}}/>
                 Unidad de Medida
               </Link>
             </CNavItem>

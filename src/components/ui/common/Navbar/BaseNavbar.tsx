@@ -51,7 +51,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleLogout}>
         <div>
-          <LoginOutlinedIcon sx={{ mr: 1 }} />
+          <LoginOutlinedIcon sx={{ mr: 1, color:'#E66200'}} />
         </div>
         Cerrar Sesión
       </MenuItem>
@@ -64,7 +64,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ bgcolor: "#fb6376" }}>
+      <AppBar position="static" sx={{ bgcolor: "#E66200" }}>
         <Toolbar>
           <Typography
             variant="h6"

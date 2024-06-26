@@ -99,24 +99,25 @@ const GenericModal: React.FC<ModalProps> = ({
                   onClick={handleClose}
                   style={{
                     marginRight: "10px",
-                    color: "#e91e63",
-                    borderColor: "#e91e63",
+                    color: "white",
+                    backgroundColor: "red",
+                    border: 'none'
                   }}
                 >
-                  Cerrar
+                  <span className="material-symbols-outlined">close</span>
                 </Button>
                 <Button
                   variant="contained"
                   color="primary"
                   type="submit"
                   style={{
-                    backgroundColor: disableSubmit ? "#d3d3d3" : "#e91e63",
+                    backgroundColor: disableSubmit ? "#d3d3d3" : "green",
                     color: "#fff",
                     cursor: disableSubmit ? "not-allowed" : "pointer",
                   }}
                   disabled={disableSubmit}
                 >
-                  {isEditMode ? "Guardar Cambios" : "Añadir"}
+                  {isEditMode ? <span className="material-symbols-outlined">check</span> : <span className="material-symbols-outlined">check</span>}
                 </Button>
               </div>
             </Form>
