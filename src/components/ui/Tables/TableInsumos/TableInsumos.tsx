@@ -86,6 +86,7 @@ const TableInsumo = () => {
       dispatch(toggleModal({ modalName: "modalInsumo" }));
     }
   };
+
   const handleAddInsumo = () => {
     setIsEditing(false);
     setSelectedArticle(initialValue);

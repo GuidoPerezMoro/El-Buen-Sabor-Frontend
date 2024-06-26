@@ -1,3 +1,4 @@
+// BackendClient.ts
 import { AbstractBackendClient } from "./AbstractBackendClient";
 
 export default abstract class BackendClient<T> extends AbstractBackendClient<T> {

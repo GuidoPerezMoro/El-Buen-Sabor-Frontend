@@ -46,7 +46,7 @@ const Categoria: React.FC = () => {
           parseInt(sucursalId)
         )) as any;
         dispatch(setCategoria(categorias));
-        setFilteredData(categorias);
+        filterParentCategories(categorias);
       }
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
@@ -68,17 +68,29 @@ const Categoria: React.FC = () => {
 
   const onSearch = (query: string) => {
     setSearchQuery(query);
-    filterData(query, filter);
+    filterParentCategories(globalCategorias, query, filter);
   };
 
   const onFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFilter = event.target.value;
     setFilter(newFilter);
-    filterData(searchQuery, newFilter);
+    filterParentCategories(globalCategorias, searchQuery, newFilter);
   };
 
-  const filterData = (query: string, filter: string) => {
-    const filtered = globalCategorias.filter((categoria) => {
+  const filterParentCategories = (
+    categorias: ICategoria[],
+    query: string = "",
+    filter: string = "all"
+  ) => {
+    // Extraer los IDs de todas las subcategorías
+    const subCategoryIds = new Set(
+      categorias.flatMap((categoria) =>
+        categoria.subCategorias.map((subCategoria) => subCategoria.id)
+      )
+    );
+
+    // Filtrar solo las categorías que no son subcategorías de ninguna otra categoría
+    const filtered = categorias.filter((categoria) => {
       const matchesSearch = categoria.denominacion
         .toLowerCase()
         .includes(query.toLowerCase());
@@ -86,8 +98,10 @@ const Categoria: React.FC = () => {
         filter === "all" ||
         (filter === "insumo" && categoria.esInsumo) ||
         (filter === "noInsumo" && !categoria.esInsumo);
-      return matchesSearch && matchesFilter;
+      const isParentCategory = !subCategoryIds.has(categoria.id);
+      return matchesSearch && matchesFilter && isParentCategory;
     });
+
     setFilteredData(filtered);
   };
 

@@ -26,7 +26,13 @@ const SimpleCategoriaAccordion: React.FC<CategoriaAccordionProps> = ({
 }) => {
   return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary
+        expandIcon={
+          categoria.subCategorias && categoria.subCategorias.length > 0 ? (
+            <ExpandMoreIcon />
+          ) : null
+        }
+      >
         <Stack direction="row" spacing={2} alignItems="center">
           <Typography>{categoria.denominacion}</Typography>
           {categoria.esInsumo && (

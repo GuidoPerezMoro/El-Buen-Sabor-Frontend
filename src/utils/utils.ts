@@ -1,6 +1,6 @@
+// utils.ts
 import { Dispatch, SetStateAction } from "react";
 import Swal from "sweetalert2";
-
 
 export const onDelete = async (
   item: any,
@@ -62,6 +62,3 @@ export const handleSearch = (
     );
     setData(filtered);
   };
-  
-
-

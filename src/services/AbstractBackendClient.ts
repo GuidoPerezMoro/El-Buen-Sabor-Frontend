@@ -1,3 +1,4 @@
+// AbstractBackendClient.ts
 // Clase abstracta que define métodos para operaciones CRUD en un servicio genérico
 export abstract class AbstractBackendClient<T> {
     // Método abstracto para obtener un elemento por su ID
