@@ -169,9 +169,8 @@ const SucursalesEmpresa = () => {
               },
             }}
             variant="contained"
-            startIcon={<Add />}
           >
-            Sucursales
+            Agregar sucursal
           </Button>
         </Box>
         <Box sx={{ mt: 2 }}>

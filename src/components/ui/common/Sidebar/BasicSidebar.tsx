@@ -8,6 +8,7 @@ import {
   cilPeople,
   cilDollar,
   cilSpeedometer,
+  cilLayers,
 } from "@coreui/icons";
 import CIcon from "@coreui/icons-react";
 import {
@@ -20,6 +21,7 @@ import {
 import "@coreui/coreui/dist/css/coreui.min.css";
 import SucursalService from "../../../../services/SucursalService";
 import ISucursal from "../../../../types/ISucursal";
+import "./BasicSidebar.css";
 
 const BasicSidebar: React.FC = () => {
   const { sucursalId } = useParams<{ sucursalId: string }>();
@@ -70,76 +72,85 @@ const BasicSidebar: React.FC = () => {
     <div>
       <CSidebar
         className="border-end d-flex flex-column"
-        style={{ height: "100vh" }}
+        style={{ height: "100vh", backgroundColor:'#A0A0A0'}}
       >
         <CSidebarNav>
           {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
-              <Link to={`/empresa`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilArrowLeft} style={{color:'#E66200'}}/>
+              <Link to={`/empresa`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilArrowLeft} style={{color:'#FC9300'}}/>
                 Volver
               </Link>
             </CNavItem>
           )}
-          <CNavTitle style={{color:'#E66200'}}>
+
+          <div className="nav-divider"></div>
+          <CNavTitle style={{color:'#FC9300', marginTop:'5px'}}>
             {empresaNombre} - {sucursalNombre}
           </CNavTitle>
+          <div className="nav-divider"></div>
           {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
-              <Link to={`/dashboard/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilBarChart} style={{color:'#E66200'}}/>
+              <Link to={`/dashboard/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilBarChart} style={{color:'#FC9300'}}/>
                 Estadísticas
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
-            <CNavGroup
-              toggler={
-                <>
-                  <CIcon customClassName="nav-icon" icon={cilFastfood} style={{color:'#E66200'}}/>
-                  Productos
-                </>
-              }
-            >
-              <CNavItem>
-                <Link to={`/productos/${sucursalId}`} className="nav-link">
-                  <span className="nav-icon">
-                    <span className="nav-icon-bullet"></span>
-                  </span>
-                  Lista de Productos
-                </Link>
-              </CNavItem>
-              {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
-                <CNavItem>
-                  <Link to={`/categorias/${sucursalId}`} className="nav-link">
-                    <span className="nav-icon">
-                      <span className="nav-icon-bullet"></span>
-                    </span>
-                    Categorías
-                  </Link>
-                </CNavItem>
-              )}
-            </CNavGroup>
-          )}
+          <div className="nav-divider"></div>
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
-              <Link to={`/promociones/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#E66200'}}/>
+              <Link to={`/promociones/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#FC9300'}}/>
                 Promociones
               </Link>
             </CNavItem>
           )}
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+            <CNavItem>
+              <Link to={`/productos/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilFastfood} style={{color:'#FC9300'}}/>
+                Productos
+              </Link>
+            </CNavItem>
+          )}
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+            <CNavItem>
+              <Link to={`/insumos/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilCart} style={{color:'#FC9300'}}/>
+                Insumos
+              </Link>
+            </CNavItem>
+          )}
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+            <CNavItem>
+              <Link to={`/categorias/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilLayers} style={{color:'#FC9300'}}/>
+                Categorias
+              </Link>
+            </CNavItem>
+          )}
+          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+            <CNavItem>
+              <Link to={`/unidadMedida/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
+                <CIcon customClassName="nav-icon" icon={cilSpeedometer} style={{color:'#FC9300'}}/>
+                Unidad de Medida
+              </Link>
+            </CNavItem>
+          )}
+          <div className="nav-divider"></div>
           {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavGroup
+              style={{border:'1px solid #BCBCBC'}}
               toggler={
                 <>
-                  <CIcon customClassName="nav-icon" icon={cilPeople} style={{color:'#E66200'}}/>
-                  Empleados
+                  <CIcon customClassName="nav-icon" icon={cilPeople} style={{color:'#FC9300'}}/>
+                  <h6 style={{color:'white'}}>Empleados</h6>
                 </>
               }
             >
               <CNavItem>
-                <Link to={`/empleados/${sucursalId}`} className="nav-link">
+                <Link to={`/empleados/${sucursalId}`} className="nav-link" style={{color:'white'}}>
                   <span className="nav-icon">
                     <span className="nav-icon-bullet"></span>
                   </span>
@@ -147,22 +158,6 @@ const BasicSidebar: React.FC = () => {
                 </Link>
               </CNavItem>
             </CNavGroup>
-          )}
-          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
-            <CNavItem>
-              <Link to={`/insumos/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilCart} style={{color:'#E66200'}}/>
-                Insumos
-              </Link>
-            </CNavItem>
-          )}
-          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
-            <CNavItem>
-              <Link to={`/unidadMedida/${sucursalId}`} className="nav-link">
-                <CIcon customClassName="nav-icon" icon={cilSpeedometer} style={{color:'#E66200'}}/>
-                Unidad de Medida
-              </Link>
-            </CNavItem>
           )}
         </CSidebarNav>
       </CSidebar>

@@ -136,16 +136,16 @@ const Categoria: React.FC = () => {
           <Button
             variant="contained"
             color="secondary"
-            startIcon={<AddIcon />}
             sx={{
               backgroundColor: "#E66200",
               "&:hover": {
                 bgcolor: "#BB6201",
               },
+              fontSize: "1.0rem"
             }}
             onClick={handleAddCategoria}
           >
-            Añadir Categoría
+            Agregar Categoría
           </Button>
         </Box>
         <Box

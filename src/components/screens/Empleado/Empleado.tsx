@@ -171,10 +171,9 @@ const Empleado = () => {
                 fontSize: "1.0rem",
               }}
               variant="contained"
-              startIcon={<Add />}
               onClick={handleAddEmpleado}
             >
-              Empleado
+              Agregar Empleado
             </Button>
           </Box>
         </Box>

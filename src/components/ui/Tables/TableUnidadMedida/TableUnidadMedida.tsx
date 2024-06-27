@@ -146,15 +146,15 @@ const TableUnidadMedida: React.FC = () => {
           variant="contained"
           color="secondary"
           onClick={handleModalOpen}
-          startIcon={<Add />}
           sx={{
             backgroundColor: "#E66200",
             "&:hover": {
               bgcolor: "#BB6201",
             },
+            fontSize: "1.0rem"
           }}
         >
-        Unidad de Medida
+        Agregar unidad de medida
         </Button>
       </Box>
 

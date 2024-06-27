@@ -191,10 +191,9 @@ const TableInsumo = () => {
                 fontSize: "1.0rem",
               }}
               variant="contained"
-              startIcon={<Add />}
               onClick={handleAddInsumo}
             >
-              Insumo
+              Agregar Insumo
             </Button>
           </Box>
         </Box>

@@ -187,7 +187,6 @@ const Producto = () => {
             <Button
               onClick={handleAddProducto}
               variant="contained"
-              startIcon={<Add />}
               sx={{
                 bgcolor: "#E66200",
                 "&:hover": {
@@ -197,7 +196,7 @@ const Producto = () => {
                 fontSize: "1.0rem",
               }}
             >
-              Producto
+              Agregar Producto
             </Button>
           )}
         </Box>
