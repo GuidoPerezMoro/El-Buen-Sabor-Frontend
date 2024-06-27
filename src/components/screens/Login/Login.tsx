@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Gradient } from "@mui/icons-material";
 
 const LoginPage = () => {
   const { loginWithRedirect } = useAuth0();
@@ -8,7 +7,8 @@ const LoginPage = () => {
   return (
     <Box
       sx={{
-        background: 'radial-gradient(circle, rgb(129, 129, 129) 0%, rgb(48, 48, 48) 100%)',
+        background:
+          "radial-gradient(circle, rgb(129, 129, 129) 0%, rgb(48, 48, 48) 100%)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         minHeight: "100vh",
@@ -26,10 +26,10 @@ const LoginPage = () => {
         }}
       >
         <Typography variant="h4" sx={{ marginBottom: "16px" }} gutterBottom>
-          Registrate
+          El Buen Sabor
         </Typography>
         <Typography variant="body1" sx={{ marginBottom: "32px" }} paragraph>
-          Inicia sesion para ingresar a la aplicación.
+          Inicia sesión para ingresar a la aplicación.
         </Typography>
         <Button
           variant="contained"

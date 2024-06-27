@@ -82,7 +82,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   const rol = userData[`${audience}/roles`][0];
 
   if (roles && !roles.includes(rol)) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/dashboard/1" replace />;
   }
 
   if (!idSucursal && rol !== "SUPERADMIN") {

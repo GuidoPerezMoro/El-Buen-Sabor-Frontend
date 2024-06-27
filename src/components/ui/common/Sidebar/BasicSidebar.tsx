@@ -72,18 +72,25 @@ const BasicSidebar: React.FC = () => {
     <div>
       <CSidebar
         className="border-end d-flex flex-column"
-        style={{ height: "100vh", backgroundColor:'#A0A0A0'}}
+        style={{ height: "100vh", backgroundColor: "#A0A0A0" }}
       >
         <CSidebarNav>
-
-          <CNavTitle style={{color:'#FC9300', marginTop:'0px'}}>
+          <CNavTitle style={{ color: "#FC9300", marginTop: "0px" }}>
             {empresaNombre} - {sucursalNombre}
           </CNavTitle>
-          <div className="nav-divider"style={{marginTop:'2px'}}></div>
-          {["ADMIN", "COCINERO", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+          <div className="nav-divider" style={{ marginTop: "2px" }}></div>
+          {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavItem>
-              <Link to={`/dashboard/${sucursalId}`} className="nav-link" style={{border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilBarChart} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/dashboard/${sucursalId}`}
+                className="nav-link"
+                style={{ border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilBarChart}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Estadisticas</h6>
               </Link>
             </CNavItem>
@@ -91,40 +98,80 @@ const BasicSidebar: React.FC = () => {
           <div className="nav-divider"></div>
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
-              <Link to={`/promociones/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilDollar} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/promociones/${sucursalId}`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilDollar}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Promociones</h6>
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+          {["ADMIN", "EMPLEADO", "COCINERO", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
-              <Link to={`/productos/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilFastfood} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/productos/${sucursalId}`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilFastfood}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Productos</h6>
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+          {["ADMIN", "EMPLEADO", "COCINERO", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
-              <Link to={`/insumos/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilCart} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/insumos/${sucursalId}`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilCart}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Insumos</h6>
               </Link>
             </CNavItem>
           )}
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
-              <Link to={`/categorias/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilLayers} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/categorias/${sucursalId}`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilLayers}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Categorias</h6>
               </Link>
             </CNavItem>
           )}
           {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
-              <Link to={`/unidadMedida/${sucursalId}`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilSpeedometer} style={{color:'#FC9300'}}/>
+              <Link
+                to={`/unidadMedida/${sucursalId}`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilSpeedometer}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Unidad de medida</h6>
               </Link>
             </CNavItem>
@@ -132,16 +179,24 @@ const BasicSidebar: React.FC = () => {
           <div className="nav-divider"></div>
           {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavGroup
-              style={{border:'1px solid #BCBCBC', marginBottom:'5px'}}
+              style={{ border: "1px solid #BCBCBC", marginBottom: "5px" }}
               toggler={
                 <>
-                  <CIcon customClassName="nav-icon" icon={cilPeople} style={{color:'#FC9300'}}/>
+                  <CIcon
+                    customClassName="nav-icon"
+                    icon={cilPeople}
+                    style={{ color: "#FC9300" }}
+                  />
                   <h6 className="navlink2">Empleados</h6>
                 </>
               }
             >
               <CNavItem>
-                <Link to={`/empleados/${sucursalId}`} className="nav-link" style={{color:'white'}}>
+                <Link
+                  to={`/empleados/${sucursalId}`}
+                  className="nav-link"
+                  style={{ color: "white" }}
+                >
                   <span className="nav-icon">
                     <span className="nav-icon-bullet"></span>
                   </span>
@@ -150,11 +205,19 @@ const BasicSidebar: React.FC = () => {
               </CNavItem>
             </CNavGroup>
           )}
-          <div className="nav-divider" style={{marginTop:'2px'}}></div>
-          {["ADMIN", "SUPERADMIN"].includes(rol) && (
-            <CNavItem style={{marginTop:'50px'}}>
-              <Link to={`/empresa`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
-                <CIcon customClassName="nav-icon" icon={cilArrowLeft} style={{color:'#FC9300'}}/>
+          <div className="nav-divider" style={{ marginTop: "2px" }}></div>
+          {["SUPERADMIN"].includes(rol) && (
+            <CNavItem style={{ marginTop: "50px" }}>
+              <Link
+                to={`/empresa`}
+                className="nav-link"
+                style={{ color: "white", border: "1px solid #BCBCBC" }}
+              >
+                <CIcon
+                  customClassName="nav-icon"
+                  icon={cilArrowLeft}
+                  style={{ color: "#FC9300" }}
+                />
                 <h6 className="navlink2">Salir</h6>
               </Link>
             </CNavItem>

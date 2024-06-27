@@ -506,8 +506,12 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
       isEditMode={isEditMode}
       disableSubmit={disableSubmit}
     >
-      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px'}}>
-
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginTop: "1px" }}
+      >
         <Grid item xs={6}>
           <TextFieldValue
             label="Nombre"
@@ -535,7 +539,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
                 disabled={isEditMode}
               >
                 <MenuItem disabled value="">
-                  Seleccione una categoría de producto
+                  Seleccione la categoría de producto
                 </MenuItem>
                 {categoriaProductoOptions.map((categoria) => (
                   <MenuItem key={categoria.id} value={categoria.id}>
@@ -546,11 +550,14 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             </FormControl>
           </Box>
         </Grid>
-
       </Grid>
 
-      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px'}}>
-
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginTop: "1px" }}
+      >
         <Grid item xs={12}>
           <TextFieldValue
             label="Descripción"
@@ -559,11 +566,14 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             placeholder="Descripción"
           />
         </Grid>
-
       </Grid>
 
-      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px', marginBottom:'10px'}}>
-
+      <Grid
+        container
+        spacing={2}
+        alignItems="center"
+        style={{ marginTop: "1px", marginBottom: "10px" }}
+      >
         <Grid item xs={4}>
           <TextFieldValue
             label="Precio de venta"
@@ -598,7 +608,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
                 displayEmpty
               >
                 <MenuItem disabled value="">
-                  Seleccione una unidad de medida
+                  Seleccione la unidad de medida
                 </MenuItem>
                 {unidadMedidaOptions.map((unidad) => (
                   <MenuItem key={unidad.id} value={unidad.id}>
@@ -609,7 +619,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             </FormControl>
           </Box>
         </Grid>
-
       </Grid>
 
       <TextFieldValue
@@ -726,7 +735,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          marginBottom:'15px'
+          marginBottom: "15px",
         }}
       >
         <Button
@@ -788,7 +797,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             </div>
           )}
       </Box>
-
     </GenericModal>
   );
 };

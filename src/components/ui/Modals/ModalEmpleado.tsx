@@ -9,7 +9,7 @@ import EmpleadoPost from "../../../types/post/EmpleadoPost";
 import IEmpleado from "../../../types/Empleado";
 import useAuthToken from "../../../hooks/useAuthToken";
 
-const roleNames: string[] = ["CAJERO", "COCINERO", "EMPLEADO"];
+const roleNames: string[] = ["ADMIN", "EMPLEADO", "COCINERO"];
 
 interface ModalEmpleadoProps {
   modalName: string;

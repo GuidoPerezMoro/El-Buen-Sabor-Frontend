@@ -146,21 +146,7 @@ const Categoria: React.FC = () => {
             mb: 2,
           }}
         >
-          <Typography variant="h4">Categoría</Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={{
-              backgroundColor: "#E66200",
-              "&:hover": {
-                bgcolor: "#BB6201",
-              },
-              fontSize: "1.0rem"
-            }}
-            onClick={handleAddCategoria}
-          >
-            Agregar Categoría
-          </Button>
+          <Typography variant="h4">Categorías</Typography>
         </Box>
         <Box
           sx={{
@@ -170,19 +156,42 @@ const Categoria: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <SearchBar onSearch={onSearch} />
-          <TextField
-            select
-            value={filter}
-            onChange={onFilterChange}
-            label="Filtrar por"
-            variant="outlined"
-            sx={{ minWidth: 200 }}
-          >
-            <MenuItem value="all">Todos</MenuItem>
-            <MenuItem value="insumo">Insumos</MenuItem>
-            <MenuItem value="noInsumo">No Insumos</MenuItem>
-          </TextField>
+          <Box display="flex" alignItems="center" sx={{ width: "100%" }}>
+            <Box sx={{ flex: 1, minWidth: "25%" }}>
+              <SearchBar onSearch={onSearch} />
+            </Box>
+            <Box sx={{ mx: 2 }} /> {/* Espacio horizontal */}
+            <TextField
+              select
+              value={filter}
+              onChange={onFilterChange}
+              label="Filtrar por"
+              variant="outlined"
+              sx={{ flex: 1, maxWidth: "20%" }}
+            >
+              <MenuItem value="all">Todos</MenuItem>
+              <MenuItem value="insumo">Insumos</MenuItem>
+              <MenuItem value="noInsumo">No Insumos</MenuItem>
+            </TextField>
+            <Box sx={{ mx: 2 }} /> {/* Espacio horizontal */}
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                flex: 1,
+                minWidth: "25%",
+                maxWidth: "25%",
+                backgroundColor: "#E66200",
+                "&:hover": {
+                  bgcolor: "#BB6201",
+                },
+                fontSize: "1.0rem",
+              }}
+              onClick={handleAddCategoria}
+            >
+              Agregar Categoría
+            </Button>
+          </Box>
         </Box>
         {isLoading ? (
           <Box

@@ -66,7 +66,7 @@ const Rutas: React.FC = () => {
           </>
         ) : (
           <>
-            <Route path="/" element={<Navigate to="/empresa" />} />
+            <Route path="/" element={<Navigate to="/dashboard/1" />} />
             <Route
               path="/empresa"
               element={
@@ -100,7 +100,7 @@ const Rutas: React.FC = () => {
                 element={
                   <RutaPrivada
                     component={Insumo}
-                    roles={["EMPLEADO", "ADMIN", "SUPERADMIN"]}
+                    roles={["ADMIN", "EMPLEADO", "COCINERO", "SUPERADMIN"]}
                   />
                 }
               />
@@ -150,7 +150,7 @@ const Rutas: React.FC = () => {
                 }
               />
             </Route>
-            <Route path="*" element={<Navigate to="/empresa" />} />
+            <Route path="*" element={<Navigate to="/dashboard/1" />} />
           </>
         )}
       </Routes>
