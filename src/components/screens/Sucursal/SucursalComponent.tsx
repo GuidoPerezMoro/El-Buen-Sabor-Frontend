@@ -8,7 +8,7 @@ import {
   Grid,
   Tooltip,
 } from "@mui/material";
-import { Add, ArrowBack } from "@mui/icons-material";
+import { ArrowBack } from "@mui/icons-material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import EmpresaService from "../../../services/EmpresaService";
@@ -163,9 +163,9 @@ const SucursalesEmpresa = () => {
             sx={{
               bgcolor: "#E66200",
               "&:hover": {
-                color:'#E66200',
+                color: "#E66200",
                 bgcolor: "white",
-                border: '2px solid #E66200'
+                border: "2px solid #E66200",
               },
             }}
             variant="contained"

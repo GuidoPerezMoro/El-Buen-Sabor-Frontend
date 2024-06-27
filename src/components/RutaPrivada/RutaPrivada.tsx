@@ -14,7 +14,7 @@ const RutaPrivada: React.FC<RutaPrivadaProps> = ({
   component: Component,
   roles,
 }) => {
-  const [empleado, setEmpleado] = useState<IEmpleado | null>(null);
+  const [, setEmpleado] = useState<IEmpleado | null>(null);
   const [idSucursal, setIdSucursal] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const URL = import.meta.env.VITE_API_URL;

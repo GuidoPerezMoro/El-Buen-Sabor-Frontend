@@ -9,7 +9,6 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import ICategoria from "../../../types/ICategoria";
 import { setCategoria } from "../../../redux/slices/CategoriaReducer";

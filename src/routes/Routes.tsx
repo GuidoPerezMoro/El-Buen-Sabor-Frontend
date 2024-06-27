@@ -22,7 +22,7 @@ const Rutas: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const getToken = useAuthToken();
   const [token, setToken] = useState<string | null>(null);
-  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+  //const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -46,9 +46,6 @@ const Rutas: React.FC = () => {
   localStorage.setItem("usuario", JSON.stringify(user));
   console.log("User:", user);
   console.log("Token:", token);
-
-  const userRoles =
-    user && user[`${audience}/roles`] ? user[`${audience}/roles`] : [];
 
   return (
     <>

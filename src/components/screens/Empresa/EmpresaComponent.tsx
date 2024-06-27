@@ -5,7 +5,7 @@ import {
   Container,
   CircularProgress,
 } from "@mui/material";
-import { AddCircle, Visibility } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setEmpresa } from "../../../redux/slices/EmpresaReducer";
@@ -76,10 +76,10 @@ const EmpresaComponent: React.FC = () => {
     dispatch(toggleModal({ modalName: "modal" }));
   };
 
-  const handleAddSucursal = (empresa: Empresa) => {
-    dispatch(toggleModal({ modalName: "modalSucursal" }));
-    setEmpresaEditar(empresa);
-  };
+  // const handleAddSucursal = (empresa: Empresa) => {
+  //   dispatch(toggleModal({ modalName: "modalSucursal" }));
+  //   setEmpresaEditar(empresa);
+  // };
 
   const generateInitialSucursal = (idEmpresa: number): SucursalPost => {
     return {
@@ -102,7 +102,7 @@ const EmpresaComponent: React.FC = () => {
   return (
     <Box component="main" sx={{ flexGrow: 1, my: 11 }}>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <AddButton onClick={handleAddEmpresa} />
         {!isLoading && globalEmpresas.length === 0 ? (
@@ -122,7 +122,7 @@ const EmpresaComponent: React.FC = () => {
                 subtitle={empresa.razonSocial}
                 actions={[
                   {
-                    icon: <EditIcon style={{color:'#E66200'}}/>,
+                    icon: <EditIcon style={{ color: "#E66200" }} />,
                     tooltip: "Editar",
                     onClick: () => handleEdit(empresa),
                   },
@@ -153,7 +153,7 @@ const EmpresaComponent: React.FC = () => {
                   >
                     Sucursales
                   </Button>*/}
-                  
+
                   <Button
                     startIcon={<Visibility />}
                     onClick={() => {
@@ -165,7 +165,11 @@ const EmpresaComponent: React.FC = () => {
                       backgroundColor: "#E66200",
                       fontSize: "0.70rem",
                       padding: "9px 15px",
-                      "&:hover": {color:'#E66200', backgroundColor: "white", border:'2px solid #E66200' },
+                      "&:hover": {
+                        color: "#E66200",
+                        backgroundColor: "white",
+                        border: "2px solid #E66200",
+                      },
                     }}
                   >
                     Sucursales
