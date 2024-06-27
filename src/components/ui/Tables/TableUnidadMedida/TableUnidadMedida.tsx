@@ -6,6 +6,7 @@ import {
   Typography,
   Alert,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import TableComponent from "../Table/Table";
 import { IUnidadMedida } from "../../../../types/IUnidadMedida";
@@ -68,9 +69,9 @@ const TableUnidadMedida: React.FC = () => {
         setUnits(updatedUnits);
         swal.fire({
           icon: "success",
-          title: "¡Éxito!",
+          title: "¡Perfecto!",
           text: "La unidad de medida ha sido actualizada correctamente",
-          confirmButtonColor: "#fb6376",
+          confirmButtonColor: "#E66200",
         });
       } else {
         unit.id = Date.now();
@@ -78,9 +79,9 @@ const TableUnidadMedida: React.FC = () => {
         setUnits([...units, unit]);
         swal.fire({
           icon: "success",
-          title: "¡Éxito!",
+          title: "¡Perfecto!",
           text: "La unidad de medida ha sido agregada correctamente",
-          confirmButtonColor: "#fb6376",
+          confirmButtonColor: "#E66200",
         });
       }
       handleModalClose();
@@ -145,15 +146,15 @@ const TableUnidadMedida: React.FC = () => {
           variant="contained"
           color="secondary"
           onClick={handleModalOpen}
-          startIcon={<Add />}
           sx={{
             backgroundColor: "#E66200",
             "&:hover": {
               bgcolor: "#BB6201",
             },
+            fontSize: "1.0rem"
           }}
         >
-          Unidad de Medida
+        Agregar unidad de medida
         </Button>
       </Box>
 
@@ -170,8 +171,8 @@ const TableUnidadMedida: React.FC = () => {
       {filteredUnits.length === 0 ? (
         <Box sx={{ my: 5 }}>
           <EmptyState
-            title="No hay unidades de medida"
-            description="Agrega nuevas unidades de medida para comenzar"
+            title="¡No tienes unidades de medida!"
+            description="Genera unidades de medida con el formulario."
           />
         </Box>
       ) : (

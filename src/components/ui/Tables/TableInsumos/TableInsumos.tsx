@@ -192,10 +192,9 @@ const TableInsumo = () => {
                 fontSize: "1.0rem",
               }}
               variant="contained"
-              startIcon={<Add />}
               onClick={handleAddInsumo}
             >
-              Insumo
+              Agregar Insumo
             </Button>
           </Box>
         </Box>
@@ -215,8 +214,8 @@ const TableInsumo = () => {
           </Box>
         ) : filteredData.length === 0 ? ( // Mostrar componente de estado vacío si no hay datos
           <EmptyState
-            title="No hay insumos cargados"
-            description="Agrega nuevos insumos utilizando el formulario."
+            title="¡No tienes insumos!"
+            description="Genera insumos con el formulario."
           />
         ) : (
           <TableComponent

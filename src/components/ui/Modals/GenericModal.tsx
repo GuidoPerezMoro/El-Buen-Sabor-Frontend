@@ -72,8 +72,8 @@ const GenericModal: React.FC<ModalProps> = ({
         style={{
           backgroundColor: "white",
           padding: "20px",
-          width: "50%",
-          height: "60%",
+          width: "60%",
+          height: "70%",
           borderRadius: "8px",
           overflow: "auto",
         }}

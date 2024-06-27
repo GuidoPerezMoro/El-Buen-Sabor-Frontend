@@ -71,7 +71,7 @@ const CardSucursal: React.FC<CardSucursalProps> = ({ sucursal, onEdit }) => {
           variant="contained"
           sx={{ color:'#E66200',bgcolor: "white", border:'2px solid #E66200', "&:hover": { color:'#E66200', bgcolor: "grey", border: '2px solid #E66200' } }}
         >
-          Dashboard
+          Ingresar
         </Button>
       </Box>
     </Card>

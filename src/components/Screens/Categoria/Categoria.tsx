@@ -150,16 +150,16 @@ const Categoria: React.FC = () => {
           <Button
             variant="contained"
             color="secondary"
-            startIcon={<AddIcon />}
             sx={{
               backgroundColor: "#E66200",
               "&:hover": {
                 bgcolor: "#BB6201",
               },
+              fontSize: "1.0rem"
             }}
             onClick={handleAddCategoria}
           >
-            Añadir Categoría
+            Agregar Categoría
           </Button>
         </Box>
         <Box
@@ -197,8 +197,8 @@ const Categoria: React.FC = () => {
           </Box>
         ) : filteredData.length === 0 ? (
           <EmptyState
-            title="No hay categorias cargadas"
-            description="Agrega nuevas categorias utilizando el formulario."
+            title="¡No tienes categorias!"
+            description="Genera categorias con el formulario."
           />
         ) : (
           <Stack direction="column" spacing={1} mt={2}>

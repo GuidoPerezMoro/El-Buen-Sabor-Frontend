@@ -506,8 +506,9 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
       isEditMode={isEditMode}
       disableSubmit={disableSubmit}
     >
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={4}>
+      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px'}}>
+
+        <Grid item xs={6}>
           <TextFieldValue
             label="Nombre"
             name="denominacion"
@@ -516,61 +517,9 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             disabled={isEditMode}
           />
         </Grid>
-        <Grid item xs={4}>
-          <TextFieldValue
-            label="Descripción"
-            name="descripcion"
-            type="text"
-            placeholder="Descripción"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextFieldValue
-            label="Precio de venta"
-            name="precioVenta"
-            type="number"
-            placeholder="Precio"
-          />
-        </Grid>
-      </Grid>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={4}>
-          <TextFieldValue
-            label="Tiempo Estimado (minutos)"
-            name="tiempoEstimadoMinutos"
-            type="number"
-            placeholder="Tiempo Estimado"
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <Box mt={2}>
-            <FormControl fullWidth>
-              <label className="label" style={{ color: "grey" }}>
-                Unidad de Medida del Producto
-              </label>
-              <Select
-                labelId="unidadMedidaProductoLabel"
-                id="unidadMedidaProducto"
-                value={unidadMedidaProducto}
-                onChange={(e) =>
-                  setUnidadMedidaProducto(e.target.value as number)
-                }
-                displayEmpty
-              >
-                <MenuItem disabled value="">
-                  Seleccione una unidad de medida
-                </MenuItem>
-                {unidadMedidaOptions.map((unidad) => (
-                  <MenuItem key={unidad.id} value={unidad.id}>
-                    {unidad.denominacion}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-        <Grid item xs={4}>
-          <Box mt={2}>
+
+        <Grid item xs={6}>
+          <Box mt={0}>
             <FormControl fullWidth>
               <label className="label" style={{ color: "grey" }}>
                 Categoría del Producto
@@ -597,6 +546,70 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
             </FormControl>
           </Box>
         </Grid>
+
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px'}}>
+
+        <Grid item xs={12}>
+          <TextFieldValue
+            label="Descripción"
+            name="descripcion"
+            type="textarea"
+            placeholder="Descripción"
+          />
+        </Grid>
+
+      </Grid>
+
+      <Grid container spacing={2} alignItems="center" style={{marginTop:'1px', marginBottom:'10px'}}>
+
+        <Grid item xs={4}>
+          <TextFieldValue
+            label="Precio de venta"
+            name="precioVenta"
+            type="number"
+            placeholder="Precio"
+          />
+        </Grid>
+
+        <Grid item xs={4}>
+          <TextFieldValue
+            label="Tiempo Estimado (minutos)"
+            name="tiempoEstimadoMinutos"
+            type="number"
+            placeholder="Tiempo Estimado"
+          />
+        </Grid>
+
+        <Grid item xs={4}>
+          <Box mt={0}>
+            <FormControl fullWidth>
+              <label className="label" style={{ color: "grey" }}>
+                Unidad de Medida del Producto
+              </label>
+              <Select
+                labelId="unidadMedidaProductoLabel"
+                id="unidadMedidaProducto"
+                value={unidadMedidaProducto}
+                onChange={(e) =>
+                  setUnidadMedidaProducto(e.target.value as number)
+                }
+                displayEmpty
+              >
+                <MenuItem disabled value="">
+                  Seleccione una unidad de medida
+                </MenuItem>
+                {unidadMedidaOptions.map((unidad) => (
+                  <MenuItem key={unidad.id} value={unidad.id}>
+                    {unidad.denominacion}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
+
       </Grid>
 
       <TextFieldValue
@@ -605,74 +618,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         type="textarea"
         placeholder="Preparación"
       />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
-      >
-        <Button
-          variant="contained"
-          component="label"
-          startIcon={<PhotoCamera />}
-          sx={{
-            my: 2,
-            bgcolor: "#E66200",
-            "&:hover": {
-              bgcolor: "#BB6201",
-            },
-          }}
-        >
-          Subir Imágenes
-          <input type="file" hidden onChange={handleFileChange} multiple />
-        </Button>
-        {isEditMode &&
-          productoAEditar &&
-          productoAEditar?.imagenes.length > 0 && (
-            <div>
-              <Typography variant="h5" sx={{ mb: 1 }}>
-                Imágenes del producto
-              </Typography>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                {productoAEditar?.imagenes.map((image) => (
-                  <Card
-                    key={image.id}
-                    style={{
-                      position: "relative",
-                      width: "100px",
-                      height: "100px",
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      image={image.url}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                    <CardActions
-                      style={{ position: "absolute", top: 0, right: 0 }}
-                    >
-                      <IconButton
-                        style={{ color: "red" }}
-                        onClick={() =>
-                          handleDeleteImg(image.url, image.id.toString())
-                        }
-                      >
-                        <Delete />
-                      </IconButton>
-                    </CardActions>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          )}
-      </Box>
 
       <Typography variant="h6" align="center" gutterBottom sx={{ my: 2 }}>
         Ingredientes
@@ -756,18 +701,94 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
               variant="contained"
               color="primary"
               disabled={!selectedInsumoId || cantidadInsumo <= 0}
-              sx={{ color: "#fff", backgroundColor: "#E66200","&:hover": { bgcolor: "#BB6201"} }}
+              sx={{
+                color: "#fff",
+                backgroundColor: "#E66200",
+                "&:hover": { bgcolor: "#BB6201" },
+              }}
             >
               Añadir
             </Button>
           </Grid>
         </Grid>
       </Box>
+
       <TableComponent
         data={dataIngredients}
         columns={columns}
         onDelete={onDeleteProductoDetalle}
       />
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          marginBottom:'15px'
+        }}
+      >
+        <Button
+          variant="contained"
+          component="label"
+          startIcon={<PhotoCamera />}
+          sx={{
+            my: 2,
+            bgcolor: "#E66200",
+            "&:hover": {
+              bgcolor: "#BB6201",
+            },
+          }}
+        >
+          Subir Imágenes
+          <input type="file" hidden onChange={handleFileChange} multiple />
+        </Button>
+        {isEditMode &&
+          productoAEditar &&
+          productoAEditar?.imagenes.length > 0 && (
+            <div>
+              <Typography variant="h5" sx={{ mb: 1 }}>
+                Imágenes del producto
+              </Typography>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+                {productoAEditar?.imagenes.map((image) => (
+                  <Card
+                    key={image.id}
+                    style={{
+                      position: "relative",
+                      width: "100px",
+                      height: "100px",
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      image={image.url}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <CardActions
+                      style={{ position: "absolute", top: 0, right: 0 }}
+                    >
+                      <IconButton
+                        style={{ color: "red" }}
+                        onClick={() =>
+                          handleDeleteImg(image.url, image.id.toString())
+                        }
+                      >
+                        <Delete />
+                      </IconButton>
+                    </CardActions>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+      </Box>
+
     </GenericModal>
   );
 };

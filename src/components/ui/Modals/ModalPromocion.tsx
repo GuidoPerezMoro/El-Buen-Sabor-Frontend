@@ -476,12 +476,33 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <TextFieldValue
+              name="horaDesde"
+              type="time"
+              placeholder="Hora Desde"
+              label="Hora de inicio"
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextFieldValue
               name="fechaDesde"
               type="date"
               placeholder="Fecha Desde"
               label="Fecha de inicio"
             />
           </Grid>
+        </Grid>
+
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextFieldValue
+              name="horaHasta"
+              type="time"
+              placeholder="Hora Hasta"
+              label="Hora de Fin"
+            />
+          </Grid>
+
           <Grid item xs={12} sm={6}>
             <TextFieldValue
               name="fechaHasta"
@@ -491,35 +512,32 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
             />
           </Grid>
         </Grid>
+
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextFieldValue
-              name="horaDesde"
-              type="time"
-              placeholder="Hora Desde"
-              label="Hora de inicio"
-            />
+          <Grid item xs={12} sm={6} style={{ marginTop: "22px" }}>
+            <FormControl fullWidth>
+              <InputLabel id="select-tipo-promocion-label">
+                Tipo de Promoción
+              </InputLabel>
+              <Select
+                labelId="select-tipo-promocion-label"
+                id="select-tipo-promocion"
+                value={tipoPromocion}
+                onChange={handleTipoPromocionChange}
+                label="Tipo de Promoción"
+                name="tipoPromocion"
+                disabled={isEditMode}
+              >
+                {Object.values(TipoPromocion).map((tipo) => (
+                  <MenuItem key={tipo} value={tipo}>
+                    {tipo}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextFieldValue
-              name="horaHasta"
-              type="time"
-              placeholder="Hora Hasta"
-              label="Hora de Fin"
-            />
-          </Grid>
-        </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextFieldValue
-              label="Descripción del Descuento"
-              name="descripcionDescuento"
-              type="text"
-              placeholder="Descripcion Descuento"
-              disabled={isEditMode}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+
+          <Grid item xs={10} sm={6}>
             <TextFieldValue
               label="Precio Promocional"
               name="precioPromocional"
@@ -528,26 +546,57 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
             />
           </Grid>
         </Grid>
-        <FormControl fullWidth>
-          <InputLabel id="select-tipo-promocion-label">
-            Tipo de Promoción
-          </InputLabel>
-          <Select
-            labelId="select-tipo-promocion-label"
-            id="select-tipo-promocion"
-            value={tipoPromocion}
-            onChange={handleTipoPromocionChange}
-            label="Tipo de Promoción"
-            name="tipoPromocion"
+
+        <Grid item xs={12} sm={6}>
+          <TextFieldValue
+            label="Descripción del Descuento"
+            name="descripcionDescuento"
+            type="textarea"
+            placeholder="Descripcion Descuento"
             disabled={isEditMode}
-          >
-            {Object.values(TipoPromocion).map((tipo) => (
-              <MenuItem key={tipo} value={tipo}>
-                {tipo}
-              </MenuItem>
+          />
+        </Grid>
+
+        {!isEditMode && (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "2vh",
+                marginTop: 2,
+              }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <ArticuloSeleccionado onAgregarArticulo={handleNewArticle} />
+                </Grid>
+              </Grid>
+            </Box>
+
+            <TableComponent data={dataArticles} columns={columns} />
+          </>
+        )}
+
+        {!isEditMode && (
+          <>
+            <p>Selecciona las sucursales:</p>
+            {sucursales.map((sucursal: ISucursal) => (
+              <FormControlLabel
+                key={sucursal.id}
+                control={
+                  <Checkbox
+                    checked={selectedSucursales.includes(sucursal.id)}
+                    onChange={() => handleToggleSucursal(sucursal.id)}
+                  />
+                }
+                label={sucursal.nombre}
+              />
             ))}
-          </Select>
-        </FormControl>
+          </>
+        )}
+
         <Box
           sx={{
             display: "flex",
@@ -616,46 +665,7 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
               </div>
             )}
         </Box>
-
-        {!isEditMode && (
-          <>
-            <p>Selecciona las sucursales:</p>
-            {sucursales.map((sucursal: ISucursal) => (
-              <FormControlLabel
-                key={sucursal.id}
-                control={
-                  <Checkbox
-                    checked={selectedSucursales.includes(sucursal.id)}
-                    onChange={() => handleToggleSucursal(sucursal.id)}
-                  />
-                }
-                label={sucursal.nombre}
-              />
-            ))}
-          </>
-        )}
       </div>
-      {!isEditMode && (
-        <>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginBottom: "2vh",
-              marginTop: 2,
-            }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <ArticuloSeleccionado onAgregarArticulo={handleNewArticle} />
-              </Grid>
-            </Grid>
-          </Box>
-
-          <TableComponent data={dataArticles} columns={columns} />
-        </>
-      )}
     </GenericModal>
   );
 };

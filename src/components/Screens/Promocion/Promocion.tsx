@@ -129,16 +129,16 @@ const Promocion: React.FC = () => {
           <Button
             variant="contained"
             color="secondary"
-            startIcon={<AddIcon />}
             sx={{
               backgroundColor: "#E66200",
               "&:hover": {
                 bgcolor: "#BB6201",
               },
+              fontSize: "1.0rem"
             }}
             onClick={handleAddPromocion}
           >
-            Añadir Promoción
+            Agregar Promoción
           </Button>
         </Box>
         <Box sx={{ mt: 2 }}>
@@ -158,8 +158,8 @@ const Promocion: React.FC = () => {
           </Box>
         ) : filteredData.length === 0 ? (
           <EmptyState
-            title="No hay promociones cargadas"
-            description="Agrega nuevas promociones utilizando el formulario."
+            title="¡No tienes promociones!"
+            description="Genera promociones con el formulario."
           />
         ) : (
           <Stack direction="column" spacing={1} mt={2}>
