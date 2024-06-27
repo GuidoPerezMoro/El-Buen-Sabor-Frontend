@@ -71,7 +71,7 @@ const TableComponent: React.FC<Props> = ({
                     >
                       {onEdit && (
                         <IconButton onClick={() => onEdit(item)} size="small">
-                          <EditIcon sx={{ color: "#2196f3" }} />{" "}
+                          <EditIcon sx={{ color: "#10B000" }} />{" "}
                           {/* Color celeste */}
                         </IconButton>
                       )}
