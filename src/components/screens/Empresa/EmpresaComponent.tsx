@@ -100,13 +100,10 @@ const EmpresaComponent: React.FC = () => {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, my: 10 }}>
+    <Box component="main" sx={{ flexGrow: 1, my: 11 }}>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
       >
-        <Typography variant="h5" gutterBottom>
-          Empresas
-        </Typography>
         <AddButton onClick={handleAddEmpresa} />
         {!isLoading && globalEmpresas.length === 0 ? (
           <EmptyState
