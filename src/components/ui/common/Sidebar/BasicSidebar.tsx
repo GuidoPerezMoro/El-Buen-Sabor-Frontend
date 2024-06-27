@@ -160,7 +160,7 @@ const BasicSidebar: React.FC = () => {
               </Link>
             </CNavItem>
           )}
-          {["ADMIN", "EMPLEADO", "SUPERADMIN"].includes(rol) && (
+          {["ADMIN", "SUPERADMIN"].includes(rol) && (
             <CNavItem className="CNavItem">
               <Link
                 to={`/unidadMedida/${sucursalId}`}
