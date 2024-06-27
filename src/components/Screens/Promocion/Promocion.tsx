@@ -158,8 +158,8 @@ const Promocion: React.FC = () => {
           </Box>
         ) : filteredData.length === 0 ? (
           <EmptyState
-            title="No hay promociones cargadas"
-            description="Agrega nuevas promociones utilizando el formulario."
+            title="¡No tienes promociones!"
+            description="Genera promociones con el formulario."
           />
         ) : (
           <Stack direction="column" spacing={1} mt={2}>

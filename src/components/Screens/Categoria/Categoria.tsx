@@ -183,8 +183,8 @@ const Categoria: React.FC = () => {
           </Box>
         ) : filteredData.length === 0 ? (
           <EmptyState
-            title="No hay categorias cargadas"
-            description="Agrega nuevas categorias utilizando el formulario."
+            title="¡No tienes categorias!"
+            description="Genera categorias con el formulario."
           />
         ) : (
           <Stack direction="column" spacing={1} mt={2}>

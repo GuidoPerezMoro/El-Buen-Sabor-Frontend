@@ -194,8 +194,8 @@ const Empleado = () => {
         ) : filteredData.length === 0 ? (
           <Box sx={{ mt: 3 }}>
             <EmptyState
-              title="No hay empleados cargados"
-              description="Agrega nuevos empleados utilizando el formulario."
+              title="¡No tienes empleados!"
+              description="Genera empleados con el formulario."
             />
           </Box>
         ) : (

@@ -21,6 +21,7 @@ import SearchBar from "../../ui/common/SearchBar/SearchBar";
 import TableComponent from "../../ui/Tables/Table/TableComponent";
 import useAuthToken from "../../../hooks/useAuthToken";
 import { useParams } from "react-router-dom";
+import EmptyState from "../../ui/Cards/EmptyState/EmptyState";
 
 const Producto = () => {
   const getToken = useAuthToken();
@@ -214,6 +215,13 @@ const Producto = () => {
           >
             <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
+          ) : filteredData.length === 0 ? (
+            <Box sx={{ mt: 3 }}>
+              <EmptyState
+                title="¡No tienes productos!"
+                description="Genera productos con el formulario."
+              />
+            </Box>
         ) : (
           <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
             <TableComponent

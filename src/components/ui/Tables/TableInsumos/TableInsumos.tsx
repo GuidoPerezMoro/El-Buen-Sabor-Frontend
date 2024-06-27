@@ -213,8 +213,8 @@ const TableInsumo = () => {
           </Box>
         ) : filteredData.length === 0 ? ( // Mostrar componente de estado vacío si no hay datos
           <EmptyState
-            title="No hay insumos cargados"
-            description="Agrega nuevos insumos utilizando el formulario."
+            title="¡No tienes insumos!"
+            description="Genera insumos con el formulario."
           />
         ) : (
           <TableComponent
