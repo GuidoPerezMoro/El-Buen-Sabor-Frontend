@@ -3,7 +3,8 @@ import { Add } from "@mui/icons-material";
 
 const ButtonStyle = {
   display: 'block',
-  color: "#E66200",
+  color: "white",
+  backgroundColor: "#E66200",
   position: "relative",
   overflow: "hidden",
   borderRadius: "10%",
@@ -13,8 +14,8 @@ const ButtonStyle = {
   border: "2px solid #E66200",
   transition: "background-color 0.3s",
   "&:hover": {
-    color: "#fff",
-    backgroundColor: "#E66200",
+    color: "#E66200",
+    backgroundColor: "white",
   },
 };
 
