@@ -43,7 +43,7 @@ const BaseBar = () => {
           startDate={startDate}
           endDate={endDate}
           className="form-control"
-          placeholderText="Fecha Inicio"
+          placeholderText="Desde"
         />
         <DatePicker
           selected={endDate}
@@ -53,13 +53,15 @@ const BaseBar = () => {
           endDate={endDate}
           minDate={startDate}
           className="form-control"
-          placeholderText="Fecha Fin"
+          placeholderText="Hasta"
         />
-        <Button onClick={handleFetchData} style={{color:'#E66200'}}>Crear</Button>
+        <Button onClick={handleFetchData} style={{ color: "#E66200" }}>
+          Crear
+        </Button>
       </Box>
       <Box textAlign="center">
         {chartData.length == 0 ? (
-          <span> No hay informacion para mostrar un grafico</span>
+          <span>No hay suficientes datos</span>
         ) : (
           <BarChart
             xAxis={[

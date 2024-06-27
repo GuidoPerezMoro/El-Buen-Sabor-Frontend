@@ -474,41 +474,36 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
           disabled={isEditMode}
         />
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextFieldValue
-              name="horaDesde"
-              type="time"
-              placeholder="Hora Desde"
-              label="Hora de inicio"
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={3}>
             <TextFieldValue
               name="fechaDesde"
               type="date"
-              placeholder="Fecha Desde"
-              label="Fecha de inicio"
+              placeholder="Fecha inicial"
+              label="Vigente desde"
             />
           </Grid>
-        </Grid>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextFieldValue
-              name="horaHasta"
-              type="time"
-              placeholder="Hora Hasta"
-              label="Hora de Fin"
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={3}>
             <TextFieldValue
               name="fechaHasta"
               type="date"
               placeholder="Fecha Hasta"
-              label="Fecha de Fin"
+              label="Hasta"
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <TextFieldValue
+              name="horaDesde"
+              type="time"
+              placeholder="Hora Desde"
+              label="Horario inicial"
+            />
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <TextFieldValue
+              name="horaHasta"
+              type="time"
+              placeholder="Hora Hasta"
+              label="Horario de cierre"
             />
           </Grid>
         </Grid>
@@ -549,10 +544,10 @@ const ModalPromocion: React.FC<ModalPromocionProps> = ({
 
         <Grid item xs={12} sm={6}>
           <TextFieldValue
-            label="Descripción del Descuento"
+            label="Descripción de la promoción"
             name="descripcionDescuento"
             type="textarea"
-            placeholder="Descripcion Descuento"
+            placeholder=""
             disabled={isEditMode}
           />
         </Grid>

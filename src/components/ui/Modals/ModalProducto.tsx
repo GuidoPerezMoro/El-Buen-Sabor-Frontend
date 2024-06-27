@@ -498,7 +498,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
   return (
     <GenericModal
       modalName={modalName}
-      title={isEditMode ? "Editar Producto" : "Añadir Producto"}
+      title={isEditMode ? "Editar Producto" : "Agregar Producto"}
       initialValues={productoAEditar || initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}

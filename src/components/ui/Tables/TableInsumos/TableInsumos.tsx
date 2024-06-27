@@ -6,8 +6,8 @@ import {
   Container,
   CircularProgress,
   CardMedia,
+  Grid,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
 import TableComponent from "../Table/Table";
 import { IInsumo } from "../../../../types/IInsumo";
 import Row from "../../../../types/Row";
@@ -169,18 +169,19 @@ const TableInsumo = () => {
   return (
     <Box component="main" sx={{ flexGrow: 1, my: 2 }}>
       <Container>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            my: 3,
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Insumos
-          </Typography>
-          <Box>
+        <Typography variant="h4" gutterBottom>
+          Insumos
+        </Typography>
+        <Grid container spacing={2} alignItems="center" sx={{ my: 3 }}>
+          <Grid item xs={12} sm={8}>
+            <SearchBar onSearch={onSearch} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
             <Button
               sx={{
                 bgcolor: "#E66200",
@@ -196,11 +197,9 @@ const TableInsumo = () => {
             >
               Agregar Insumo
             </Button>
-          </Box>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <SearchBar onSearch={onSearch} />
-        </Box>
+          </Grid>
+        </Grid>
+
         {isLoading ? ( // Mostrar componente de carga mientras los datos se están cargando
           <Box
             sx={{

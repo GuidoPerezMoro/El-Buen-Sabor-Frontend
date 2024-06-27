@@ -8,7 +8,6 @@ import {
   Stack,
   Grid,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setPromociones } from "../../../redux/slices/PromocionReducer";
 import { toggleModal } from "../../../redux/slices/ModalReducer";
@@ -117,34 +116,33 @@ const Promocion: React.FC = () => {
   return (
     <Box sx={{ maxWidth: 1150, margin: "0 auto", padding: 2, my: 10 }}>
       <Container>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 2,
-          }}
-        >
-          <Typography variant="h4">Promociones</Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={{
-              backgroundColor: "#E66200",
-              "&:hover": {
-                bgcolor: "#BB6201",
-              },
-              fontSize: "1.0rem"
-            }}
-            onClick={handleAddPromocion}
+        <Typography variant="h4">Promociones</Typography>
+        <Grid container spacing={2} alignItems="center" sx={{ mb: 2 }}>
+          <Grid item xs={12} sm={8}>
+            <SearchBar onSearch={onSearch} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
           >
-            Agregar Promoción
-          </Button>
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <SearchBar onSearch={onSearch} />
-        </Box>
-
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                backgroundColor: "#E66200",
+                "&:hover": {
+                  bgcolor: "#BB6201",
+                },
+                fontSize: "1.0rem",
+              }}
+              onClick={handleAddPromocion}
+            >
+              Agregar Promoción
+            </Button>
+          </Grid>
+        </Grid>
         {isLoading ? (
           <Box
             sx={{

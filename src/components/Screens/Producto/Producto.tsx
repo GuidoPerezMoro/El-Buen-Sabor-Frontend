@@ -6,8 +6,8 @@ import {
   Container,
   CircularProgress,
   CardMedia,
+  Grid,
 } from "@mui/material";
-import { Add } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { setProducto } from "../../../redux/slices/ProductoReducer";
 import ProductoService from "../../../services/ProductoService";
@@ -173,37 +173,38 @@ const Producto = () => {
       <Container
         sx={{ height: "100%", display: "flex", flexDirection: "column" }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            my: 2,
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Productos
-          </Typography>
-          {["ADMIN", "COCINERO","SUPERADMIN"].includes(rol) && (
-            <Button
-              onClick={handleAddProducto}
-              variant="contained"
-              sx={{
-                bgcolor: "#E66200",
-                "&:hover": {
-                  bgcolor: "#BB6201",
-                },
-                padding: "10px 20px",
-                fontSize: "1.0rem",
-              }}
-            >
-              Agregar Producto
-            </Button>
-          )}
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          <SearchBar onSearch={onSearch} />
-        </Box>
+        <Typography variant="h4" gutterBottom>
+          Productos
+        </Typography>
+        <Grid container spacing={2} alignItems="center" sx={{ my: 2 }}>
+          <Grid item xs={12} sm={8}>
+            <SearchBar onSearch={onSearch} />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            {["ADMIN", "COCINERO", "SUPERADMIN"].includes(rol) && (
+              <Button
+                onClick={handleAddProducto}
+                variant="contained"
+                sx={{
+                  bgcolor: "#E66200",
+                  "&:hover": {
+                    bgcolor: "#BB6201",
+                  },
+                  padding: "10px 20px",
+                  fontSize: "1.0rem",
+                }}
+              >
+                Agregar Producto
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+
         {isLoading ? (
           <Box
             sx={{
@@ -215,13 +216,13 @@ const Producto = () => {
           >
             <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
-          ) : filteredData.length === 0 ? (
-            <Box sx={{ mt: 3 }}>
-              <EmptyState
-                title="¡No tienes productos!"
-                description="Genera productos con el formulario."
-              />
-            </Box>
+        ) : filteredData.length === 0 ? (
+          <Box sx={{ mt: 3 }}>
+            <EmptyState
+              title="¡No tienes productos!"
+              description="Genera productos con el formulario."
+            />
+          </Box>
         ) : (
           <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>
             <TableComponent

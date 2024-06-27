@@ -6,7 +6,7 @@ import {
   Typography,
   Alert,
   TextField,
-  CircularProgress,
+  Grid,
 } from "@mui/material";
 import TableComponent from "../Table/Table";
 import { IUnidadMedida } from "../../../../types/IUnidadMedida";
@@ -17,7 +17,6 @@ import swal from "sweetalert2";
 import Column from "../../../../types/Column";
 import ModalUnidadMedida from "../../Modals/ModalUnidadDeMedida";
 import useAuthToken from "../../../../hooks/useAuthToken";
-import { Add } from "@mui/icons-material";
 
 const TableUnidadMedida: React.FC = () => {
   const [units, setUnits] = useState<IUnidadMedida[]>([]);
@@ -138,34 +137,35 @@ const TableUnidadMedida: React.FC = () => {
   return (
     <Container sx={{ mt: 5 }}>
       <Typography variant="h4" sx={{ mt: 8, mb: 2 }}>
-        Unidades de Medida
+        Unidades de medida
       </Typography>
-
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleModalOpen}
-          sx={{
-            backgroundColor: "#E66200",
-            "&:hover": {
-              bgcolor: "#BB6201",
-            },
-            fontSize: "1.0rem"
-          }}
-        >
-        Agregar unidad de medida
-        </Button>
-      </Box>
-
-      <TextField
-        fullWidth
-        label="Buscar por nombre"
-        value={searchQuery}
-        onChange={handleSearchChange}
-        sx={{ mb: 2 }}
-      />
-
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={12} sm={8}>
+          <TextField
+            fullWidth
+            label="Buscar por nombre"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleModalOpen}
+            sx={{
+              width: "100%",
+              backgroundColor: "#E66200",
+              "&:hover": {
+                bgcolor: "#BB6201",
+              },
+              fontSize: "1.0rem",
+            }}
+          >
+            Agregar unidad de medida
+          </Button>
+        </Grid>
+      </Grid>
       {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
       {filteredUnits.length === 0 ? (

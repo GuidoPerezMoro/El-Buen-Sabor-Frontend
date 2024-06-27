@@ -47,7 +47,7 @@ const BasePie = () => {
           startDate={startDate}
           endDate={endDate}
           className="form-control"
-          placeholderText="Fecha Inicio"
+          placeholderText="Desde"
         />
         <DatePicker
           selected={endDate}
@@ -57,13 +57,15 @@ const BasePie = () => {
           endDate={endDate}
           minDate={startDate}
           className="form-control"
-          placeholderText="Fecha Fin"
+          placeholderText="Hasta"
         />
-        <Button onClick={handleFetchData} style={{color:'#E66200'}}>Crear</Button>
+        <Button onClick={handleFetchData} style={{ color: "#E66200" }}>
+          Crear
+        </Button>
       </Box>
       <Box>
         {chartData.length == 0 ? (
-          <span> No hay informacion para mostrar un grafico</span>
+          <span>No hay suficientes datos</span>
         ) : (
           <PieChart
             colors={["#5D2A42", "#FB6376", "#FCB1A6"]}
