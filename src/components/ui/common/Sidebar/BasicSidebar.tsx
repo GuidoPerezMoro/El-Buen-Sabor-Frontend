@@ -155,7 +155,7 @@ const BasicSidebar: React.FC = () => {
             <CNavItem style={{marginTop:'50px'}}>
               <Link to={`/empresa`} className="nav-link" style={{color:'white', border:'1px solid #BCBCBC'}}>
                 <CIcon customClassName="nav-icon" icon={cilArrowLeft} style={{color:'#FC9300'}}/>
-                <h6 className="navlink2">Volver</h6>
+                <h6 className="navlink2">Salir</h6>
               </Link>
             </CNavItem>
           )}
