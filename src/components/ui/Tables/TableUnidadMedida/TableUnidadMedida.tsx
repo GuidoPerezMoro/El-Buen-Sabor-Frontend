@@ -6,7 +6,6 @@ import {
   Typography,
   Alert,
   TextField,
-  CircularProgress,
 } from "@mui/material";
 import TableComponent from "../Table/Table";
 import { IUnidadMedida } from "../../../../types/IUnidadMedida";
@@ -154,7 +153,7 @@ const TableUnidadMedida: React.FC = () => {
             },
           }}
         >
-        Unidad de Medida
+          Unidad de Medida
         </Button>
       </Box>
 
