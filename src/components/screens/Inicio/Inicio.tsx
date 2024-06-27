@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import ReportesCard from "../../ui/Cards/Reportes/ReportesCard";
 
-//TODO: Cambiar imágenes
 // Contenido para las tarjetas de inicio
 const promocionesContent = {
   url: "https://www.grandespymes.com.ar/wp-content/uploads/2020/07/promociones.jpg",
@@ -86,10 +85,9 @@ const Inicio: React.FC = () => {
           </Grid>
         </Grid>
 
-        <Grid sx={{marginBottom:'20px'}}>
+        <Grid sx={{ marginBottom: "20px" }}>
           <ReportesCard />
         </Grid>
-
       </Container>
     </Box>
   );
