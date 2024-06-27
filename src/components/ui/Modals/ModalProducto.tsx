@@ -116,7 +116,6 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         event.target.value = "";
         return;
       }
-
       // Si no supera el límite, actualizar la lista de archivos seleccionados
       setSelectedFiles(files);
       // Calcular la cantidad total de imágenes después de agregar las nuevas
@@ -386,7 +385,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
         <Typography variant="h6" fontWeight="bold">
           {isEditMode
             ? element.articuloInsumo.denominacion
-            : element?.idArticuloInsumo}
+            : element?.articuloInsumo.denominacion}
         </Typography>
       ),
     },
