@@ -131,9 +131,9 @@ const Promocion: React.FC = () => {
             color="secondary"
             startIcon={<AddIcon />}
             sx={{
-              backgroundColor: "#fb6376",
+              backgroundColor: "#E66200",
               "&:hover": {
-                bgcolor: "#d73754",
+                bgcolor: "#BB6201",
               },
             }}
             onClick={handleAddPromocion}
@@ -154,7 +154,7 @@ const Promocion: React.FC = () => {
               minHeight: "80vh",
             }}
           >
-            <CircularProgress sx={{ color: "#fb6376" }} />
+            <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
         ) : filteredData.length === 0 ? (
           <EmptyState

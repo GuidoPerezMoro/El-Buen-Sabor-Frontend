@@ -100,18 +100,15 @@ const EmpresaComponent: React.FC = () => {
   };
 
   return (
-    <Box component="main" sx={{ flexGrow: 1, my: 10 }}>
+    <Box component="main" sx={{ flexGrow: 1, my: 11 }}>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
       >
-        <Typography variant="h5" gutterBottom>
-          Empresas
-        </Typography>
         <AddButton onClick={handleAddEmpresa} />
         {!isLoading && globalEmpresas.length === 0 ? (
           <EmptyState
-            title="No hay empresas disponibles"
-            description="Parece que aún no has creado ninguna empresa. ¿Te gustaría crear una ahora?"
+            title="No existen empresas generadas"
+            description="¿Te gustaría crear una ahora?"
           />
         ) : (
           <Box
@@ -125,7 +122,7 @@ const EmpresaComponent: React.FC = () => {
                 subtitle={empresa.razonSocial}
                 actions={[
                   {
-                    icon: <EditIcon />,
+                    icon: <EditIcon style={{color:'#E66200'}}/>,
                     tooltip: "Editar",
                     onClick: () => handleEdit(empresa),
                   },
@@ -144,19 +141,19 @@ const EmpresaComponent: React.FC = () => {
                     gap: 1,
                   }}
                 >
-                  <Button
-                    startIcon={<AddCircle sx={{ color: "#fb6376" }} />}
+                  {/*<Button
+                    startIcon={<AddCircle sx={{ color: "#E66200" }} />}
                     onClick={() => handleAddSucursal(empresa)}
-                    variant="outlined"
                     sx={{
-                      color: "#fb6376",
-                      borderColor: "#fb6376",
+                      color: "#E66200",
+                      borderColor: "#E66200",
                       fontSize: "0.70rem",
                       padding: "8px 14px",
                     }}
                   >
                     Sucursales
-                  </Button>
+                  </Button>*/}
+                  
                   <Button
                     startIcon={<Visibility />}
                     onClick={() => {
@@ -165,10 +162,10 @@ const EmpresaComponent: React.FC = () => {
                     }}
                     sx={{
                       color: "#ffffff",
-                      backgroundColor: "#fb6376",
+                      backgroundColor: "#E66200",
                       fontSize: "0.70rem",
                       padding: "9px 15px",
-                      "&:hover": { backgroundColor: "#fa5064" },
+                      "&:hover": {color:'#E66200', backgroundColor: "white", border:'2px solid #E66200' },
                     }}
                   >
                     Sucursales
@@ -187,7 +184,7 @@ const EmpresaComponent: React.FC = () => {
               marginY: 2,
             }}
           >
-            <CircularProgress sx={{ color: "#fb6376" }} />
+            <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
         )}
         <ModalEmpresa

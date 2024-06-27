@@ -59,7 +59,7 @@ const BasePie = () => {
           className="form-control"
           placeholderText="Fecha Fin"
         />
-        <Button onClick={handleFetchData}>Crear</Button>
+        <Button onClick={handleFetchData} style={{color:'#E66200'}}>Crear</Button>
       </Box>
       <Box>
         {chartData.length == 0 ? (

@@ -55,7 +55,7 @@ const BaseBar = () => {
           className="form-control"
           placeholderText="Fecha Fin"
         />
-        <Button onClick={handleFetchData}>Crear</Button>
+        <Button onClick={handleFetchData} style={{color:'#E66200'}}>Crear</Button>
       </Box>
       <Box textAlign="center">
         {chartData.length == 0 ? (

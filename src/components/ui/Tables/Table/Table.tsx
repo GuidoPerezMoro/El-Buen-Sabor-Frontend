@@ -91,7 +91,7 @@ const TableComponent: React.FC<Props> = ({
                 ))}
                 <TableCell>
                   <Box sx={{ display: "flex" }}>
-                    {onEdit && <EditButton onClick={() => onEdit(row)} />}
+                    {onEdit && <EditButton onClick={() => onEdit(row)}/>}
                     <DeleteButton onClick={() => onDelete(row)} />
                   </Box>
                 </TableCell>

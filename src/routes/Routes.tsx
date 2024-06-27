@@ -2,21 +2,21 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BaseNavbar from "../components/ui/common/Navbar/BaseNavbar";
-import Inicio from "../components/screens/Inicio/Inicio";
 import SidebarLayout from "../components/ui/common/SideBarLayout/SideBarLayout";
-import SucursalComponent from "../components/screens/Sucursal/SucursalComponent";
-import Insumo from "../components/screens/Insumo/Insumo";
-import Producto from "../components/screens/Producto/Producto";
-import Categoria from "../components/screens/Categoria/Categoria";
-import UnidadMedida from "../components/screens/UnidadMedida/UnidadMedida";
-import Promocion from "../components/screens/Promocion/Promocion";
-import Empleado from "../components/screens/Empleado/Empleado";
 import CallbackPage from "../components/auth/CallbackPage";
 import { useAuth0 } from "@auth0/auth0-react";
-import Login from "../components/screens/Login/Login";
-import EmpresaComponent from "../components/screens/Empresa/EmpresaComponent";
 import useAuthToken from "../hooks/useAuthToken";
 import RutaPrivada from "../components/RutaPrivada/RutaPrivada";
+import Login from "../components/Screens/Login/Login";
+import EmpresaComponent from "../components/Screens/Empresa/EmpresaComponent";
+import SucursalComponent from "../components/Screens/Sucursal/SucursalComponent";
+import Inicio from "../components/Screens/Inicio/Inicio";
+import Insumo from "../components/Screens/Insumo/Insumo";
+import Producto from "../components/Screens/Producto/Producto";
+import UnidadMedida from "../components/Screens/UnidadMedida/UnidadMedida";
+import Categoria from "../components/Screens/Categoria/Categoria";
+import Promocion from "../components/Screens/Promocion/Promocion";
+import Empleado from "../components/Screens/Empleado/Empleado";
 
 const Rutas: React.FC = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();

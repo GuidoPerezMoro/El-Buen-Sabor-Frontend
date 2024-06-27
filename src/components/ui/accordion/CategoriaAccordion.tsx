@@ -36,7 +36,7 @@ const SimpleCategoriaAccordion: React.FC<CategoriaAccordionProps> = ({
         <Stack direction="row" spacing={2} alignItems="center">
           <Typography>{categoria.denominacion}</Typography>
           {categoria.esInsumo && (
-            <Chip label="Es insumo" variant="outlined" color="primary" />
+            <Chip label="Es insumo" variant="outlined" style={{color:'#E66200', border: '1px solid #E66200'}} />
           )}
           <Tooltip title="Editar">
             <IconButton size="small" onClick={() => onEdit(categoria)}>

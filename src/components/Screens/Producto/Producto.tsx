@@ -183,15 +183,15 @@ const Producto = () => {
           <Typography variant="h4" gutterBottom>
             Productos
           </Typography>
-          {["ADMIN", "COCINERO"].includes(rol) && (
+          {["ADMIN", "COCINERO","SUPERADMIN"].includes(rol) && (
             <Button
               onClick={handleAddProducto}
               variant="contained"
               startIcon={<Add />}
               sx={{
-                bgcolor: "#fb6376",
+                bgcolor: "#E66200",
                 "&:hover": {
-                  bgcolor: "#d73754",
+                  bgcolor: "#BB6201",
                 },
                 padding: "10px 20px",
                 fontSize: "1.0rem",
@@ -213,7 +213,7 @@ const Producto = () => {
               minHeight: "80vh",
             }}
           >
-            <CircularProgress sx={{ color: "#fb6376" }} />
+            <CircularProgress sx={{ color: "#E66200" }} />
           </Box>
         ) : (
           <Box sx={{ flexGrow: 1, overflow: "auto", mt: 2 }}>

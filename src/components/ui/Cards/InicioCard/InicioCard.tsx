@@ -34,8 +34,8 @@ const InicioCard: React.FC<{ content: Content; sucursalId: string }> = ({
           to={`/${title}/${sucursalId}`}
           style={{ textDecoration: "none", color: "inherit" }}
         >
-          <Button sx={{ color: "#FB6376" }} size="small">
-            Ver más
+          <Button sx={{ color: "#E66200" }} size="small">
+            Ver detalles
           </Button>
         </Link>
       </CardActions>
