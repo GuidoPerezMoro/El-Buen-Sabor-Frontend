@@ -72,8 +72,8 @@ const GenericModal: React.FC<ModalProps> = ({
         style={{
           backgroundColor: "white",
           padding: "20px",
-          width: "60%",
-          height: "70%",
+          width: "80%",
+          height: "80%",
           borderRadius: "8px",
           overflow: "auto",
         }}
@@ -101,7 +101,7 @@ const GenericModal: React.FC<ModalProps> = ({
                     marginRight: "10px",
                     color: "white",
                     backgroundColor: "red",
-                    border: 'none'
+                    border: 'none',
                   }}
                 >
                   <span className="material-symbols-outlined">close</span>
