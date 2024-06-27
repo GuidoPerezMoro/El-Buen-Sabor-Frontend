@@ -7,6 +7,7 @@ import {
   TextField,
   IconButton,
   Stack,
+  Grid,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import GenericModal from "./GenericModal";
@@ -267,17 +268,23 @@ const ModalCategoria: React.FC<ModalCategoriaProps> = ({
       isEditMode={isEditMode}
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <TextFieldValue
-            label="Denominación"
-            name="denominacion"
-            type="text"
-            placeholder="Denominación"
-          />
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12}>
+            <TextFieldValue
+              label="Denominación"
+              name="denominacion"
+              type="text"
+              placeholder="Denominación"
+            />
+          </Grid>
+        </Grid>
+
+        <Stack direction="row" alignItems="center" spacing={1} sx={{marginTop:'20px', marginBottom:'20px'}}>
           <IconButton size="small" onClick={() => addSubCategoria()}>
             <AddCircleOutlineIcon fontSize="small" /> <> Subcategoria</>
           </IconButton>
         </Stack>
+
         <>
           <p>Subcategorías:</p>
           {renderSubCategorias(subCategorias)}

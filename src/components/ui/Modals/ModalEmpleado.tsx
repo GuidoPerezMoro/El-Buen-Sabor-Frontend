@@ -148,7 +148,7 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
     >
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextFieldValue
               label="Nombre"
               name="nombre"
@@ -157,7 +157,10 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
               disabled={isEditMode}
             />
           </Grid>
-          <Grid item xs={6}>
+        </Grid>
+
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12}>
             <TextFieldValue
               label="Apellido"
               name="apellido"
@@ -167,8 +170,9 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
             />
           </Grid>
         </Grid>
+
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextFieldValue
               label="Teléfono"
               name="telefono"
@@ -177,7 +181,10 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
               disabled={isEditMode}
             />
           </Grid>
-          <Grid item xs={6}>
+        </Grid>
+
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12}>
             <TextFieldValue
               label="Email"
               name="email"
@@ -187,8 +194,9 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
             />
           </Grid>
         </Grid>
+
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextFieldValue
               label="Fecha de Nacimiento"
               name="fechaNacimiento"
@@ -197,6 +205,9 @@ const ModalEmpleado: React.FC<ModalEmpleadoProps> = ({
               disabled={isEditMode}
             />
           </Grid>
+        </Grid>
+
+        <Grid item xs={6}>
           <Grid item xs={6}>
             <FormControl fullWidth>
               <label className="label">Tipo de Empleado</label>
