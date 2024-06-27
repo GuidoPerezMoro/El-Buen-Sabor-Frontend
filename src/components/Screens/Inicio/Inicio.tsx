@@ -9,24 +9,24 @@ import ReportesCard from "../../ui/Cards/Reportes/ReportesCard";
 
 //TODO: Cambiar imágenes
 // Contenido para las tarjetas de inicio
-const productosContent = {
-  url: "https://images.unsplash.com/photo-1615996001375-c7ef13294436?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  title: "Productos",
+const promocionesContent = {
+  url: "https://www.grandespymes.com.ar/wp-content/uploads/2020/07/promociones.jpg",
+  title: "Promociones",
   content:
-    "Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.",
+    "Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.",
 };
 
-const empresasContent = {
-  url: "https://images.unsplash.com/photo-1458917524587-d3236cc8c2c8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+const insumosContent = {
+  url: "https://thefoodtech.com/wp-content/uploads/2020/12/ingredientes-saludables.jpg",
   title: "Insumos",
   content: "Agrega, actualiza o elimina los insumos de tu sucursal",
 };
 
-const promocionesContent = {
-  url: "https://images.unsplash.com/photo-1581495701295-13b43b0f4ae8?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  title: "Promociones",
+const productosContent = {
+  url: "https://resizer.glanacion.com/resizer/v2/pizza-con-masa-de-semolin-y-cobertura-de-5PEHFU6OI5CKRKR3RFH5EZMSSM.jpg?auth=4209d6353967859e858249fe164de9c3732f96f95fda2ee735a6768a2641eff2&width=768&height=512&quality=70&smart=true",
+  title: "Productos",
   content:
-    "Personaliza tus ofertas y haz que destaquen para que tus clientes no puedan resistirse.",
+    "Añade nuevos platos o actualiza los precios para mejorar la experiencia de tus clientes.",
 };
 
 // Estilo para las tarjetas
@@ -43,29 +43,8 @@ const Inicio: React.FC = () => {
     <Box component="main" sx={{ flexGrow: 1, pt: 10 }}>
       <Container>
         <Typography component="h1" variant="h5" color="initial">
-          Bienvenido
+          ¡Bienvenido!
         </Typography>
-
-        <Grid
-          container
-          spacing={3}
-          sx={{ py: 2, alignContent: "center", justifyContent: "center" }}
-        >
-          <Grid item xs={12} md={6}>
-            <ChartCard title="Ingresos Mensuales">
-              <BaseBar />
-            </ChartCard>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <ChartCard title="Ranking">
-              <BasePie />
-            </ChartCard>
-          </Grid>
-        </Grid>
-
-        <Grid>
-          <ReportesCard />
-        </Grid>
 
         <Grid
           container
@@ -74,20 +53,43 @@ const Inicio: React.FC = () => {
         >
           <Grid item xs={12} md={4}>
             <Box sx={cardStyle}>
-              <InicioCard content={productosContent} sucursalId={id} />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Box sx={cardStyle}>
-              <InicioCard content={empresasContent} sucursalId={id} />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Box sx={cardStyle}>
               <InicioCard content={promocionesContent} sucursalId={id} />
             </Box>
           </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={cardStyle}>
+              <InicioCard content={insumosContent} sucursalId={id} />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Box sx={cardStyle}>
+              <InicioCard content={productosContent} sucursalId={id} />
+            </Box>
+          </Grid>
         </Grid>
+
+        <Grid
+          container
+          spacing={3}
+          sx={{ py: 2, alignContent: "center", justifyContent: "center" }}
+        >
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ranking">
+              <BasePie />
+            </ChartCard>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <ChartCard title="Ingresos Mensuales">
+              <BaseBar />
+            </ChartCard>
+          </Grid>
+        </Grid>
+
+        <Grid sx={{marginBottom:'20px'}}>
+          <ReportesCard />
+        </Grid>
+
       </Container>
     </Box>
   );

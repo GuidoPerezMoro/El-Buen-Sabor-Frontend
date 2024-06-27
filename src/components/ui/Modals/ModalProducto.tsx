@@ -620,9 +620,9 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
           startIcon={<PhotoCamera />}
           sx={{
             my: 2,
-            bgcolor: "#fb6376",
+            bgcolor: "#E66200",
             "&:hover": {
-              bgcolor: "#d73754",
+              bgcolor: "#BB6201",
             },
           }}
         >
@@ -756,7 +756,7 @@ const ModalProducto: React.FC<ModalProductoProps> = ({
               variant="contained"
               color="primary"
               disabled={!selectedInsumoId || cantidadInsumo <= 0}
-              style={{ backgroundColor: "#e91e63", color: "#fff" }}
+              sx={{ color: "#fff", backgroundColor: "#E66200","&:hover": { bgcolor: "#BB6201"} }}
             >
               Añadir
             </Button>

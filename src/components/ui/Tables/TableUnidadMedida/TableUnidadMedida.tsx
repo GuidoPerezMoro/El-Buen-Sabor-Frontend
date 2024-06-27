@@ -6,6 +6,7 @@ import {
   Typography,
   Alert,
   TextField,
+  CircularProgress,
 } from "@mui/material";
 import TableComponent from "../Table/Table";
 import { IUnidadMedida } from "../../../../types/IUnidadMedida";
@@ -16,6 +17,7 @@ import swal from "sweetalert2";
 import Column from "../../../../types/Column";
 import ModalUnidadMedida from "../../Modals/ModalUnidadDeMedida";
 import useAuthToken from "../../../../hooks/useAuthToken";
+import { Add } from "@mui/icons-material";
 
 const TableUnidadMedida: React.FC = () => {
   const [units, setUnits] = useState<IUnidadMedida[]>([]);
@@ -144,14 +146,15 @@ const TableUnidadMedida: React.FC = () => {
           variant="contained"
           color="secondary"
           onClick={handleModalOpen}
+          startIcon={<Add />}
           sx={{
-            backgroundColor: "#fb6376",
+            backgroundColor: "#E66200",
             "&:hover": {
-              bgcolor: "#d73754",
+              bgcolor: "#BB6201",
             },
           }}
         >
-          + Unidad de Medida
+        Unidad de Medida
         </Button>
       </Box>
 
