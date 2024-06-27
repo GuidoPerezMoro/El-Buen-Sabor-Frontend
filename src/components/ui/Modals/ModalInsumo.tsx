@@ -396,15 +396,25 @@ const ModalInsumo: React.FC<ModalInsumoProps> = ({
       isEditMode={isEditMode}
       disableSubmit={disableSubmit}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px", marginTop:'10px'}}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextFieldValue
               label="Denominación"
               name="denominacion"
               type="text"
               placeholder="Denominación"
               disabled={isEditMode}
+            />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={6}>
+            <TextFieldValue
+              label="Precio de Compra"
+              name="precioCompra"
+              type="number"
+              placeholder="Precio de Compra"
             />
           </Grid>
           <Grid item xs={6}>
@@ -419,18 +429,10 @@ const ModalInsumo: React.FC<ModalInsumoProps> = ({
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={4}>
             <TextFieldValue
-              label="Precio de Compra"
-              name="precioCompra"
+              label="Stock Mínimo"
+              name="stockMinimo"
               type="number"
-              placeholder="Precio de Compra"
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <TextFieldValue
-              label="Stock Actual"
-              name="stockActual"
-              type="number"
-              placeholder="Stock Actual"
+              placeholder="Stock Mínimo"
             />
           </Grid>
           <Grid item xs={4}>
@@ -441,16 +443,16 @@ const ModalInsumo: React.FC<ModalInsumoProps> = ({
               placeholder="Stock Máximo"
             />
           </Grid>
-        </Grid>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextFieldValue
-              label="Stock Mínimo"
-              name="stockMinimo"
+              label="Stock Actual"
+              name="stockActual"
               type="number"
-              placeholder="Stock Mínimo"
+              placeholder="Stock Actual"
             />
           </Grid>
+        </Grid>
+        <Grid container spacing={2} alignItems="center">
           <Grid item xs={6}>
             <FormControl fullWidth>
               <label className="label">Unidad de Medida</label>
@@ -473,9 +475,9 @@ const ModalInsumo: React.FC<ModalInsumoProps> = ({
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <FormControl fullWidth>
-              <label className="label" style={{ marginTop: "16px" }}>
+              <label className="label">
                 Categoría
               </label>
               <Select
