@@ -82,7 +82,7 @@ const PromocionCard: React.FC<PromocionCardProps> = ({
             }}
           >
             <Typography variant="h5">{promocion.denominacion}</Typography>
-            <IconButton onClick={() => onEdit(promocion)}>
+            <IconButton onClick={() => onEdit(promocion)} style={{color:'#E66200'}}>
               <Edit />
             </IconButton>
           </Box>
@@ -97,12 +97,12 @@ const PromocionCard: React.FC<PromocionCardProps> = ({
               variant="outlined"
               onClick={() => onViewDetails(promocion)}
               sx={{
-                color: "#e91e63",
-                borderColor: "#e91e63",
+                color: "#E66200",
+                borderColor: "#E66200",
                 "&:hover": {
-                  bgcolor: "#e91e63",
+                  bgcolor: "#E66200",
                   color: "#fff",
-                  borderColor: "#e91e63",
+                  borderColor: "#E66200",
                 },
               }}
             >
