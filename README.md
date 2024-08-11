@@ -1,19 +1,25 @@
-# Buen Sabor
+# Usuarios El Buen Sabor
 
-## Usuario
+## Superadmin
 
-- correo: juanperez@gmail.com
-- contraseña: @abc1234
-- rol: EMPLEADO
+- correo: superadmin@elbuensabor.com
+- contraseña: Superadmin_1234
+- rol: SUPERADMIN
 
-- correo: peterparker@gmail.com
-- contraseña: @abc1234
-- rol: COCINERO
+## Admin
 
-- correo:admin@admin.com
-- contraseña: @abc1234
+- correo: guidoperezmoro@elbuensabor.com
+- contraseña: Guido_1234
 - rol: ADMIN
 
-- correo: alberto@buensabor.com
-- contraseña: @abc1324
-- rol: cocinero
+## Empleado
+
+- correo: brunopadilla@elbuensabor.com
+- contraseña: Bruno_1234
+- rol: EMPLEADO
+
+## Cocinero
+
+- correo: nicolascataldo@elbuensabor.com
+- contraseña: Nicolas_1234
+- rol: COCINERO
